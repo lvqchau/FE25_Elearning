@@ -1,28 +1,28 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
-import HomeScreen from './Screens/User/Home/HomeScreen';
-import LoginScreen from './Screens/User/Authentication/LoginScreen';
-import SignupScreen from './Screens/User/Authentication/SignupScreen';
-import { actFetchCredentials } from './Redux/Actions/User';
-import { restConnector } from './Services/Index';
-import { actFetchCourses } from './Redux/Actions/Course';
-import DetailScreen from './Screens/User/Detail/DetailScreen';
-import AuthenticationRoute from './HOC/Auth';
-import AuthAdmin from './HOC/AuthAdmin';
-import Admin from './Screens/Admin';
-import Layout from './Layouts/Layout';
-import AdminLayout from './Layouts/AdminLayout';
+import React, { useEffect } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
+import HomeScreen from "./Screens/User/Home/HomeScreen";
+import LoginScreen from "./Screens/User/Authentication/LoginScreen";
+import SignupScreen from "./Screens/User/Authentication/SignupScreen";
+import { actFetchCredentials } from "./Redux/Actions/User";
+import { restConnector } from "./Services/Index";
+import { actFetchCourses } from "./Redux/Actions/Course";
+import DetailScreen from "./Screens/User/Detail/DetailScreen";
+import AuthenticationRoute from "./HOC/Auth";
+import AuthAdmin from "./HOC/AuthAdmin";
+import Admin from "./Screens/Admin";
+import Layout from "./Layouts/Layout";
+import AdminLayout from "./Layouts/AdminLayout";
 
 function App(props) {
   useEffect(() => {
-    let credentials = localStorage.getItem('userLogin');
+    let credentials = localStorage.getItem("userLogin");
     if (credentials) {
       let credetialsObj = JSON.parse(credentials);
       props.dispatch(actFetchCredentials(credetialsObj));
 
       restConnector.defaults.headers[
-        'Authorization'
+        "Authorization"
       ] = `Bearer ${credetialsObj.accessToken}`;
     }
     //clean up component
@@ -53,5 +53,7 @@ function App(props) {
     </BrowserRouter>
   );
 }
+
+//Test git new branch
 
 export default connect()(App);
