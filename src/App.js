@@ -56,4 +56,6 @@ function App(props) {
 
 //Test git new branch
 
+//Test git new branch 2
+
 export default connect()(App);
