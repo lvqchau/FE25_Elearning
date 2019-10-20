@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
 import Paper from '@material-ui/core/Paper';
@@ -33,4 +34,4 @@ const CourseItem = (props) => {
   );
 };
 
-export default withStyles(styles)(CourseItem);
+export default connect()(withStyles(styles)(CourseItem));
