@@ -10,25 +10,25 @@ export const SignUpUserSchema = yup.object().shape({
     .max(16, "Mật khẩu phải có từ 8 tới 16 kí tự"),
   hoTen: yup
     .string()
-    .required()
+    .required("Vui lòng nhập Họ Tên")
     .matches(/^[a-zA-Z ]*$/, "Họ tên phải là chữ"),
   email: yup
     .string()
-    .required()
+    .required("Vui lòng nhập Email")
     .email("Email không đúng định dạng"),
   soDT: yup
     .string()
-    .required()
+    .required("Vui lòng nhập Số điện thoại")
     .matches(/^[0-9]*$/, "Vui lòng nhập số")
 });
 
 class UserService {
-  login(value){
+  login(value) {
     return restConnector({
       url: "/api/QuanLyNguoiDung/DangNhap",
       method: "POST",
       data: value
-    })
+    });
   }
 }
-export default  new UserService();
+export default new UserService();

@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Formik, Form } from "formik";
 import { fetchCredential } from "../../../Redux/Actions/User";
+
 const LoginScreen = props => {
   const _handleSubmit = value => {
     props.dispatch(fetchCredential(value, props.history));
