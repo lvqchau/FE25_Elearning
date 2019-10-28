@@ -18,7 +18,7 @@ const styles = {
 
 const Header = props => {
   return (
-    <AppBar position="static">
+    <AppBar position="static" fullWidth>
       <Toolbar>
         <IconButton edge="start" color="inherit" aria-label="menu">
           <MenuIcon />

@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Formik, Form } from "formik";
 import { fetchCredential } from "../../../Redux/Actions/User";
-import { TextField, Paper, Button } from "@material-ui/core";
+import { TextField, Paper, Button, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 
 const styles = theme => ({
@@ -33,7 +33,9 @@ const LoginScreen = props => {
             render={({ handleChange, values }) => (
               <Paper className={props.classes.Paper}>
                 <Form>
-                  <h4 className="display-4">Đăng Nhập</h4>
+                  <Typography variant="h4" gutterBottom>
+                    Đăng Nhập
+                  </Typography>
                   <div className="form-group">
                     <TextField
                       label="Tài Khoản"

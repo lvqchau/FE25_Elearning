@@ -6,7 +6,7 @@ import { withStyles } from "@material-ui/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
-import { Box } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 
 const styles = theme => ({
   Paper: {
@@ -57,126 +57,131 @@ const SignupScreen = props => {
             onSubmit={_handleSubmit}
             validationSchema={SignUpUserSchema}
             render={formikProps => (
-              <Paper className={props.classes.Paper}>
-                <Form>
-                  <h4 className="display-4">Đăng Ký</h4>
-                  <div className="form-group">
-                    <TextField
-                      placeholder="Nhập tên tài khoản"
-                      label="Tài Khoản"
-                      type="text"
-                      name="taiKhoan"
-                      onChange={formikProps.handleChange}
-                      className="form-control"
-                      error={
-                        formikProps.errors.taiKhoan &&
-                        formikProps.touched.taiKhoan
-                      }
-                    />
-                    {formikProps.errors.taiKhoan &&
-                      formikProps.touched.taiKhoan && (
+              <Box>
+                <Paper className={props.classes.Paper}>
+                  <Form>
+                    <Typography variant="h4" gutterBottom>
+                      Đăng Ký
+                    </Typography>
+                    <div className="form-group">
+                      <TextField
+                        placeholder="Nhập tên tài khoản"
+                        label="Tài Khoản"
+                        type="text"
+                        name="taiKhoan"
+                        onChange={formikProps.handleChange}
+                        className="form-control"
+                        error={
+                          formikProps.errors.taiKhoan &&
+                          formikProps.touched.taiKhoan
+                        }
+                      />
+                      {formikProps.errors.taiKhoan &&
+                        formikProps.touched.taiKhoan && (
+                          <Box
+                            className={props.classes.ErrorText}
+                            color="error.main"
+                          >
+                            *{formikProps.errors.taiKhoan}
+                          </Box>
+                        )}
+                    </div>
+
+                    <div className="form-group">
+                      <TextField
+                        placeholder="Nhập mật khẩu"
+                        label="Mật Khẩu"
+                        type="password"
+                        name="matKhau"
+                        onChange={formikProps.handleChange}
+                        className="form-control"
+                        error={
+                          formikProps.errors.matKhau &&
+                          formikProps.touched.matKhau
+                        }
+                      />
+                      {formikProps.errors.matKhau &&
+                        formikProps.touched.matKhau && (
+                          <Box
+                            className={props.classes.ErrorText}
+                            color="error.main"
+                          >
+                            *{formikProps.errors.matKhau}
+                          </Box>
+                        )}
+                    </div>
+                    <div className="form-group">
+                      <TextField
+                        placeholder="Nhập Họ và Tên"
+                        label="Họ Tên"
+                        type="text"
+                        name="hoTen"
+                        onChange={formikProps.handleChange}
+                        className="form-control"
+                        error={
+                          formikProps.errors.hoTen && formikProps.touched.hoTen
+                        }
+                      />
+                      {formikProps.errors.hoTen && formikProps.touched.hoTen && (
                         <Box
                           className={props.classes.ErrorText}
                           color="error.main"
                         >
-                          *{formikProps.errors.taiKhoan}
+                          *{formikProps.errors.hoTen}
                         </Box>
                       )}
-                  </div>
+                    </div>
+                    <div className="form-group">
+                      <TextField
+                        placeholder="Nhập Email"
+                        label="Email"
+                        type="email"
+                        name="email"
+                        onChange={formikProps.handleChange}
+                        className="form-control"
+                        error={
+                          formikProps.errors.email && formikProps.touched.email
+                        }
+                      />
+                      {formikProps.errors.email && formikProps.touched.email && (
+                        <Box
+                          className={props.classes.ErrorText}
+                          color="error.main"
+                        >
+                          *{formikProps.errors.email}
+                        </Box>
+                      )}
+                    </div>
+                    <div className="form-group">
+                      <TextField
+                        placeholder="Nhập Số điện thoại"
+                        label="Số Điện Thoại"
+                        type="text"
+                        name="soDT"
+                        onChange={formikProps.handleChange}
+                        className="form-control"
+                        error={
+                          formikProps.errors.soDT && formikProps.touched.soDT
+                        }
+                      />
+                      {formikProps.errors.soDT && formikProps.touched.soDT && (
+                        <Box
+                          className={props.classes.ErrorText}
+                          color="error.main"
+                        >
+                          *{formikProps.errors.soDT}
+                        </Box>
+                      )}
+                    </div>
 
-                  <div className="form-group">
-                    <TextField
-                      placeholder="Nhập mật khẩu"
-                      label="Mật Khẩu"
-                      type="password"
-                      name="matKhau"
-                      onChange={formikProps.handleChange}
-                      className="form-control"
-                      error={
-                        formikProps.errors.matKhau &&
-                        formikProps.touched.matKhau
-                      }
-                    />
-                    {formikProps.errors.matKhau && formikProps.touched.matKhau && (
-                      <Box
-                        className={props.classes.ErrorText}
-                        color="error.main"
-                      >
-                        *{formikProps.errors.matKhau}
-                      </Box>
-                    )}
-                  </div>
-                  <div className="form-group">
-                    <TextField
-                      placeholder="Nhập Họ và Tên"
-                      label="Họ Tên"
-                      type="text"
-                      name="hoTen"
-                      onChange={formikProps.handleChange}
-                      className="form-control"
-                      error={
-                        formikProps.errors.hoTen && formikProps.touched.hoTen
-                      }
-                    />
-                    {formikProps.errors.hoTen && formikProps.touched.hoTen && (
-                      <Box
-                        className={props.classes.ErrorText}
-                        color="error.main"
-                      >
-                        *{formikProps.errors.hoTen}
-                      </Box>
-                    )}
-                  </div>
-                  <div className="form-group">
-                    <TextField
-                      placeholder="Nhập Email"
-                      label="Email"
-                      type="email"
-                      name="email"
-                      onChange={formikProps.handleChange}
-                      className="form-control"
-                      error={
-                        formikProps.errors.email && formikProps.touched.email
-                      }
-                    />
-                    {formikProps.errors.email && formikProps.touched.email && (
-                      <Box
-                        className={props.classes.ErrorText}
-                        color="error.main"
-                      >
-                        *{formikProps.errors.email}
-                      </Box>
-                    )}
-                  </div>
-                  <div className="form-group">
-                    <TextField
-                      placeholder="Nhập Số điện thoại"
-                      label="Số Điện Thoại"
-                      type="text"
-                      name="soDT"
-                      onChange={formikProps.handleChange}
-                      className="form-control"
-                      error={
-                        formikProps.errors.soDT && formikProps.touched.soDT
-                      }
-                    />
-                    {formikProps.errors.soDT && formikProps.touched.soDT && (
-                      <Box
-                        className={props.classes.ErrorText}
-                        color="error.main"
-                      >
-                        *{formikProps.errors.soDT}
-                      </Box>
-                    )}
-                  </div>
-
-                  <div className="form-group">
-                    <Button type="submit" variant="contained" color="primary">
-                      Đăng Ký
-                    </Button>
-                  </div>
-                </Form>
-              </Paper>
+                    <div className="form-group">
+                      <Button type="submit" variant="contained" color="primary">
+                        Đăng Ký
+                      </Button>
+                    </div>
+                  </Form>
+                </Paper>
+              </Box>
             )}
           ></Formik>
         </div>
