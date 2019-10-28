@@ -6,13 +6,18 @@ import { withStyles } from "@material-ui/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
+import { Box } from "@material-ui/core";
 
 const styles = theme => ({
-  test: {
+  Paper: {
     "&.MuiPaper-root": {
       padding: 25,
       marginTop: 15
     }
+  },
+  ErrorText: {
+    marginTop: 8,
+    fontSize: 12
   }
 });
 
@@ -52,7 +57,7 @@ const SignupScreen = props => {
             onSubmit={_handleSubmit}
             validationSchema={SignUpUserSchema}
             render={formikProps => (
-              <Paper className={props.classes.test}>
+              <Paper className={props.classes.Paper}>
                 <Form>
                   <h4 className="display-4">Đăng Ký</h4>
                   <div className="form-group">
@@ -63,12 +68,19 @@ const SignupScreen = props => {
                       name="taiKhoan"
                       onChange={formikProps.handleChange}
                       className="form-control"
+                      error={
+                        formikProps.errors.taiKhoan &&
+                        formikProps.touched.taiKhoan
+                      }
                     />
                     {formikProps.errors.taiKhoan &&
                       formikProps.touched.taiKhoan && (
-                        <p className="alert alert-danger">
-                          {formikProps.errors.taiKhoan}
-                        </p>
+                        <Box
+                          className={props.classes.ErrorText}
+                          color="error.main"
+                        >
+                          *{formikProps.errors.taiKhoan}
+                        </Box>
                       )}
                   </div>
 
@@ -80,13 +92,19 @@ const SignupScreen = props => {
                       name="matKhau"
                       onChange={formikProps.handleChange}
                       className="form-control"
+                      error={
+                        formikProps.errors.matKhau &&
+                        formikProps.touched.matKhau
+                      }
                     />
-                    {formikProps.errors.matKhau &&
-                      formikProps.touched.matKhau && (
-                        <p className="alert alert-danger">
-                          {formikProps.errors.matKhau}
-                        </p>
-                      )}
+                    {formikProps.errors.matKhau && formikProps.touched.matKhau && (
+                      <Box
+                        className={props.classes.ErrorText}
+                        color="error.main"
+                      >
+                        *{formikProps.errors.matKhau}
+                      </Box>
+                    )}
                   </div>
                   <div className="form-group">
                     <TextField
@@ -96,11 +114,17 @@ const SignupScreen = props => {
                       name="hoTen"
                       onChange={formikProps.handleChange}
                       className="form-control"
+                      error={
+                        formikProps.errors.hoTen && formikProps.touched.hoTen
+                      }
                     />
                     {formikProps.errors.hoTen && formikProps.touched.hoTen && (
-                      <p className="alert alert-danger">
-                        {formikProps.errors.hoTen}
-                      </p>
+                      <Box
+                        className={props.classes.ErrorText}
+                        color="error.main"
+                      >
+                        *{formikProps.errors.hoTen}
+                      </Box>
                     )}
                   </div>
                   <div className="form-group">
@@ -111,11 +135,17 @@ const SignupScreen = props => {
                       name="email"
                       onChange={formikProps.handleChange}
                       className="form-control"
+                      error={
+                        formikProps.errors.email && formikProps.touched.email
+                      }
                     />
                     {formikProps.errors.email && formikProps.touched.email && (
-                      <p className="alert alert-danger">
-                        {formikProps.errors.email}
-                      </p>
+                      <Box
+                        className={props.classes.ErrorText}
+                        color="error.main"
+                      >
+                        *{formikProps.errors.email}
+                      </Box>
                     )}
                   </div>
                   <div className="form-group">
@@ -126,11 +156,17 @@ const SignupScreen = props => {
                       name="soDT"
                       onChange={formikProps.handleChange}
                       className="form-control"
+                      error={
+                        formikProps.errors.soDT && formikProps.touched.soDT
+                      }
                     />
                     {formikProps.errors.soDT && formikProps.touched.soDT && (
-                      <p className="alert alert-danger">
-                        {formikProps.errors.soDT}
-                      </p>
+                      <Box
+                        className={props.classes.ErrorText}
+                        color="error.main"
+                      >
+                        *{formikProps.errors.soDT}
+                      </Box>
                     )}
                   </div>
 

@@ -2,6 +2,17 @@ import React from "react";
 import { connect } from "react-redux";
 import { Formik, Form } from "formik";
 import { fetchCredential } from "../../../Redux/Actions/User";
+import { TextField, Paper, Button } from "@material-ui/core";
+import { withStyles } from "@material-ui/styles";
+
+const styles = theme => ({
+  Paper: {
+    "&.MuiPaper-root": {
+      padding: 25,
+      marginTop: 15
+    }
+  }
+});
 
 const LoginScreen = props => {
   const _handleSubmit = value => {
@@ -20,34 +31,40 @@ const LoginScreen = props => {
             }}
             onSubmit={_handleSubmit}
             render={({ handleChange, values }) => (
-              <Form>
-                <h4 className="display-4">Đăng Nhập</h4>
-                <div className="form-group">
-                  <label htmlFor>Tài Khoản</label>
-                  <input
-                    type="text"
-                    name="taiKhoan"
-                    onChange={handleChange}
-                    className="form-control"
-                    value={values.taiKhoan}
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor>Mật Khẩu</label>
-                  <input
-                    type="text"
-                    name="matKhau"
-                    onChange={handleChange}
-                    value={values.matKhau}
-                    className="form-control"
-                  />
-                </div>
-                <div className="form-group text-center">
-                  <button type="submit" className="btn btn-success">
-                    Đăng nhập
-                  </button>
-                </div>
-              </Form>
+              <Paper className={props.classes.Paper}>
+                <Form>
+                  <h4 className="display-4">Đăng Nhập</h4>
+                  <div className="form-group">
+                    <TextField
+                      label="Tài Khoản"
+                      placeholder="Vui lòng nhập tài khoản"
+                      type="text"
+                      name="taiKhoan"
+                      onChange={handleChange}
+                      className="form-control"
+                      value={values.taiKhoan}
+                      fullWidth
+                    />
+                  </div>
+                  <div className="form-group">
+                    <TextField
+                      label="Mật Khẩu"
+                      placeholder="Vui lòng nhập mật khẩu"
+                      type="text"
+                      name="matKhau"
+                      onChange={handleChange}
+                      value={values.matKhau}
+                      className="form-control"
+                      fullWidth
+                    />
+                  </div>
+                  <div className="form-group">
+                    <Button type="submit" variant="contained" color="primary">
+                      Đăng nhập
+                    </Button>
+                  </div>
+                </Form>
+              </Paper>
             )}
           />
         </div>
@@ -56,4 +73,4 @@ const LoginScreen = props => {
   );
 };
 
-export default connect()(LoginScreen);
+export default connect()(withStyles(styles)(LoginScreen));
