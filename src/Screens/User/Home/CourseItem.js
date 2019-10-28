@@ -21,6 +21,7 @@ const CourseItem = (props) => {
     <div className="card">
       <img
         src={hinhAnh}
+        alt={tenKhoaHoc}
         style={{
           height: 300,
         }}

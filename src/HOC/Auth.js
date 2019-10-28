@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import Layout from '../Layouts/Layout';
 
 const AuthenticationRoute = ({ path, component: Component }) => {
   return (
@@ -9,9 +8,7 @@ const AuthenticationRoute = ({ path, component: Component }) => {
       render={routeProps => {
         if (localStorage.getItem('userLogin')) {
           return (
-            // <Layout>
             <Component {...routeProps} />
-            // </Layout>
           );
         }
         alert('Log in please!');

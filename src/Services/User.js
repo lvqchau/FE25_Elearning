@@ -10,8 +10,8 @@ export const SignUpUserSchema = yup.object().shape({
     .max(16, "Mật khẩu phải có từ 8 tới 16 kí tự"),
   hoTen: yup
     .string()
-    .required("Vui lòng nhập Họ Tên")
-    .matches(/^[a-zA-Z ]*$/, "Họ tên phải là chữ"),
+    .required("Vui lòng nhập Họ Tên"),
+    // .matches(/^[a-zA-Z ]*$/, "Họ tên phải là chữ"),
   email: yup
     .string()
     .required("Vui lòng nhập Email")

@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 
 const DetailScreen = (props) => {
-  useEffect(() => {
-    const courseId = props.match.params.courseId;
-  }, []);
+  const {match} = props
+  const courseId = props.match.params.courseId;
   return (
     <div>
       <h1>Detail</h1>

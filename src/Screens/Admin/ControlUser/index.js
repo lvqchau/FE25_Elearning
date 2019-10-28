@@ -1,11 +1,11 @@
 import React from 'react';
 
-const AddUserScreen = () => {
+const ControlUser = () => {
   return (
     <div>
-      
+      user
     </div>
   );
 };
 
-export default AddUserScreen;
+export default ControlUser;
