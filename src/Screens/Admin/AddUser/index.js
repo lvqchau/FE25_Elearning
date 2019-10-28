@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ControlCourseScreen = () => {
+const AddUser = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const ControlCourseScreen = () => {
   );
 };
 
-export default ControlCourseScreen;
+export default AddUser;

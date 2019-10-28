@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
+import Input from '@material-ui/core/Input';
 import useForm from '../../../hook/useForm';
 import useMouseMove from '../../../hook/useMouseMove';
 
 const AddCourse = () => {
-  //   const [values, setValues] = useState({
-  //     maKhoaHoc: '',
-  //     tenKhoaHoc: '',
-  //     maDanhMucKhoaHoc: '',
-  //   });
+    const [values, setValues] = useState({
+      maKhoaHoc: '',
+      tenKhoaHoc: '',
+      maDanhMucKhoaHoc: '',
+    });
 
-  //   const handleChange = evt => {
-  //     setValues({ ...values, [evt.target.name]: evt.target.value });
-  //   };
+    const handleChange = evt => {
+      setValues({ ...values, [evt.target.name]: evt.target.value });
+    };
 
   const [form, setFormValues, checkValidation] = useForm({
     values: {
@@ -44,9 +45,9 @@ const AddCourse = () => {
       <div className="col-sm-6">
         <div className="form-group">
           <label htmlFor="exampleInputEmail1">Mã khoá học</label>
-          <input
+          <Input
             name="maKhoaHoc"
-            class="form-control"
+            className="form-control"
             value={form.values.maKhoaHoc}
             onChange={setFormValues}
             onBlur={checkValidation}
@@ -57,9 +58,9 @@ const AddCourse = () => {
 
         <div className="form-group">
           <label htmlFor="exampleInputEmail1">Tên khoá học</label>
-          <input
+          <Input
             name="tenKhoaHoc"
-            class="form-control"
+            className="form-control"
             value={form.values.tenKhoaHoc}
             onChange={setFormValues}
             onBlur={checkValidation}
@@ -69,9 +70,9 @@ const AddCourse = () => {
 
         <div className="form-group">
           <label htmlFor="exampleInputEmail1">Tài khoản người tạo</label>
-          <input
+          <Input
             name="taiKhoanNguoiTao"
-            class="form-control"
+            className="form-control"
             value={form.values.taiKhoanNguoiTao}
             onChange={setFormValues}
             onBlur={checkValidation}
@@ -84,9 +85,9 @@ const AddCourse = () => {
       <div className="col-sm-6">
         <div className="form-group">
           <label htmlFor="exampleInputEmail1">Mã danh mục khoá học</label>
-          <input
+          <Input
             name="maDanhMucKhoaHoc"
-            class="form-control"
+            className="form-control"
             value={form.values.maDanhMucKhoaHoc}
             onChange={setFormValues}
             onBlur={checkValidation}
@@ -98,9 +99,9 @@ const AddCourse = () => {
 
         <div className="form-group">
           <label htmlFor="exampleInputEmail1">Mô tả khoá học</label>
-          <input
+          <Input
             name="moTa"
-            class="form-control"
+            className="form-control"
             value={form.values.moTa}
             onChange={setFormValues}
             onBlur={checkValidation}
@@ -110,9 +111,9 @@ const AddCourse = () => {
 
         <div className="form-group">
           <label htmlFor="exampleInputEmail1">Hình ảnh khoá học</label>
-          <input
+          <Input
             name="hinhAnh"
-            class="form-control"
+            className="form-control"
             value={form.values.hinhAnh}
             onChange={setFormValues}
             onBlur={checkValidation}

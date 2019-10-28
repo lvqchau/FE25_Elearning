@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import AdminLayout from '../Layouts/AdminLayout';
 
 const AuthAdmin = ({ component: Component, ...props }) => {
   return (
@@ -11,9 +10,7 @@ const AuthAdmin = ({ component: Component, ...props }) => {
         if (user) {
           if (user.maLoaiNguoiDung === 'GV') {
             return (
-              // <AdminLayout>
               <Component {...routeProps} />
-              // </AdminLayout>
             );
           }
           return <Redirect to="/" />;

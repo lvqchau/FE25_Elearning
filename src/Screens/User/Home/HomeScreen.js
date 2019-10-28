@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import CourseItem from './CourseItem';
@@ -9,6 +9,7 @@ import Pagination from '../../../Components/Pagination';
 const HomeScreen = ({ dispatch, courses, pageIndex }) => {
   useEffect(() => {
     dispatch(fetchCourses(pageIndex, 5));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const _renderCourseItem = () => {
