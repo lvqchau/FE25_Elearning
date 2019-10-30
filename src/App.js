@@ -13,6 +13,7 @@ import AuthAdmin from "./HOC/AuthAdmin";
 import Admin from "./Screens/Admin";
 import Layout from "./Layouts/Layout";
 import AdminLayout from "./Layouts/AdminLayout";
+import ProfileScreen from "./Screens/User/Profile/ProfileScreen";
 
 function App(props) {
   useEffect(() => {
@@ -40,6 +41,7 @@ function App(props) {
         </AdminLayout>
         <Layout path="/">
           <Switch>
+            <Route exact path="/thongtintaikhoan" component={ProfileScreen} />
             <Route exact path="/signin" component={LoginScreen} />
             <Route exact path="/signup" component={SignupScreen} />
             <AuthenticationRoute exact path="/" component={HomeScreen} />

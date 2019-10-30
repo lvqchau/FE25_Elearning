@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Formik, Form } from "formik";
 import { fetchCredential } from "../../../Redux/Actions/User";
-import { TextField, Paper, Button, Typography } from "@material-ui/core";
+import { TextField, Paper, Button, Typography, Grid } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 
 const styles = theme => ({
@@ -31,42 +31,42 @@ const LoginScreen = props => {
             }}
             onSubmit={_handleSubmit}
             render={({ handleChange, values }) => (
-              <Paper className={props.classes.Paper}>
-                <Form>
-                  <Typography variant="h4" gutterBottom>
-                    Đăng Nhập
-                  </Typography>
-                  <div className="form-group">
-                    <TextField
-                      label="Tài Khoản"
-                      placeholder="Vui lòng nhập tài khoản"
-                      type="text"
-                      name="taiKhoan"
-                      onChange={handleChange}
-                      className="form-control"
-                      value={values.taiKhoan}
-                      fullWidth
-                    />
-                  </div>
-                  <div className="form-group">
-                    <TextField
-                      label="Mật Khẩu"
-                      placeholder="Vui lòng nhập mật khẩu"
-                      type="text"
-                      name="matKhau"
-                      onChange={handleChange}
-                      value={values.matKhau}
-                      className="form-control"
-                      fullWidth
-                    />
-                  </div>
-                  <div className="form-group">
-                    <Button type="submit" variant="contained" color="primary">
-                      Đăng nhập
-                    </Button>
-                  </div>
-                </Form>
-              </Paper>
+              <Grid container>
+                <Paper className={props.classes.Paper}>
+                  <Form>
+                    <Typography variant="h4" gutterBottom>
+                      Đăng Nhập
+                    </Typography>
+                    <div className="form-group">
+                      <TextField
+                        label="Tài Khoản"
+                        placeholder="Vui lòng nhập tài khoản"
+                        type="text"
+                        name="taiKhoan"
+                        onChange={handleChange}
+                        className="form-control"
+                        value={values.taiKhoan}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <TextField
+                        label="Mật Khẩu"
+                        placeholder="Vui lòng nhập mật khẩu"
+                        type="text"
+                        name="matKhau"
+                        onChange={handleChange}
+                        value={values.matKhau}
+                        className="form-control"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <Button type="submit" variant="contained" color="primary">
+                        Đăng nhập
+                      </Button>
+                    </div>
+                  </Form>
+                </Paper>
+              </Grid>
             )}
           />
         </div>
