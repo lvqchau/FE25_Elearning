@@ -6,7 +6,7 @@ import { withStyles } from "@material-ui/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
-import { Box, Typography } from "@material-ui/core";
+import { Box, Typography, Container } from "@material-ui/core";
 
 const styles = theme => ({
   Paper: {
@@ -57,7 +57,7 @@ const SignupScreen = props => {
             onSubmit={_handleSubmit}
             validationSchema={SignUpUserSchema}
             render={formikProps => (
-              <Box>
+              <Container fixed>
                 <Paper className={props.classes.Paper}>
                   <Form>
                     <Typography variant="h4" gutterBottom>
@@ -71,6 +71,7 @@ const SignupScreen = props => {
                         name="taiKhoan"
                         onChange={formikProps.handleChange}
                         className="form-control"
+                        fullWidth
                         error={
                           formikProps.errors.taiKhoan &&
                           formikProps.touched.taiKhoan
@@ -181,7 +182,7 @@ const SignupScreen = props => {
                     </div>
                   </Form>
                 </Paper>
-              </Box>
+              </Container>
             )}
           ></Formik>
         </div>
