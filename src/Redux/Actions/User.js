@@ -1,4 +1,4 @@
-import { FETCH_CREDENTIALS } from './ActionType';
+import { FETCH_CREDENTIALS, FETCH_USERS } from './ActionType';
 import { restConnector } from '../../Services/Index';
 import UserService from '../../Services/User';
 //async action
@@ -11,7 +11,6 @@ export const fetchCredential = (value, history) => {
         restConnector.defaults.headers[
           'Authorization'
         ] = `Bearer ${res.data.accessToken}`;
-        console.log(res.data);
         if (res.data.maLoaiNguoiDung === 'GV') {
           history.replace('/admin');
         } else {
@@ -24,8 +23,28 @@ export const fetchCredential = (value, history) => {
   };
 };
 
+export const fetchUsers = (pageIndex, itemsPerPage) => {
+  return dispatch => {
+    UserService.fetchUsers(pageIndex, itemsPerPage)
+      .then(res => {
+        dispatch(actFetchUsers(res.data));
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+};
+
+
 //action creator
 export const actFetchCredentials = credetials => ({
   type: FETCH_CREDENTIALS,
   payload: credetials,
 });
+
+export const actFetchUsers = users => {
+  return {
+    type: FETCH_USERS,
+    payload: users,
+  };
+};

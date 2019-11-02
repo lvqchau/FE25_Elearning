@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -12,6 +13,8 @@ import Container from '@material-ui/core/Container';
 import Sidebar from '../Components/Sidebar';
 
 import colors from '../constants/colors';
+import { actFetchCredentials } from '../Redux/Actions/User';
+import { restConnector } from '../Services/Index';
 
 const styles = theme => ({
   menuButton: {
@@ -26,7 +29,7 @@ const styles = theme => ({
   },
   drawer: {
     '& .MuiPaper-root': {
-      width: 250
+      width: 300
     }
   }
 });
@@ -56,6 +59,22 @@ HideOnScroll.propTypes = {
 
 const AdminLayout = props => {
   const { classes } = props
+  useEffect(() => {
+    let credentials = localStorage.getItem('userLogin');
+    if (credentials) {
+      let credetialsObj = JSON.parse(credentials);
+      props.dispatch(actFetchCredentials(credetialsObj));
+      restConnector.defaults.headers[
+        'Authorization'
+      ] = `Bearer ${credetialsObj.accessToken}`;
+      console.log(restConnector.defaults)
+    }
+    //clean up component
+    // return () => {
+
+    // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   
   const [isOpen, openDrawer] = useState(false);
 
@@ -91,4 +110,4 @@ const AdminLayout = props => {
   );
 };
 
-export default withStyles(styles)(AdminLayout);
+export default connect()(withStyles(styles)(AdminLayout));

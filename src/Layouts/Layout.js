@@ -10,7 +10,6 @@ const Layout = props => {
     if (credentials) {
       let credetialsObj = JSON.parse(credentials);
       props.dispatch(actFetchCredentials(credetialsObj));
-
       restConnector.defaults.headers[
         'Authorization'
       ] = `Bearer ${credetialsObj.accessToken}`;

@@ -1,24 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/styles'
 import Input from '@material-ui/core/Input';
 import useForm from '../../../hook/useForm';
-import useMouseMove from '../../../hook/useMouseMove';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import { addCourse, fetchCourseType } from '../../../Redux/Actions/Course';
+import { bindActionCreators } from '../../../../../../Library/Caches/typescript/3.6/node_modules/redux';
 
-const AddCourse = () => {
-    const [values, setValues] = useState({
-      maKhoaHoc: '',
-      tenKhoaHoc: '',
-      maDanhMucKhoaHoc: '',
-    });
+const styles = theme => ({
 
-    const handleChange = evt => {
-      setValues({ ...values, [evt.target.name]: evt.target.value });
-    };
+})
+
+const AddCourse = props => {
+  const { addCourseHandler, courseType, classes } = props
+  const curDate = new Date().toISOString()
+  const [selectedType, setType] = useState('')
+
+  useEffect(() => {
+    const { fetchCourseTypeHandler } = props
+    fetchCourseTypeHandler()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const setSelectedValues = (e) => {
+    setType(e.target.value)
+    const maDanhMucKhoaHoc = {
+      target: {
+        name: 'maDanhMucKhoaHoc',
+        value: e.target.value
+      }
+    }
+    setFormValues(maDanhMucKhoaHoc)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }
+
+  useEffect(() => {
+    if (courseType && courseType[0]) {
+      setType(courseType[0].maDanhMuc)
+      const maDanhMucKhoaHoc = {
+        target: {
+          name: 'maDanhMucKhoaHoc',
+          value: courseType[0].maDanhMuc
+        }
+      }
+      setFormValues(maDanhMucKhoaHoc)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [courseType])
 
   const [form, setFormValues, checkValidation] = useForm({
     values: {
       maKhoaHoc: '',
-      tenKhoaHoc: '',
-      taiKhoanNguoiTao: '',
+      tenKhoaHoc: '', 
       maDanhMucKhoaHoc: '',
       moTa: '',
       hinhAnh: '',
@@ -26,18 +62,34 @@ const AddCourse = () => {
     errors: {
       maKhoaHoc: '',
       tenKhoaHoc: '',
-      taiKhoanNguoiTao: '',
       maDanhMucKhoaHoc: '',
       moTa: '',
       hinhAnh: '',
     },
   });
 
-  const [position, setPosition] = useMouseMove();
+  // const [position, setPosition] = useMouseMove();
   //   console.log(position);
 
   const themKhoaHoc = () => {
-    console.log(form.values);
+    const { values } = form
+    const { tenKhoaHoc } = values
+    const userLogin = JSON.parse(localStorage.getItem('userLogin'))
+    const dateArr = curDate.split('T')[0].split('-')
+    const course = {
+      ...values,
+      maNhom: 'G01',
+      nguoiTao: {
+        taiKhoan: userLogin.taiKhoan,
+        hoTen: userLogin.hoTen,
+        maLoaiNguoiDung: 'GV',
+        tenLoaiNguoiDung: 'Giáo vụ'
+      },
+      ngayTao: dateArr[2] + '/' + dateArr[1] + '/' + dateArr[0],
+      biDanh: tenKhoaHoc.replace(/\s\s+/g, ' ').replace(/ /g, "-")
+    }
+    addCourseHandler(course)
+    console.log(course)
   };
 
   return (
@@ -67,35 +119,21 @@ const AddCourse = () => {
           />
           {form.errors.tenKhoaHoc && <div>{form.errors.tenKhoaHoc}</div>}
         </div>
-
-        <div className="form-group">
-          <label htmlFor="exampleInputEmail1">Tài khoản người tạo</label>
-          <Input
-            name="taiKhoanNguoiTao"
-            className="form-control"
-            value={form.values.taiKhoanNguoiTao}
-            onChange={setFormValues}
-            onBlur={checkValidation}
-          />
-          {form.errors.taiKhoanNguoiTao && (
-            <div>{form.errors.taiKhoanNguoiTao}</div>
-          )}
-        </div>
       </div>
       <div className="col-sm-6">
-        <div className="form-group">
-          <label htmlFor="exampleInputEmail1">Mã danh mục khoá học</label>
-          <Input
-            name="maDanhMucKhoaHoc"
-            className="form-control"
-            value={form.values.maDanhMucKhoaHoc}
-            onChange={setFormValues}
-            onBlur={checkValidation}
-          />
-          {form.errors.maDanhMucKhoaHoc && (
-            <div>{form.errors.maDanhMucKhoaHoc}</div>
-          )}
-        </div>
+        <FormControl className={classes.formControl}>
+          <InputLabel>Age</InputLabel>
+          <Select
+            value={selectedType}
+            onChange={setSelectedValues}
+          >
+            {
+              courseType && courseType.map((item, index) => {
+                return <MenuItem key={index} value={item.maDanhMuc}>{item.tenDanhMuc}</MenuItem>
+              })
+            }
+          </Select>
+        </FormControl>
 
         <div className="form-group">
           <label htmlFor="exampleInputEmail1">Mô tả khoá học</label>
@@ -109,7 +147,9 @@ const AddCourse = () => {
           {form.errors.moTa && <div>{form.errors.moTa}</div>}
         </div>
 
-        <div className="form-group">
+        
+
+        {/* <div className="form-group">
           <label htmlFor="exampleInputEmail1">Hình ảnh khoá học</label>
           <Input
             name="hinhAnh"
@@ -119,7 +159,7 @@ const AddCourse = () => {
             onBlur={checkValidation}
           />
           {form.errors.hinhAnh && <div>{form.errors.hinhAnh}</div>}
-        </div>
+        </div> */}
       </div>
       <button className="btn btn-success" onClick={themKhoaHoc}>
         Thêm
@@ -128,4 +168,16 @@ const AddCourse = () => {
   );
 };
 
-export default AddCourse;
+
+const mapStateToProps = (state) => {
+  return {
+    courseType: state.course.courseType,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  addCourseHandler: addCourse,
+  fetchCourseTypeHandler: fetchCourseType
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(AddCourse));
