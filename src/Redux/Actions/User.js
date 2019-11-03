@@ -1,6 +1,8 @@
-import { FETCH_CREDENTIALS, FETCH_USERS } from './ActionType';
+import { FETCH_CREDENTIALS, FETCH_USERS, ADD_USER } from './ActionType';
 import { restConnector } from '../../Services/Index';
 import UserService from '../../Services/User';
+import { successAlert, errorAlert } from '../../Components/ToastMessage';
+
 //async action
 export const fetchCredential = (value, history) => {
   return dispatch => {
@@ -23,6 +25,22 @@ export const fetchCredential = (value, history) => {
   };
 };
 
+export const addUser = user => {
+  return (dispatch) => {
+    UserService.addUser(user)
+      .then(res => {
+        successAlert("Thêm người dùng thành công")
+        dispatch.actAddUser(res.data)
+      })
+      .catch(err => {
+        console.log(err.response)
+        if (err.response!==undefined)
+          errorAlert("Thêm người dùng không thành công")
+      });
+  };
+};
+
+//action creators
 export const fetchUsers = (pageIndex, itemsPerPage) => {
   return dispatch => {
     UserService.fetchUsers(pageIndex, itemsPerPage)
@@ -46,5 +64,12 @@ export const actFetchUsers = users => {
   return {
     type: FETCH_USERS,
     payload: users,
+  };
+};
+
+export const actAddUser = user => {
+  return {
+    type: ADD_USER,
+    payload: user,
   };
 };

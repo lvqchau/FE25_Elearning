@@ -4,8 +4,12 @@ import { restConnector } from "./Index";
 const PAGE_INDEX = 1;
 const ITEMS_PER_PAGE = 5;
 
-export const SignUpUserSchema = yup.object().shape({
-  taiKhoan: yup.string().required("Vui lòng nhập tài khoản"),
+const userObject = {
+  taiKhoan: yup
+    .string()
+    .required("Vui lòng nhập tài khoản")
+    .min(8, "Tài khoản phải có từ 8 tới 16 kí tự")
+    .max(16, "Tài khoản phải có từ 8 tới 16 kí tự"),
   matKhau: yup
     .string()
     .required("Vui lòng nhập mật khẩu")
@@ -13,17 +17,30 @@ export const SignUpUserSchema = yup.object().shape({
     .max(16, "Mật khẩu phải có từ 8 tới 16 kí tự"),
   hoTen: yup
     .string()
-    .required("Vui lòng nhập Họ Tên"),
-    // .matches(/^[a-zA-Z ]*$/, "Họ tên phải là chữ"),
+    .required("Vui lòng nhập họ tên")
+    .matches(/^[a-zA-Z ]*$/, "Họ tên phải là chữ"),
   email: yup
     .string()
     .required("Vui lòng nhập Email")
     .email("Email không đúng định dạng"),
   soDT: yup
     .string()
-    .required("Vui lòng nhập Số điện thoại")
-    .matches(/^[0-9]*$/, "Vui lòng nhập số")
-});
+    .required("Vui lòng nhập số điện thoại")
+    .matches(/^((09|03|07|08|05)+([0-9]{8})\b)$/, "Số điện thoại không đúng định dạng (09, 07, 08, 05, 03)")
+}
+
+const adminObject = {
+  ...userObject,
+  maLoaiNguoiDung: yup.string()
+}
+
+export const AddUserSchema = yup.object().shape(
+  adminObject
+);
+
+export const SignUpUserSchema = yup.object().shape(
+  userObject
+);
 
 class UserService {
   fetchUsers(pageIndex = PAGE_INDEX, itemsPerPage = ITEMS_PER_PAGE) {
