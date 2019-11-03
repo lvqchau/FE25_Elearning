@@ -1,12 +1,18 @@
 import { restConnector } from './Index';
 
 const PAGE_INDEX = 1;
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 5;
 
 class CourseService {
   fetchCourses(pageIndex = PAGE_INDEX, itemsPerPage = ITEMS_PER_PAGE) {
     return restConnector({
-      url: `/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc_PhanTrang?page=${pageIndex}&pageSize=${itemsPerPage}&MaNhom=GP09`,
+      url: `/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc_PhanTrang?page=${pageIndex}&pageSize=${itemsPerPage}&MaNhom=GP01`,
+      method: 'GET',
+    });
+  }
+  fetchCourseType() {
+    return restConnector({
+      url: `/api/QuanLyKhoaHoc/LayDanhMucKhoaHoc`,
       method: 'GET',
     });
   }

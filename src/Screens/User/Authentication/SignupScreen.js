@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Formik, Form, Field } from "formik";
+import React from "react";
+import { Formik, Form } from "formik";
 import { SignUpUserSchema } from "../../../Services/User";
 import { restConnector } from "../../../Services/Index";
 import { withStyles } from "@material-ui/styles";
@@ -52,7 +52,8 @@ const SignupScreen = props => {
               hoTen: "",
               email: "",
               soDT: "",
-              maNhom: "GP01"
+              maNhom: "GP01",
+              maLoaiNguoiDung: "GV"
             }}
             onSubmit={_handleSubmit}
             validationSchema={SignUpUserSchema}

@@ -1,5 +1,5 @@
 import React from 'react';
-import * as _ from 'lodash';
+// import * as _ from 'lodash';
 import classnames from 'classnames';
 
 const generatePage = (pageIndex, totalPages) => {

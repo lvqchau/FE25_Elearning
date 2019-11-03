@@ -10,7 +10,6 @@ const Layout = props => {
     if (credentials) {
       let credetialsObj = JSON.parse(credentials);
       props.dispatch(actFetchCredentials(credetialsObj));
-
       restConnector.defaults.headers[
         'Authorization'
       ] = `Bearer ${credetialsObj.accessToken}`;
@@ -19,6 +18,7 @@ const Layout = props => {
     // return () => {
 
     // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

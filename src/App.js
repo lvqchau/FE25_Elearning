@@ -6,13 +6,15 @@ import LoginScreen from "./Screens/User/Authentication/LoginScreen";
 import SignupScreen from "./Screens/User/Authentication/SignupScreen";
 import { actFetchCredentials } from "./Redux/Actions/User";
 import { restConnector } from "./Services/Index";
-import { actFetchCourses } from "./Redux/Actions/Course";
+// import { actFetchCourses } from "./Redux/Actions/Course";
 import DetailScreen from "./Screens/User/Detail/DetailScreen";
 import AuthenticationRoute from "./HOC/Auth";
 import AuthAdmin from "./HOC/AuthAdmin";
 import Admin from "./Screens/Admin";
 import Layout from "./Layouts/Layout";
 import AdminLayout from "./Layouts/AdminLayout";
+import ControlUser from "./Screens/Admin/ControlUser";
+import ControlCourse from "./Screens/Admin/ControlCourse";
 import ProfileScreen from "./Screens/User/Profile/ProfileScreen";
 
 function App(props) {
@@ -30,13 +32,16 @@ function App(props) {
     // return () => {
 
     // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <BrowserRouter>
       <Switch>
         <AdminLayout path="/admin">
           <Switch>
-            <AuthAdmin path="/" component={Admin} />
+            <AuthAdmin exact path="/admin" component={Admin} />
+            <AuthAdmin exact path="/admin/users" component={ControlUser} />
+            <AuthAdmin exact path="/admin/courses" component={ControlCourse} />
           </Switch>
         </AdminLayout>
         <Layout path="/">
@@ -46,7 +51,7 @@ function App(props) {
             <Route exact path="/signup" component={SignupScreen} />
             <AuthenticationRoute exact path="/" component={HomeScreen} />
             <AuthenticationRoute
-              path="/detail/:courseId"
+              exact path="/detail/:courseId"
               component={DetailScreen}
             />
           </Switch>
