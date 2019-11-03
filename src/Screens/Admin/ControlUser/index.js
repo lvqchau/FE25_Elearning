@@ -16,6 +16,7 @@ import AddIcon from '@material-ui/icons/Add'
 import EditIcon from '@material-ui/icons/Create'
 import BackIcon from '@material-ui/icons/KeyboardBackspace'
 import { fetchUsers } from '../../../Redux/Actions/User';
+import AddUser from '../AddUser';
 
 const styles = theme => ({
   addButton: {
@@ -99,7 +100,7 @@ const ControlUser = (props) => {
       </IconButton>
       {
         adding ?
-          <p>AddUser</p>
+          <AddUser/>
           :
           <Paper className={classes.root}>
             <h3 style={{ margin: 10 }}>Danh sách người dùng</h3>

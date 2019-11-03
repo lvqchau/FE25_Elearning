@@ -7,11 +7,9 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import { bindActionCreators } from 'redux';
 import { addCourse, fetchCourseType } from '../../../Redux/Actions/Course';
-import { bindActionCreators } from '../../../../../../Library/Caches/typescript/3.6/node_modules/redux';
-
 const styles = theme => ({
-
 })
 
 const AddCourse = props => {
@@ -78,7 +76,6 @@ const AddCourse = props => {
     const dateArr = curDate.split('T')[0].split('-')
     const course = {
       ...values,
-      maLoaiNguoiDung: 'GV',
       maNhom: 'G01',
       nguoiTao: {
         taiKhoan: userLogin.taiKhoan,
@@ -123,7 +120,7 @@ const AddCourse = props => {
       </div>
       <div className="col-sm-6">
         <FormControl className={classes.formControl}>
-          <InputLabel>Age</InputLabel>
+          <InputLabel>Mã khoá học</InputLabel>
           <Select
             value={selectedType}
             onChange={setSelectedValues}

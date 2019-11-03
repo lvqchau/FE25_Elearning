@@ -83,7 +83,11 @@ const Sidebar = props => {
           <Divider />
           <div className={classes.accountContainer}>
             <Avatar size={50} />
-            <p className={classes.username}>Quỳnh Châu</p>
+            {
+              localStorage.getItem('userLogin') &&
+              <p className={classes.username}>{JSON.parse(localStorage.getItem('userLogin')).hoTen}</p>
+            }
+            
           </div>
           <Divider />
           <div className={classes.sidebarContent}>
