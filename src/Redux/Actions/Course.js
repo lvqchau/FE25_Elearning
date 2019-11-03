@@ -1,5 +1,7 @@
 import { FETCH_COURSES, ADD_COURSE, CHANGE_PAGE_COURSES, FETCH_COURSE_TYPE } from './ActionType';
 import CourseService from '../../Services/Course';
+import { successAlert, errorAlert } from '../../Components/ToastMessage';
+
 //async action fetch courses from server and save to store
 export const fetchCourses = (pageIndex, itemsPerPage) => {
   return dispatch => {
@@ -31,6 +33,7 @@ export const addCourse = course => {
     // course.hinhAnh = hinhAnh.name;
     CourseService.addCourse(course)
       .then(res => {
+        successAlert("Thêm người dùng thành công")
         dispatch.actAddCourse(res.data)
         // const formData = new FormData();
         // formData.append(hinhAnh);
@@ -42,7 +45,11 @@ export const addCourse = course => {
         //   })
         //   .catch(err => console.log(err));
       })
-      .catch(err => console.log(err.response));
+      .catch(err => {
+        console.log(err.response)
+        if (err.response !== undefined)
+          errorAlert("Thêm người dùng không thành công")
+      });
   };
 };
 
