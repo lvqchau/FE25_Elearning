@@ -71,7 +71,8 @@ const styles = theme => ({
     width: 40, 
     height: 40, 
     borderRadius: 5,
-    fontSize: 8
+    fontSize: 7,
+    display: 'block'
   }
 })
 

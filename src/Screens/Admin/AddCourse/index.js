@@ -78,6 +78,7 @@ const AddCourse = props => {
     const dateArr = curDate.split('T')[0].split('-')
     const course = {
       ...values,
+      maLoaiNguoiDung: 'GV',
       maNhom: 'G01',
       nguoiTao: {
         taiKhoan: userLogin.taiKhoan,
