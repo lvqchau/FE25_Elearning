@@ -31,42 +31,40 @@ const LoginScreen = props => {
             }}
             onSubmit={_handleSubmit}
             render={({ handleChange, values }) => (
-              <Grid container>
-                <Paper className={props.classes.Paper}>
-                  <Form>
-                    <Typography variant="h4" gutterBottom>
-                      Đăng Nhập
-                    </Typography>
-                    <div className="form-group">
-                      <TextField
-                        label="Tài Khoản"
-                        placeholder="Vui lòng nhập tài khoản"
-                        type="text"
-                        name="taiKhoan"
-                        onChange={handleChange}
-                        className="form-control"
-                        value={values.taiKhoan}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <TextField
-                        label="Mật Khẩu"
-                        placeholder="Vui lòng nhập mật khẩu"
-                        type="text"
-                        name="matKhau"
-                        onChange={handleChange}
-                        value={values.matKhau}
-                        className="form-control"
-                      />
-                    </div>
-                    <div className="form-group">
-                      <Button type="submit" variant="contained" color="primary">
-                        Đăng nhập
-                      </Button>
-                    </div>
-                  </Form>
-                </Paper>
-              </Grid>
+              <Paper className={props.classes.Paper}>
+                <Form>
+                  <Typography variant="h4" gutterBottom>
+                    Đăng Nhập
+                  </Typography>
+                  <div className="form-group">
+                    <TextField
+                      label="Tài Khoản"
+                      placeholder="Vui lòng nhập tài khoản"
+                      type="text"
+                      name="taiKhoan"
+                      onChange={handleChange}
+                      className="form-control"
+                      value={values.taiKhoan}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <TextField
+                      label="Mật Khẩu"
+                      placeholder="Vui lòng nhập mật khẩu"
+                      type="text"
+                      name="matKhau"
+                      onChange={handleChange}
+                      value={values.matKhau}
+                      className="form-control"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <Button type="submit" variant="contained" color="primary">
+                      Đăng nhập
+                    </Button>
+                  </div>
+                </Form>
+              </Paper>
             )}
           />
         </div>
