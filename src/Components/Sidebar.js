@@ -5,9 +5,11 @@ import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 
 import CloseIcon from '@material-ui/icons/Close';
+import StatsIcon from '@material-ui/icons/Assessment';
+import UserIcon from '@material-ui/icons/SupervisedUserCircle';
+import LaptopIcon from '@material-ui/icons/LaptopChromebook';
 
 import colors from '../constants/colors';
-import Link from './Link';
 import Avatar from './Avatar';
 
 const styles = theme => ({
@@ -32,8 +34,12 @@ const styles = theme => ({
     }
   },
   link: {
-    color: colors.lightPrimary,
-    display: 'block',
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: 25,
+    textTransform: 'uppercase',
+    color: 'black',
+    margin: '30px 0',
     textDecoration: 'none',
     '&:hover': {
       textDecoration: 'none'
@@ -50,6 +56,12 @@ const styles = theme => ({
   username: {
     margin: '0 0 0 10px',
     fontWeight: 500
+  },
+  sidebarIcon: {
+    width: 36,
+    height: 36,
+    marginRight: 20,
+    color: colors.textPrimary
   }
 })
 
@@ -71,18 +83,22 @@ const Sidebar = props => {
           <Divider />
           <div className={classes.accountContainer}>
             <Avatar size={50} />
-            <p className={classes.username}>Quỳnh Châu</p>
+            {
+              localStorage.getItem('userLogin') &&
+              <p className={classes.username}>{JSON.parse(localStorage.getItem('userLogin')).hoTen}</p>
+            }
+            
           </div>
           <Divider />
           <div className={classes.sidebarContent}>
-            <NavLink active={{ color: colors.primary }} exact to='/admin' className={classes.link} onClick={() => openDrawer(false)}>
-              Thống kê
+            <NavLink active={{ color: colors.red }} exact to='/admin' className={classes.link} onClick={() => openDrawer(false)}>
+              <StatsIcon className={classes.sidebarIcon} /> Thống kê
             </NavLink>
-            <NavLink active={{ color: colors.primary }} exact to='/admin/users' className={classes.link} onClick={() => openDrawer(false)}>
-              Danh sách người dùng
+            <NavLink active={{ color: colors.red }} exact to='/admin/users' className={classes.link} onClick={() => openDrawer(false)}>
+              <UserIcon className={classes.sidebarIcon} /> Người dùng
             </NavLink>
             <NavLink active={{ color: colors.red }} exact to='/admin/courses' className={classes.link} onClick={() => openDrawer(false)}>
-              Danh sách khoá học
+              <LaptopIcon className={classes.sidebarIcon}  /> Khoá học
             </NavLink>
           </div>
         </>

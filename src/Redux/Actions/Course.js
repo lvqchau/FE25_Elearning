@@ -1,16 +1,54 @@
-import { FETCH_COURSES, ADD_COURSE, CHANGE_PAGE_COURSES } from './ActionType';
-import { restConnector } from '../../Services/Index';
+import { FETCH_COURSES, ADD_COURSE, CHANGE_PAGE_COURSES, FETCH_COURSE_TYPE } from './ActionType';
 import CourseService from '../../Services/Course';
+import { successAlert, errorAlert } from '../../Components/ToastMessage';
+
 //async action fetch courses from server and save to store
 export const fetchCourses = (pageIndex, itemsPerPage) => {
   return dispatch => {
     CourseService.fetchCourses(pageIndex, itemsPerPage)
       .then(res => {
-        console.log(res);
         dispatch(actFetchCourses(res.data));
       })
       .catch(e => {
         console.log(e);
+      });
+  };
+};
+
+export const fetchCourseType = () => {
+  return dispatch => {
+    CourseService.fetchCourseType()
+      .then(res => {
+        dispatch(actFetchCourseType(res.data));
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+};
+
+export const addCourse = course => {
+  return (dispatch, getState) => {
+    // const { hinhAnh } = course;
+    // course.hinhAnh = hinhAnh.name;
+    CourseService.addCourse(course)
+      .then(res => {
+        successAlert("Thêm người dùng thành công")
+        dispatch.actAddCourse(res.data)
+        // const formData = new FormData();
+        // formData.append(hinhAnh);
+        // CourseService.uploadImageCourse(formData)
+        //   .then(res => {
+        //     const { course } = getState();
+        //     const { pageIndex } = course;
+        //     dispatch(fetchCourses(pageIndex, 5));
+        //   })
+        //   .catch(err => console.log(err));
+      })
+      .catch(err => {
+        console.log(err.response)
+        if (err.response !== undefined)
+          errorAlert("Thêm người dùng không thành công")
       });
   };
 };
@@ -23,24 +61,17 @@ export const actFetchCourses = courses => {
   };
 };
 
-export const addCourse = course => {
-  return (dispatch, getState) => {
-    const { hinhAnh } = course;
-    course.hinhAnh = hinhAnh.name;
-    CourseService.addCourse(course)
-      .then(res => {
-        console.log(res);
-        const formData = new FormData();
-        formData.append(hinhAnh);
-        CourseService.uploadImageCourse(formData)
-          .then(res => {
-            const { course } = getState();
-            const { pageIndex } = course;
-            dispatch(fetchCourses(pageIndex, 5));
-          })
-          .catch(err => console.log(err));
-      })
-      .catch(err => console.log(err.response));
+export const actFetchCourseType = courseType => {
+  return {
+    type: FETCH_COURSE_TYPE,
+    payload: courseType,
+  };
+};
+
+export const actAddCourse = course => {
+  return {
+    type: ADD_COURSE,
+    payload: course,
   };
 };
 
