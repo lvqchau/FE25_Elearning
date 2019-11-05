@@ -3,9 +3,13 @@ import { NavLink } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
 import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";
+
 import CloseIcon from "@material-ui/icons/Close";
+import StatsIcon from "@material-ui/icons/Assessment";
+import UserIcon from "@material-ui/icons/SupervisedUserCircle";
+import LaptopIcon from "@material-ui/icons/LaptopChromebook";
+
 import colors from "../constants/colors";
-import Link from "./Link";
 import Avatar from "./Avatar";
 
 const styles = theme => ({
@@ -28,8 +32,12 @@ const styles = theme => ({
     }
   },
   link: {
-    color: colors.lightPrimary,
-    display: "block",
+    display: "flex",
+    alignItems: "center",
+    fontSize: 25,
+    textTransform: "uppercase",
+    color: "black",
+    margin: "30px 0",
     textDecoration: "none",
     "&:hover": {
       textDecoration: "none"
@@ -72,31 +80,27 @@ const Sidebar = props => {
           <Divider />
           <div className={classes.accountContainer}>
             <Avatar size={50} />
-            {localStorage.getItem("userLogin") && (
-              <p className={classes.username}>
-                {JSON.parse(localStorage.getItem("userLogin")).hoTen}
-              </p>
-            )}
+            <p className={classes.username}>Quỳnh Châu</p>
           </div>
           <Divider />
           <div className={classes.sidebarContent}>
             <NavLink
-              active={{ color: colors.primary }}
+              active={{ color: colors.red }}
               exact
               to="/admin"
               className={classes.link}
               onClick={() => openDrawer(false)}
             >
-              Thống kê
+              <StatsIcon className={classes.sidebarIcon} /> Thống kê
             </NavLink>
             <NavLink
-              active={{ color: colors.primary }}
+              active={{ color: colors.red }}
               exact
               to="/admin/users"
               className={classes.link}
               onClick={() => openDrawer(false)}
             >
-              Danh sách người dùng
+              <UserIcon className={classes.sidebarIcon} /> Người dùng
             </NavLink>
             <NavLink
               active={{ color: colors.red }}
@@ -105,7 +109,7 @@ const Sidebar = props => {
               className={classes.link}
               onClick={() => openDrawer(false)}
             >
-              Danh sách khoá học
+              <LaptopIcon className={classes.sidebarIcon} /> Khoá học
             </NavLink>
           </div>
         </>
