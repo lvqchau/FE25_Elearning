@@ -11,6 +11,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import PlaceholderImg from '../../../images/imgnotfound.png';
 
 const styles = theme => ({
   text: {
@@ -20,7 +21,7 @@ const styles = theme => ({
   },
   button: {
     fontFamily: "n"
-  }
+  },
 });
 
 const useStyles = makeStyles({
@@ -41,7 +42,8 @@ const CourseItem = props => {
         <img
           className={classes.media}
           src={hinhAnh}
-          onerror="this.src='../../../../../../public/imgnotfound.png'"
+          onError={(e) => { e.target.onerror = null; e.target.src = PlaceholderImg }}
+          // onerror={`this.src=${PlaceholderImg}`}
           alt={tenKhoaHoc}
           style={{
             height: 300
