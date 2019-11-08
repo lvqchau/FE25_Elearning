@@ -8,7 +8,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { Container, Paper, Grid, Button } from "@material-ui/core";
-import { fetchUserInfo } from "../../../Redux/Actions/User";
+// import { fetchUserInfo } from "../../../Redux/Actions/User";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
@@ -108,7 +108,7 @@ const ProfileScreen = props => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      fetchUserInfoHandler: fetchUserInfo
+      // fetchUserInfoHandler: fetchUserInfo
     },
     dispatch
   );
