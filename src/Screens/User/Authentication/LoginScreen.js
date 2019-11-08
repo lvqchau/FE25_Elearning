@@ -16,6 +16,7 @@ const styles = theme => ({
 
 const LoginScreen = props => {
   const _handleSubmit = value => {
+    console.log(value);
     props.dispatch(fetchCredential(value, props.history));
   };
   return (

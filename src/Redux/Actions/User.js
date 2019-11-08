@@ -1,41 +1,90 @@
-import { FETCH_CREDENTIALS, FETCH_USERS, ADD_USER } from './ActionType';
-import { restConnector } from '../../Services/Index';
-import UserService from '../../Services/User';
-import { successAlert, errorAlert } from '../../Components/ToastMessage';
+import {
+  FETCH_CREDENTIALS,
+  FETCH_USERS,
+  ADD_USER,
+  SIGN_UP_USER,
+  FETCH_USER_INFO
+} from "./ActionType";
+import { restConnector } from "../../Services/Index";
+import UserService from "../../Services/User";
+import { successAlert, errorAlert } from "../../Components/ToastMessage";
 
 //async action
 export const fetchCredential = (value, history) => {
   return dispatch => {
     UserService.login(value)
       .then(res => {
-        localStorage.setItem('userLogin', JSON.stringify(res.data));
+        localStorage.setItem("userLogin", JSON.stringify(res.data));
         dispatch(actFetchCredentials(res.data));
         restConnector.defaults.headers[
-          'Authorization'
+          "Authorization"
         ] = `Bearer ${res.data.accessToken}`;
-        if (res.data.maLoaiNguoiDung === 'GV') {
-          history.replace('/admin');
+        if (res.data.maLoaiNguoiDung === "GV") {
+          history.replace("/admin");
         } else {
-          history.replace('/');
+          history.replace("/");
         }
+        successAlert("Đăng nhập thành công");
       })
       .catch(err => {
+        switch (err.response.status) {
+          case 500:
+            errorAlert(err.response.data);
+            break;
+          default:
+            errorAlert("Đăng nhập lỗi");
+        }
         console.log(err.response.data);
       });
   };
 };
 
 export const addUser = user => {
-  return (dispatch) => {
+  return dispatch => {
     UserService.addUser(user)
       .then(res => {
-        successAlert("Thêm người dùng thành công")
-        dispatch.actAddUser(res.data)
+        successAlert("Thêm người dùng thành công");
+        dispatch.actAddUser(res.data);
       })
       .catch(err => {
-        console.log(err.response)
-        if (err.response!==undefined)
-          errorAlert("Thêm người dùng không thành công")
+        console.log(err.response);
+        if (err.response !== undefined)
+          errorAlert("Thêm người dùng không thành công");
+      });
+  };
+};
+
+export const signupUser = (value, history) => {
+  return dispatch => {
+    UserService.signup(value)
+      .then(res => {
+        history.push("/signin", {
+          taiKhoan: value.taiKhoan,
+          matKhau: value.matKhau
+        });
+        // props.history.replace('/signin')
+        // dispatch.actSignupUser(res.data);
+        successAlert("Đăng ký thành công");
+        console.log(res);
+      })
+      .catch(err => {
+        errorAlert(err.response.data);
+        console.log(err.response.data);
+
+        // switch(err.respone.status === '500')
+      });
+  };
+};
+
+export const fetchUserInfo = value => {
+  return dispatch => {
+    UserService.fetchUserInfo(value)
+      .then(res => {
+        dispatch.actFetchUserInfo(res.data);
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
       });
   };
 };
@@ -53,23 +102,36 @@ export const fetchUsers = (pageIndex, itemsPerPage) => {
   };
 };
 
-
 //action creator
 export const actFetchCredentials = credetials => ({
   type: FETCH_CREDENTIALS,
-  payload: credetials,
+  payload: credetials
 });
 
 export const actFetchUsers = users => {
   return {
     type: FETCH_USERS,
-    payload: users,
+    payload: users
   };
 };
 
 export const actAddUser = user => {
   return {
     type: ADD_USER,
-    payload: user,
+    payload: user
+  };
+};
+
+export const actSignupUser = user => {
+  return {
+    type: SIGN_UP_USER,
+    payload: user
+  };
+};
+
+export const actFetchUserInfo = user => {
+  return {
+    type: FETCH_USER_INFO,
+    payload: user
   };
 };
