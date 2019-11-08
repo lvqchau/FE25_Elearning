@@ -1,4 +1,4 @@
-import { FETCH_COURSES, ADD_COURSE, CHANGE_PAGE_COURSES, FETCH_COURSE_TYPE } from './ActionType';
+import { FETCH_COURSES, ADD_COURSE, CHANGE_PAGE_COURSES, FETCH_COURSE_TYPE, REGISTER_A_COURSE, DELETE_USER_FROM_COURSE } from './ActionType';
 import CourseService from '../../Services/Course';
 import { successAlert, errorAlert } from '../../Components/ToastMessage';
 
@@ -53,6 +53,34 @@ export const addCourse = course => {
   };
 };
 
+export const registerACourse = (value) => {
+  return dispatch => {
+    CourseService.registerACourse(value)
+      .then(res => {
+        dispatch(actRegisterACourse(value));
+        successAlert('Đăng ký khoá học thành công')
+      })
+      .catch(e => {
+        console.log(e);
+        errorAlert('Đăng ký khoá học không thành công')
+      });
+  };
+};
+
+export const deleteUserFromCourse = (value, type) => {
+  return dispatch => {
+    CourseService.deleteUserFromCourse(value)
+      .then(res => {
+        dispatch(actDeleteUserFromCourse(value, type));
+        successAlert('Huỷ ghi danh thành công')
+      })
+      .catch(e => {
+        console.log(e);
+        errorAlert('Huỷ ghi danh không thành công')
+      });
+  }
+}
+
 //action creators
 export const actFetchCourses = courses => {
   return {
@@ -81,3 +109,17 @@ export const changePageCourse = pageIndex => {
     payload: pageIndex,
   };
 };
+
+export const actRegisterACourse = value => {
+  return {
+    type: REGISTER_A_COURSE,
+    payload: value,
+  };
+};
+
+export const actDeleteUserFromCourse = value => {
+  return {
+    type: DELETE_USER_FROM_COURSE,
+    payload: value
+  }
+}

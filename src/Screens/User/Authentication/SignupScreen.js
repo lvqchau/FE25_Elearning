@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from 'react-redux';
 import { Formik, Form } from "formik";
 import { SignUpUserSchema } from "../../../Services/User";
 import { restConnector } from "../../../Services/Index";
@@ -7,8 +8,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { Box, Typography, Container } from "@material-ui/core";
-import { signupUser } from "../../../Redux/Actions/User";
-import { connect } from "react-redux";
+// import { signupUser } from "../../../Redux/Actions/User";
 import { bindActionCreators } from "redux";
 
 const styles = theme => ({
@@ -25,7 +25,7 @@ const styles = theme => ({
 });
 
 const SignupScreen = props => {
-  const { signupHandler } = props;
+  // const { signupHandler } = props;
   const _handleSubmit = value => {
     // props.history.push("/signin", {
     //   taiKhoan: value.taiKhoan,
@@ -33,7 +33,7 @@ const SignupScreen = props => {
     // });
     console.log(value);
 
-    props.dispatch(signupUser(value, props.history));
+    // props.dispatch(signupUser(value, props.history));
 
     // signupHandler(value); để châu về tìm hiểu
 
@@ -207,7 +207,7 @@ const SignupScreen = props => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      signupHandler: signupUser
+      // signupHandler: signupUser
     },
     dispatch
   );

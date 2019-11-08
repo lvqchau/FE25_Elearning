@@ -30,5 +30,19 @@ class CourseService {
       data: image,
     });
   }
+  registerACourse(value) {
+    return restConnector({
+      url: `/api/QuanLyKhoaHoc/GhiDanhKhoaHoc`,
+      method: 'POST',
+      data: value
+    })
+  }
+  deleteUserFromCourse(value) {
+    return restConnector({
+      url: `/api/QuanLyKhoaHoc/HuyGhiDanh`,
+      method: 'POST',
+      data: value
+    })
+  }
 }
 export default new CourseService();

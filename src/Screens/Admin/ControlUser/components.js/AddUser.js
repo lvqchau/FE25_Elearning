@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/styles';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -7,10 +6,10 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import { bindActionCreators } from 'redux';
-import { addUser } from '../../../Redux/Actions/User';
-import InputField from '../../../Components/InputField'
+import { addUser } from '../../../../Redux/Actions/User';
+import InputField from '../../../../Components/InputField';
 import { Formik, Form } from 'formik';
-import { AddUserSchema } from '../../../Services/User';
+import { AddUserSchema } from '../../../../Services/User';
 
 const styles = theme => ({
 
@@ -125,13 +124,5 @@ const AddUser = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-  }
-}
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  addUserHandler: addUser
-}, dispatch)
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(AddUser));
+export default withStyles(styles)(AddUser);

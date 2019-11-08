@@ -1,13 +1,7 @@
-import {
-  FETCH_CREDENTIALS,
-  FETCH_USERS,
-  ADD_USER,
-  SIGN_UP_USER,
-  FETCH_USER_INFO
-} from "./ActionType";
-import { restConnector } from "../../Services/Index";
-import UserService from "../../Services/User";
-import { successAlert, errorAlert } from "../../Components/ToastMessage";
+import { FETCH_CREDENTIALS, FETCH_USERS, ADD_USER, GET_WAITING_STUDENTS, GET_CURRENT_STUDENTS } from './ActionType';
+import { restConnector } from '../../Services/Index';
+import UserService from '../../Services/User';
+import { successAlert, errorAlert } from '../../Components/ToastMessage';
 
 //async action
 export const fetchCredential = (value, history) => {
@@ -24,21 +18,31 @@ export const fetchCredential = (value, history) => {
         } else {
           history.replace("/");
         }
-        successAlert("Đăng nhập thành công");
+        successAlert('Đăng nhập thành công!')
       })
       .catch(err => {
         switch (err.response.status) {
-          case 500:
-            errorAlert(err.response.data);
-            break;
-          default:
-            errorAlert("Đăng nhập lỗi");
+          case 500: errorAlert(err.response.data); break;
+          default: errorAlert('Đăng nhập lỗi!'); break;
         }
-        console.log(err.response.data);
       });
   };
 };
 
+export const signUpUser = (value) => {
+  return (dispatch) => {
+    UserService.signup(value)
+      .then(res => {
+        successAlert('Đăng ký thành công!')
+      })
+      .catch(err => {
+        switch (err.response.status) {
+          case 500: errorAlert(err.response.data); break;
+          default: errorAlert('Đăng ký lỗi!'); break;
+        }
+      });
+  };
+};
 export const addUser = user => {
   return dispatch => {
     UserService.addUser(user)
@@ -54,37 +58,26 @@ export const addUser = user => {
   };
 };
 
-export const signupUser = (value, history) => {
+export const getWaitingStudents = (courseId) => {
   return dispatch => {
-    UserService.signup(value)
+    UserService.getWaitingStudents({maKhoaHoc: courseId})
       .then(res => {
-        history.push("/signin", {
-          taiKhoan: value.taiKhoan,
-          matKhau: value.matKhau
-        });
-        // props.history.replace('/signin')
-        // dispatch.actSignupUser(res.data);
-        successAlert("Đăng ký thành công");
-        console.log(res);
+        dispatch(actGetWaitingStudents(res.data));
       })
-      .catch(err => {
-        errorAlert(err.response.data);
-        console.log(err.response.data);
-
-        // switch(err.respone.status === '500')
+      .catch(e => {
+        console.log(e.response.data);
       });
   };
 };
 
-export const fetchUserInfo = value => {
+export const getCurrentStudents = (courseId) => {
   return dispatch => {
-    UserService.fetchUserInfo(value)
+    UserService.getCurrentStudents({ maKhoaHoc: courseId })
       .then(res => {
-        dispatch.actFetchUserInfo(res.data);
-        console.log(res);
+        dispatch(actGetCurrentStudents(res.data));
       })
-      .catch(err => {
-        console.log(err);
+      .catch(e => {
+        console.log(e.response.data);
       });
   };
 };
@@ -122,16 +115,16 @@ export const actAddUser = user => {
   };
 };
 
-export const actSignupUser = user => {
+export const actGetWaitingStudents = courseId => {
   return {
-    type: SIGN_UP_USER,
-    payload: user
+    type: GET_WAITING_STUDENTS,
+    payload: courseId,
   };
 };
 
-export const actFetchUserInfo = user => {
+export const actGetCurrentStudents = courseId => {
   return {
-    type: FETCH_USER_INFO,
-    payload: user
+    type: GET_CURRENT_STUDENTS,
+    payload: courseId,
   };
 };
