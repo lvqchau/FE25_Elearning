@@ -76,5 +76,19 @@ class UserService {
       data: value
     });
   }
+  getWaitingStudents(course) {
+    return restConnector({
+      url: `/api/QuanLyNguoiDung/LayDanhSachHocVienChoXetDuyet`,
+      method: 'POST',
+      data: course,
+    });
+  }
+  getCurrentStudents(course) {
+    return restConnector({
+      url: `/api/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc`,
+      method: 'POST',
+      data: course,
+    });
+  }
 }
 export default new UserService();

@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from 'react-redux';
 import { Formik, Form } from "formik";
 import { SignUpUserSchema } from "../../../Services/User";
 import { restConnector } from "../../../Services/Index";
