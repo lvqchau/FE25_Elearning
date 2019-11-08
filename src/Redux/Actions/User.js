@@ -1,4 +1,4 @@
-import { FETCH_CREDENTIALS, FETCH_USERS, ADD_USER, GET_WAITING_STUDENTS, GET_CURRENT_STUDENTS } from './ActionType';
+import { FETCH_CREDENTIALS, FETCH_USERS, ADD_USER, GET_WAITING_STUDENTS, GET_CURRENT_STUDENTS, SIGN_UP_USER, FETCH_USER_INFO } from './ActionType';
 import { restConnector } from '../../Services/Index';
 import UserService from '../../Services/User';
 import { successAlert, errorAlert } from '../../Components/ToastMessage';
@@ -81,6 +81,40 @@ export const getCurrentStudents = (courseId) => {
       });
   };
 };
+export const signupUser = (value, history) => {
+  return dispatch => {
+    UserService.signup(value)
+      .then(res => {
+        history.push("/signin", {
+          taiKhoan: value.taiKhoan,
+          matKhau: value.matKhau
+        });
+        // props.history.replace('/signin')
+        // dispatch.actSignupUser(res.data);
+        successAlert("Đăng ký thành công");
+        console.log(res);
+      })
+      .catch(err => {
+        errorAlert(err.response.data);
+        console.log(err.response.data);
+
+        // switch(err.respone.status === '500')
+      });
+  };
+};
+
+export const fetchUserInfo = value => {
+  return dispatch => {
+    UserService.fetchUserInfo(value)
+      .then(res => {
+        dispatch.actFetchUserInfo(res.data);
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+};
 
 //action creators
 export const fetchUsers = (pageIndex, itemsPerPage) => {
@@ -126,5 +160,19 @@ export const actGetCurrentStudents = courseId => {
   return {
     type: GET_CURRENT_STUDENTS,
     payload: courseId,
+  };
+};
+
+export const actSignupUser = user => {
+  return {
+    type: SIGN_UP_USER,
+    payload: user
+  };
+};
+
+export const actFetchUserInfo = user => {
+  return {
+    type: FETCH_USER_INFO,
+    payload: user
   };
 };
