@@ -3,7 +3,7 @@ import { FETCH_CREDENTIALS, FETCH_USERS, ADD_USER, GET_WAITING_STUDENTS, GET_CUR
 let initialState = {
   credentials: null,
   pageIndex: 1,
-  userInfo: null
+  userInfo: null,
   users: null,
   waitingStudents: [],
   currentStudents: []
