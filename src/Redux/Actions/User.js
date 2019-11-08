@@ -1,4 +1,4 @@
-import { FETCH_CREDENTIALS, FETCH_USERS, ADD_USER } from './ActionType';
+import { FETCH_CREDENTIALS, FETCH_USERS, ADD_USER, GET_WAITING_STUDENTS, GET_CURRENT_STUDENTS } from './ActionType';
 import { restConnector } from '../../Services/Index';
 import UserService from '../../Services/User';
 import { successAlert, errorAlert } from '../../Components/ToastMessage';
@@ -18,13 +18,31 @@ export const fetchCredential = (value, history) => {
         } else {
           history.replace('/');
         }
+        successAlert('Đăng nhập thành công!')
       })
       .catch(err => {
-        console.log(err.response.data);
+        switch (err.response.status) {
+          case 500: errorAlert(err.response.data); break;
+          default: errorAlert('Đăng nhập lỗi!'); break;
+        }
       });
   };
 };
 
+export const signUpUser = (value) => {
+  return (dispatch) => {
+    UserService.signup(value)
+      .then(res => {
+        successAlert('Đăng ký thành công!')
+      })
+      .catch(err => {
+        switch (err.response.status) {
+          case 500: errorAlert(err.response.data); break;
+          default: errorAlert('Đăng ký lỗi!'); break;
+        }
+      });
+  };
+};
 export const addUser = user => {
   return (dispatch) => {
     UserService.addUser(user)
@@ -36,6 +54,30 @@ export const addUser = user => {
         console.log(err.response)
         if (err.response!==undefined)
           errorAlert("Thêm người dùng không thành công")
+      });
+  };
+};
+
+export const getWaitingStudents = (courseId) => {
+  return dispatch => {
+    UserService.getWaitingStudents({maKhoaHoc: courseId})
+      .then(res => {
+        dispatch(actGetWaitingStudents(res.data));
+      })
+      .catch(e => {
+        console.log(e.response.data);
+      });
+  };
+};
+
+export const getCurrentStudents = (courseId) => {
+  return dispatch => {
+    UserService.getCurrentStudents({ maKhoaHoc: courseId })
+      .then(res => {
+        dispatch(actGetCurrentStudents(res.data));
+      })
+      .catch(e => {
+        console.log(e.response.data);
       });
   };
 };
@@ -71,5 +113,19 @@ export const actAddUser = user => {
   return {
     type: ADD_USER,
     payload: user,
+  };
+};
+
+export const actGetWaitingStudents = courseId => {
+  return {
+    type: GET_WAITING_STUDENTS,
+    payload: courseId,
+  };
+};
+
+export const actGetCurrentStudents = courseId => {
+  return {
+    type: GET_CURRENT_STUDENTS,
+    payload: courseId,
   };
 };

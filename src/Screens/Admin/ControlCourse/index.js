@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/styles'
-import { bindActionCreators } from '../../../../../../Library/Caches/typescript/3.6/node_modules/redux';
-import { fetchCourses } from '../../../Redux/Actions/Course';
-import get from 'lodash/get'
+import { bindActionCreators } from 'redux';
+import { fetchCourses, addCourse, fetchCourseType, registerACourse, deleteUserFromCourse } from '../../../Redux/Actions/Course';
+import get from 'lodash/get';
+import AsyncSelect from 'react-select/async';
 
 import Table from '@material-ui/core/Table'
 import TablePagination from '@material-ui/core/TablePagination'
@@ -13,11 +14,16 @@ import TableBody from '@material-ui/core/TableBody'
 import TableHead from '@material-ui/core/TableHead'
 import Paper from '@material-ui/core/Paper'
 import IconButton from '@material-ui/core/IconButton'
+import DeleteIcon from '@material-ui/icons/Delete'
 import AddIcon from '@material-ui/icons/Add'
 import EditIcon from '@material-ui/icons/Create'
 import BackIcon from '@material-ui/icons/KeyboardBackspace'
 
-import AddCourse from '../AddCourse'
+// import AddCourse from '../AddCourse'
+import AddCourse from './components/AddCourse'
+import RegisterCourse from './components/RegisterCourse';
+import { getWaitingStudents, getCurrentStudents } from '../../../Redux/Actions/User';
+import { Button } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -76,12 +82,16 @@ const styles = theme => ({
   }
 })
 
+
+const defaultOption = { label: 'Tìm người dùng hoặc danh sách', value: '' }
+
 const ControlCourse = (props) => {
-  const { classes, fetchCoursesHandler, courses, pageIndex } = props
+  const { classes, courseType, deleteUserFromCourseHandler, registerACourseHandler, fetchCoursesHandler, addCourseHandler, fetchCourseTypeHandler, getWaitingStudentsHandler, getCurrentStudentsHandler, waitingStudents, currentStudents, courses, pageIndex } = props
   const totalCount = get(courses, 'totalCount', 0)
   const items = get(courses, 'items', [])
   const [page, setPage] = React.useState(0);
   const [adding, setAdd] = React.useState(false);
+  const [courseId, setCourseId] = React.useState('');
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -89,13 +99,29 @@ const ControlCourse = (props) => {
   };
 
   useEffect(() => {
+    
+  }, [waitingStudents, currentStudents])
+
+  useEffect(() => {
     const { fetchCoursesHandler, pageIndex } = props
     fetchCoursesHandler(pageIndex, 5)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageIndex])
 
+  const handleChange = (e) => {
+    console.log(e.target);
+  }
+
+
   return (
     <div style={{ margin: '30px auto' }}>
+      <div>
+        {/* <AsyncSelect
+          onChange={handleChange}
+          loadOptions={handleLoad}
+          defaultOptions
+        /> */}
+      </div>
       <IconButton
         edge="start"
         className={adding ? `${classes.addButton} ${classes.addButtonRed}` : `${classes.addButton} ${classes.addButtonBlue}`}
@@ -112,7 +138,7 @@ const ControlCourse = (props) => {
       </IconButton>
       {
         adding ?
-          <AddCourse />
+          <AddCourse courseType={courseType} addCourseHandler={addCourseHandler} fetchCourseTypeHandler={fetchCourseTypeHandler}/>
           :
           <Paper className={classes.root}>
             <h3 style={{ margin: 10 }}>Danh sách khoá học</h3>
@@ -124,7 +150,7 @@ const ControlCourse = (props) => {
                   <TableCell>Tên</TableCell>
                   <TableCell>Mô tả</TableCell>
                   <TableCell>Người tạo</TableCell>
-                  <TableCell>Sửa</TableCell>
+                  <TableCell>Thao tác</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -156,16 +182,38 @@ const ControlCourse = (props) => {
                           </div>
                         </TableCell>
                         <TableCell>
-                          <EditIcon
-                            className={classes.editButton}
-                            aria-label="add a user"
-                            onClick={() => console.log('open add')}
-                          />
+                          <IconButton
+                            edge="start"
+                            className={`${classes.addButton} ${classes.addButtonBlue}`}
+                            size='small'
+                            color="inherit"
+                            aria-label="register a user"
+                            onClick={() => setCourseId(item.maKhoaHoc)}>
+                              <AddIcon/>
+                          </IconButton>
+                          <IconButton
+                            edge="start"
+                            className={`${classes.addButton} ${classes.addButtonBlue}`}
+                            size='small'
+                            color="inherit"
+                            aria-label="edit a course"
+                            onClick={() => console.log('open edit')}>
+                            <EditIcon />
+                          </IconButton>
+                          <IconButton
+                            edge="start"
+                            className={`${classes.addButton} ${classes.addButtonRed}`}
+                            size='small'
+                            color="inherit"
+                            aria-label="inactive a course"
+                            onClick={() => console.log('open delete')}>
+                            <DeleteIcon />
+                          </IconButton>
                         </TableCell>
                       </TableRow>
                     )
                   })
-                }
+              }
               </TableBody>
             </Table>
             <TablePagination
@@ -184,20 +232,38 @@ const ControlCourse = (props) => {
             />
           </Paper>
       }
-      
+      <RegisterCourse
+        getCurrentStudentsHandler={getCurrentStudentsHandler}
+        getWaitingStudentsHandler={getWaitingStudentsHandler}
+        registerACourseHandler={registerACourseHandler}
+        deleteUserFromCourseHandler={deleteUserFromCourseHandler}
+        waitingStudents={waitingStudents}
+        currentStudents={currentStudents}
+        courseId={courseId} />
     </div>
   );
 };
 
+//lấy
 const mapStateToProps = (state) => {
   return {
-    courses: state.course.courses || {items : []},
-    pageIndex: state.course.pageIndex
+    courses: state.course.courses || { items: [] },
+    courseType: state.course.courseType,
+    pageIndex: state.course.pageIndex,
+    waitingStudents: state.user.waitingStudents,
+    currentStudents: state.user.currentStudents
   }
 }
 
+//gửi
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  fetchCoursesHandler: fetchCourses
+  fetchCoursesHandler: fetchCourses,
+  addCourseHandler: addCourse,
+  fetchCourseTypeHandler: fetchCourseType,
+  getWaitingStudentsHandler: getWaitingStudents,
+  getCurrentStudentsHandler: getCurrentStudents,
+  registerACourseHandler: registerACourse,
+  deleteUserFromCourseHandler: deleteUserFromCourse
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ControlCourse));

@@ -15,8 +15,8 @@ import IconButton from '@material-ui/core/IconButton'
 import AddIcon from '@material-ui/icons/Add'
 import EditIcon from '@material-ui/icons/Create'
 import BackIcon from '@material-ui/icons/KeyboardBackspace'
-import { fetchUsers } from '../../../Redux/Actions/User';
-import AddUser from '../AddUser';
+import { fetchUsers, addUser } from '../../../Redux/Actions/User';
+import AddUser from './components.js/AddUser';
 
 const styles = theme => ({
   addButton: {
@@ -65,7 +65,7 @@ const styles = theme => ({
 })
 
 const ControlUser = (props) => {
-  const { classes, users, fetchUsersHandler, pageIndex } = props
+  const { classes, users, addUserHandler, fetchUsersHandler, pageIndex } = props
   const totalCount = get(users, 'totalCount', 0)
   const items = get(users, 'items', [])
   const [page, setPage] = React.useState(0);
@@ -100,7 +100,7 @@ const ControlUser = (props) => {
       </IconButton>
       {
         adding ?
-          <AddUser/>
+          <AddUser addUserHandler={addUserHandler}/>
           :
           <Paper className={classes.root}>
             <h3 style={{ margin: 10 }}>Danh sách người dùng</h3>
@@ -169,7 +169,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  fetchUsersHandler: fetchUsers
+  fetchUsersHandler: fetchUsers,
+  addUserHandler: addUser
 }, dispatch)
 
 
