@@ -70,24 +70,26 @@ class UserService {
     });
   }
   fetchUserInfo(value) {
+    console.log(restConnector);
     return restConnector({
       url: "/api/QuanLyNguoiDung/ThongTinTaiKhoan",
       method: "POST",
       data: value
     });
   }
+
   getWaitingStudents(course) {
     return restConnector({
       url: `/api/QuanLyNguoiDung/LayDanhSachHocVienChoXetDuyet`,
-      method: 'POST',
-      data: course,
+      method: "POST",
+      data: course
     });
   }
   getCurrentStudents(course) {
     return restConnector({
       url: `/api/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc`,
-      method: 'POST',
-      data: course,
+      method: "POST",
+      data: course
     });
   }
 }
