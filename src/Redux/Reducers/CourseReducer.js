@@ -1,15 +1,11 @@
-import {
-  FETCH_COURSES,
-  CHANGE_PAGE_COURSES,
-  ADD_COURSE,
-  FETCH_COURSE_TYPE,
-  FETCH_USER_COURSES
-} from "../Actions/ActionType";
+import { FETCH_COURSES, CHANGE_PAGE_COURSES, ADD_COURSE, FETCH_COURSE_TYPE, GET_WAITING_COURSES, GET_CURRENT_COURSES, FETCH_USER_COURSES } from '../Actions/ActionType';
 
 let initialState = {
   courses: null,
   pageIndex: 1,
   courseType: [],
+  waitingCourses: [],
+  currentCourses: [],
   userCourses: null
 };
 const CourseReducer = (state = initialState, action) => {
@@ -24,6 +20,12 @@ const CourseReducer = (state = initialState, action) => {
       state.courseType = action.payload;
       return { ...state };
     case ADD_COURSE:
+      return { ...state };
+    case GET_WAITING_COURSES:
+      state.waitingCourses = action.payload;
+      return { ...state };
+    case GET_CURRENT_COURSES:
+      state.currentCourses = action.payload;
       return { ...state };
     case FETCH_USER_COURSES:
       state.userCourses = action.payload;

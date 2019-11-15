@@ -6,7 +6,6 @@ import LoginScreen from "./Screens/User/Authentication/LoginScreen";
 import SignupScreen from "./Screens/User/Authentication/SignupScreen";
 import { actFetchCredentials } from "./Redux/Actions/User";
 import { restConnector } from "./Services/Index";
-// import { actFetchCourses } from "./Redux/Actions/Course";
 import DetailScreen from "./Screens/User/Detail/DetailScreen";
 import AuthenticationRoute from "./HOC/Auth";
 import AuthAdmin from "./HOC/AuthAdmin";
@@ -26,10 +25,6 @@ function App(props) {
 
       restConnector.defaults.headers.common.Authorization = `Bearer ${credetialsObj.accessToken}`;
     }
-    //clean up component
-    // return () => {
-
-    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

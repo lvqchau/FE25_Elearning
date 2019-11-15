@@ -1,15 +1,7 @@
-import {
-  FETCH_CREDENTIALS,
-  FETCH_USERS,
-  ADD_USER,
-  GET_WAITING_STUDENTS,
-  GET_CURRENT_STUDENTS,
-  SIGN_UP_USER,
-  FETCH_USER_INFO
-} from "./ActionType";
-import { restConnector } from "../../Services/Index";
-import UserService from "../../Services/User";
-import { successAlert, errorAlert } from "../../Components/ToastMessage";
+import { FETCH_CREDENTIALS, FETCH_USERS, ADD_USER, GET_WAITING_STUDENTS, GET_CURRENT_STUDENTS, SIGN_UP_USER, FETCH_USER_INFO, GET_CURRENT_COURSES, GET_WAITING_COURSES } from './ActionType';
+import { restConnector } from '../../Services/Index';
+import UserService from '../../Services/User';
+import { successAlert, errorAlert } from '../../Components/ToastMessage';
 
 //async action
 export const fetchCredential = (value, history) => {
@@ -79,6 +71,32 @@ export const getCurrentStudents = courseId => {
       });
   };
 };
+
+
+export const getWaitingCourses = (taiKhoan) => {
+  return dispatch => {
+    UserService.getWaitingCourses({ taiKhoan })
+      .then(res => {
+        dispatch(actGetWaitingCourses(res.data));
+      })
+      .catch(e => {
+        console.log(e.response.data);
+      });
+  };
+};
+
+export const getCurrentCourses = (taiKhoan) => {
+  return dispatch => {
+    UserService.getCurrentCourses({ taiKhoan })
+      .then(res => {
+        dispatch(actGetCurrentCourses(res.data));
+      })
+      .catch(e => {
+        console.log(e.response.data);
+      });
+  };
+};
+
 export const signupUser = (value, history) => {
   return dispatch => {
     UserService.signup(value)
@@ -152,17 +170,31 @@ export const actAddUser = user => {
   };
 };
 
-export const actGetWaitingStudents = courseId => {
+export const actGetWaitingStudents = students => {
   return {
     type: GET_WAITING_STUDENTS,
-    payload: courseId
+    payload: students,
   };
 };
 
-export const actGetCurrentStudents = courseId => {
+export const actGetCurrentStudents = students => {
   return {
     type: GET_CURRENT_STUDENTS,
-    payload: courseId
+    payload: students,
+  };
+};
+
+export const actGetWaitingCourses = courses => {
+  return {
+    type: GET_WAITING_COURSES,
+    payload: courses,
+  };
+};
+
+export const actGetCurrentCourses = courses => {
+  return {
+    type: GET_CURRENT_COURSES,
+    payload: courses,
   };
 };
 

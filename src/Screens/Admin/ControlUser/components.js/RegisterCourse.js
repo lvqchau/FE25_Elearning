@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { withStyles } from '@material-ui/styles';
-import { Button } from '@material-ui/core';
 
 import Table from '@material-ui/core/Table'
-import TablePagination from '@material-ui/core/TablePagination'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import TableBody from '@material-ui/core/TableBody'
@@ -11,7 +9,6 @@ import TableHead from '@material-ui/core/TableHead'
 import Paper from '@material-ui/core/Paper'
 import IconButton from '@material-ui/core/IconButton'
 import AddIcon from '@material-ui/icons/Add'
-import EditIcon from '@material-ui/icons/Create'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 const styles = theme => ({
@@ -61,66 +58,52 @@ const styles = theme => ({
 })
 
 const RegisterCourse = (props) => {
-  const { classes, deleteUserFromCourseHandler, registerACourseHandler, getWaitingStudentsHandler, getCurrentStudentsHandler, waitingStudents, currentStudents, courseId } = props;
+  const { classes, getWaitingCoursesHandler, getCurrentCoursesHandler, waitingCourses, currentCourses, taiKhoan } = props;
 
   useEffect(() => {
-    getWaitingStudentsHandler(courseId);
-    getCurrentStudentsHandler(courseId);
-  }, [courseId])
+    getWaitingCoursesHandler(taiKhoan);
+    getCurrentCoursesHandler(taiKhoan);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [taiKhoan])
 
-  useEffect(() => {
-    console.log(waitingStudents)
-  }, [waitingStudents, currentStudents])
-
-  const ActionCourse = (courseId, taiKhoan, type, deleteType) => {
-    const value = {
-      maKhoaHoc: courseId,
-      taiKhoan
-    }
-    switch (type) {
-      case 'register': registerACourseHandler(value); break;
-      case 'delete': deleteUserFromCourseHandler(value, deleteType); break;
-      default: break;
-    } 
-  }
+  // const ActionCourse = (taiKhoan, taiKhoan, type, deleteType) => {
+  //   const value = {
+  //     maKhoaHoc: taiKhoan,
+  //     taiKhoan
+  //   }
+  //   switch (type) {
+  //     case 'register': registerACourseHandler(value); break;
+  //     case 'delete': deleteUserFromCourseHandler(value, deleteType); break;
+  //     default: break;
+  //   }
+  // }
 
 
   return (
     <div>
       {/* Chờ xác thực */}
       <div>
-        {
-          waitingStudents && waitingStudents.map((item, index) => {
-            return <p>{item.taiKhoan}</p>
-          })
-        }
-        <Paper className={classes.root}>
-          <h3 style={{ margin: 10 }}>Học viên chờ xác thực</h3>
+        <Paper className={classes.root} style={{ marginBottom: 20 }}>
+          <h3 style={{ margin: 10 }}>Khoá học chờ xác thực</h3>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell>Id</TableCell>
-                <TableCell>Tài khoản</TableCell>
-                <TableCell>Họ tên</TableCell>
+                <TableCell>Tên khoá học</TableCell>
                 <TableCell>Chờ xác nhận</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {
-                waitingStudents && waitingStudents.map((item, index) => {
+                waitingCourses && waitingCourses.map((item, index) => {
                   return (
                     <TableRow key={index}>
                       <TableCell component="th" scope="row">
-                        {index+1}
+                        {index + 1}
                       </TableCell>
                       <TableCell>
                         <div style={{ whiteSpace: 'nowrap' }}>
-                          {item.taiKhoan}
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div style={{ whiteSpace: 'nowrap' }}>
-                          {item.hoTen}
+                          {item.tenKhoaHoc}
                         </div>
                       </TableCell>
                       <TableCell>
@@ -130,7 +113,7 @@ const RegisterCourse = (props) => {
                           size='small'
                           color="inherit"
                           aria-label="register a user"
-                          onClick={() => ActionCourse(courseId, item.taiKhoan, 'register')}>
+                          onClick={() => console.log('register')}>
                           <AddIcon />
                         </IconButton>
                         <IconButton
@@ -139,7 +122,7 @@ const RegisterCourse = (props) => {
                           size='small'
                           color="inherit"
                           aria-label="inactive a course"
-                          onClick={() => ActionCourse(courseId, item.taiKhoan, 'delete', 'wait')}>
+                          onClick={() => console.log('inactive')}>
                           <DeleteIcon />
                         </IconButton>
                       </TableCell>
@@ -149,38 +132,23 @@ const RegisterCourse = (props) => {
               }
             </TableBody>
           </Table>
-          {/* <TablePagination
-            rowsPerPageOptions={[5]}
-            component="div"
-            count={totalCount}
-            rowsPerPage={5}
-            page={page}
-            backIconButtonProps={{
-              'aria-label': 'previous page',
-            }}
-            nextIconButtonProps={{
-              'aria-label': 'next page',
-            }}
-            onChangePage={handleChangePage}
-          /> */}
         </Paper>
       </div>
       {/* Đã tham gia khoá học */}
       <div>
         <Paper className={classes.root}>
-          <h3 style={{ margin: 10 }}>Học viên đã tham gia khoá học</h3>
+          <h3 style={{ margin: 10 }}>Khoá học đã ghi danh</h3>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell>Id</TableCell>
-                <TableCell>Tài khoản</TableCell>
-                <TableCell>Họ tên</TableCell>
+                <TableCell>Tên khoá học</TableCell>
                 <TableCell>Chờ xác nhận</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {
-                currentStudents && currentStudents.map((item, index) => {
+                currentCourses && currentCourses.map((item, index) => {
                   return (
                     <TableRow key={index}>
                       <TableCell component="th" scope="row">
@@ -188,12 +156,7 @@ const RegisterCourse = (props) => {
                       </TableCell>
                       <TableCell>
                         <div style={{ whiteSpace: 'nowrap' }}>
-                          {item.taiKhoan}
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div style={{ whiteSpace: 'nowrap' }}>
-                          {item.hoTen}
+                          {item.tenKhoaHoc}
                         </div>
                       </TableCell>
                       <TableCell>
@@ -203,7 +166,7 @@ const RegisterCourse = (props) => {
                           size='small'
                           color="inherit"
                           aria-label="inactive a course"
-                          onClick={() => ActionCourse(courseId, item.taiKhoan, 'delete', 'cur')}>
+                          onClick={() => console.log('inactive')}>
                           <DeleteIcon />
                         </IconButton>
                       </TableCell>
@@ -213,20 +176,6 @@ const RegisterCourse = (props) => {
               }
             </TableBody>
           </Table>
-          {/* <TablePagination
-            rowsPerPageOptions={[5]}
-            component="div"
-            count={totalCount}
-            rowsPerPage={5}
-            page={page}
-            backIconButtonProps={{
-              'aria-label': 'previous page',
-            }}
-            nextIconButtonProps={{
-              'aria-label': 'next page',
-            }}
-            onChangePage={handleChangePage}
-          /> */}
         </Paper>
       </div>
     </div>
