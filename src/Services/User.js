@@ -70,6 +70,7 @@ class UserService {
     });
   }
   fetchUserInfo(value) {
+    console.log(restConnector);
     return restConnector({
       url: "/api/QuanLyNguoiDung/ThongTinTaiKhoan",
       method: "POST",
@@ -83,7 +84,7 @@ class UserService {
       data: course,
     });
   }
-  getCurrentStudents(course                                                 ) {
+  getCurrentStudents(course) {
     return restConnector({
       url: '/api/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc',
       method: 'POST',

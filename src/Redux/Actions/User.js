@@ -18,31 +18,21 @@ export const fetchCredential = (value, history) => {
         } else {
           history.replace("/");
         }
-        successAlert('Đăng nhập thành công!')
+        successAlert("Đăng nhập thành công!");
       })
       .catch(err => {
         switch (err.response.status) {
-          case 500: errorAlert(err.response.data); break;
-          default: errorAlert('Đăng nhập lỗi!'); break;
+          case 500:
+            errorAlert(err.response.data);
+            break;
+          default:
+            errorAlert("Đăng nhập lỗi!");
+            break;
         }
       });
   };
 };
 
-export const signUpUser = (value) => {
-  return (dispatch) => {
-    UserService.signup(value)
-      .then(res => {
-        successAlert('Đăng ký thành công!')
-      })
-      .catch(err => {
-        switch (err.response.status) {
-          case 500: errorAlert(err.response.data); break;
-          default: errorAlert('Đăng ký lỗi!'); break;
-        }
-      });
-  };
-};
 export const addUser = user => {
   return dispatch => {
     UserService.addUser(user)
@@ -58,9 +48,9 @@ export const addUser = user => {
   };
 };
 
-export const getWaitingStudents = (courseId) => {
+export const getWaitingStudents = courseId => {
   return dispatch => {
-    UserService.getWaitingStudents({maKhoaHoc: courseId})
+    UserService.getWaitingStudents({ maKhoaHoc: courseId })
       .then(res => {
         dispatch(actGetWaitingStudents(res.data));
       })
@@ -70,7 +60,7 @@ export const getWaitingStudents = (courseId) => {
   };
 };
 
-export const getCurrentStudents = (courseId) => {
+export const getCurrentStudents = courseId => {
   return dispatch => {
     UserService.getCurrentStudents({ maKhoaHoc: courseId })
       .then(res => {
@@ -121,9 +111,14 @@ export const signupUser = (value, history) => {
         console.log(res);
       })
       .catch(err => {
-        errorAlert(err.response.data);
-        console.log(err.response.data);
-
+        switch (err.response.status) {
+          case 500:
+            errorAlert(err.response.data);
+            break;
+          default:
+            errorAlert("Đăng ký lỗi!");
+            break;
+        }
         // switch(err.respone.status === '500')
       });
   };
@@ -133,11 +128,11 @@ export const fetchUserInfo = value => {
   return dispatch => {
     UserService.fetchUserInfo(value)
       .then(res => {
-        dispatch.actFetchUserInfo(res.data);
+        dispatch(actFetchUserInfo(res.data));
         console.log(res);
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.response.data);
       });
   };
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import HomeScreen from "./Screens/User/Home/HomeScreen";
@@ -23,9 +23,7 @@ function App(props) {
       let credetialsObj = JSON.parse(credentials);
       props.dispatch(actFetchCredentials(credetialsObj));
 
-      restConnector.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${credetialsObj.accessToken}`;
+      restConnector.defaults.headers.common.Authorization = `Bearer ${credetialsObj.accessToken}`;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -46,7 +44,8 @@ function App(props) {
             <Route exact path="/signup" component={SignupScreen} />
             <AuthenticationRoute exact path="/" component={HomeScreen} />
             <AuthenticationRoute
-              exact path="/detail/:courseId"
+              exact
+              path="/detail/:courseId"
               component={DetailScreen}
             />
           </Switch>
