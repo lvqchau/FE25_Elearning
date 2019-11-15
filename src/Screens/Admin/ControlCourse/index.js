@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/styles'
 import { bindActionCreators } from 'redux';
 import { fetchCourses, addCourse, fetchCourseType, registerACourse, deleteUserFromCourse } from '../../../Redux/Actions/Course';
 import get from 'lodash/get';
-import AsyncSelect from 'react-select/async';
 
 import Table from '@material-ui/core/Table'
 import TablePagination from '@material-ui/core/TablePagination'
@@ -16,14 +15,14 @@ import Paper from '@material-ui/core/Paper'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 import AddIcon from '@material-ui/icons/Add'
+import CloseIcon from '@material-ui/icons/Close'
 import EditIcon from '@material-ui/icons/Create'
 import BackIcon from '@material-ui/icons/KeyboardBackspace'
 
 // import AddCourse from '../AddCourse'
 import AddCourse from './components/AddCourse'
-import RegisterCourse from './components/RegisterCourse';
+import RegisterUser from './components/RegisterUser';
 import { getWaitingStudents, getCurrentStudents } from '../../../Redux/Actions/User';
-import { Button } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -79,11 +78,21 @@ const styles = theme => ({
     borderRadius: 5,
     fontSize: 7,
     display: "block"
+  },
+  registerContainer: {
+    padding: 20,
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  closeIcon: {
+    marginBottom: 10,
+    cursor: 'pointer',
+    '&.MuiSvgIcon-root': {
+      alignSelf: 'flex-end'
+    }
   }
 });
 
-
-const defaultOption = { label: 'Tìm người dùng hoặc danh sách', value: '' }
 
 const ControlCourse = (props) => {
   const { classes, courseType, deleteUserFromCourseHandler, registerACourseHandler, fetchCoursesHandler, addCourseHandler, fetchCourseTypeHandler, getWaitingStudentsHandler, getCurrentStudentsHandler, waitingStudents, currentStudents, courses, pageIndex } = props
@@ -91,12 +100,18 @@ const ControlCourse = (props) => {
   const items = get(courses, 'items', [])
   const [page, setPage] = React.useState(0);
   const [adding, setAdd] = React.useState(false);
+  const [register, setRegister] = React.useState(false);
   const [courseId, setCourseId] = React.useState('');
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
     fetchCoursesHandler(newPage + 1, 5);
   };
+
+  const registering = (maKhoaHoc) => {
+    setCourseId(maKhoaHoc)
+    setRegister(true)
+  }
 
   useEffect(() => {
     
@@ -108,13 +123,8 @@ const ControlCourse = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageIndex]);
 
-  const handleChange = (e) => {
-    console.log(e.target);
-  }
-
-
   return (
-    <div style={{ margin: '30px auto' }}>
+    <div style={{margin: '30px auto'}}>
       <div>
         {/* <AsyncSelect
           onChange={handleChange}
@@ -136,9 +146,11 @@ const ControlCourse = (props) => {
         {adding ? <BackIcon /> : <AddIcon />}
       </IconButton>
       {
-        adding ?
-          <AddCourse courseType={courseType} addCourseHandler={addCourseHandler} fetchCourseTypeHandler={fetchCourseTypeHandler}/>
-          :
+        adding &&
+        <AddCourse courseType={courseType} addCourseHandler={addCourseHandler} fetchCourseTypeHandler={fetchCourseTypeHandler} />
+      }
+      {
+        !adding && !register &&
           <Paper className={classes.root}>
             <h3 style={{ margin: 10 }}>Danh sách khoá học</h3>
             <Table className={classes.table} aria-label="simple table">
@@ -187,7 +199,7 @@ const ControlCourse = (props) => {
                             size='small'
                             color="inherit"
                             aria-label="register a user"
-                            onClick={() => setCourseId(item.maKhoaHoc)}>
+                            onClick={() => registering(item.maKhoaHoc)}>
                               <AddIcon/>
                           </IconButton>
                           <IconButton
@@ -231,14 +243,20 @@ const ControlCourse = (props) => {
             />
           </Paper>
       }
-      <RegisterCourse
-        getCurrentStudentsHandler={getCurrentStudentsHandler}
-        getWaitingStudentsHandler={getWaitingStudentsHandler}
-        registerACourseHandler={registerACourseHandler}
-        deleteUserFromCourseHandler={deleteUserFromCourseHandler}
-        waitingStudents={waitingStudents}
-        currentStudents={currentStudents}
-        courseId={courseId} />
+      {
+        !adding && register &&
+        <Paper className={classes.registerContainer}>
+          <CloseIcon className={classes.closeIcon} onClick={() => setRegister(false)}/>
+          <RegisterUser
+            getCurrentStudentsHandler={getCurrentStudentsHandler}
+            getWaitingStudentsHandler={getWaitingStudentsHandler}
+            registerACourseHandler={registerACourseHandler}
+            deleteUserFromCourseHandler={deleteUserFromCourseHandler}
+            waitingStudents={waitingStudents}
+            currentStudents={currentStudents}
+            courseId={courseId} />
+        </Paper>
+      }
     </div>
   );
 };

@@ -5,8 +5,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
-import { bindActionCreators } from 'redux';
-import { addUser } from '../../../../Redux/Actions/User';
 import InputField from '../../../../Components/InputField';
 import { Formik, Form } from 'formik';
 import { AddUserSchema } from '../../../../Services/User';
@@ -78,7 +76,7 @@ const AddUser = (props) => {
             <div className="col-sm-6">
               <div className="form-group">
                 <InputField
-                  placeholder="Eail"
+                  placeholder="Email"
                   label="Email"
                   type="email"
                   name="email"

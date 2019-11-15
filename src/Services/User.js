@@ -78,17 +78,31 @@ class UserService {
   }
   getWaitingStudents(course) {
     return restConnector({
-      url: `/api/QuanLyNguoiDung/LayDanhSachHocVienChoXetDuyet`,
+      url: '/api/QuanLyNguoiDung/LayDanhSachHocVienChoXetDuyet',
       method: 'POST',
       data: course,
     });
   }
-  getCurrentStudents(course) {
+  getCurrentStudents(course                                                 ) {
     return restConnector({
-      url: `/api/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc`,
+      url: '/api/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc',
       method: 'POST',
       data: course,
     });
+  }
+  getWaitingCourses(user) {
+    return restConnector({
+      url: '/api/QuanLyNguoiDung/LayDanhSachKhoaHocChoXetDuyet',
+      method: 'POST',
+      data: user
+    })
+  }
+  getCurrentCourses(user) {
+    return restConnector({
+      url: '/api/QuanLyNguoiDung/LayDanhSachKhoaHocDaXetDuyet',
+      method: 'POST',
+      data: user
+    })
   }
 }
 export default new UserService();
