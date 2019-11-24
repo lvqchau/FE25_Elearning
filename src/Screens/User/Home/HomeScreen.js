@@ -1,20 +1,21 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 
-import CourseItem from './CourseItem';
+import CourseItem from "./CourseItem";
 
-import { fetchCourses, changePageCourse } from '../../../Redux/Actions/Course';
-import Pagination from '../../../Components/Pagination';
+import { fetchCourses, changePageCourse } from "../../../Redux/Actions/Course";
+import Pagination from "../../../Components/Pagination";
+import Carousel from "../../../Layouts/Carousel";
 
 const HomeScreen = ({ dispatch, courses, pageIndex }) => {
   useEffect(() => {
-    dispatch(fetchCourses(pageIndex, 5));
+    dispatch(fetchCourses(pageIndex, 8));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const _renderCourseItem = () => {
     return courses.items.map((item, index) => (
-      <div className="col-4" key={index}>
+      <div className="col-3" key={index}>
         <CourseItem course={item} />
       </div>
     ));
@@ -22,13 +23,14 @@ const HomeScreen = ({ dispatch, courses, pageIndex }) => {
 
   const _changePage = chosenPage => {
     dispatch(changePageCourse(chosenPage));
-    dispatch(fetchCourses(chosenPage, 5));
+    dispatch(fetchCourses(chosenPage, 8));
   };
 
   return (
     <>
-      <h1 className="display-4 text-center">Home Screen</h1>
-      <div className="container">
+      <Carousel />
+      <h1 className="display-4 text-center">Danh sách khóa học</h1>
+      <div className="container col-md-10">
         <div className="row">{_renderCourseItem()}</div>
         <Pagination
           _changePage={_changePage}
@@ -42,5 +44,5 @@ const HomeScreen = ({ dispatch, courses, pageIndex }) => {
 
 export default connect(state => ({
   courses: state.course.courses || { items: [] },
-  pageIndex: state.course.pageIndex,
+  pageIndex: state.course.pageIndex
 }))(HomeScreen);

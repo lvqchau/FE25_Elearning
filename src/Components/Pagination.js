@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 // import * as _ from 'lodash';
-import classnames from 'classnames';
+import classnames from "classnames";
 
 const generatePage = (pageIndex, totalPages) => {
   const delta = 2;
@@ -14,11 +14,11 @@ const generatePage = (pageIndex, totalPages) => {
   }
 
   if (pageIndex - delta > 2) {
-    pages.unshift('...');
+    pages.unshift("...");
   }
 
   if (pageIndex + delta < totalPages - 1) {
-    pages.push('...');
+    pages.push("...");
   }
 
   pages.unshift(1);
@@ -40,11 +40,11 @@ const Pagination = ({ totalPages, pageIndex, _changePage }) => {
       {pages.map((item, index) => (
         <button
           key={index}
-          disabled={item === '...'}
+          disabled={item === "..."}
           onClick={() => _changePage(item)}
-          className={classnames('btn mx-1', {
-            'btn-success': pageIndex === item,
-            'btn-secondary': pageIndex !== item,
+          className={classnames("btn mx-1", {
+            "btn-primary": pageIndex === item,
+            "btn-secondary": pageIndex !== item
           })}
           //   className={`btn mx-1 ${
           //     pageIndex === index + 1 ? "btn-success" : "btn-secondary"

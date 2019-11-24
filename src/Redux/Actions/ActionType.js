@@ -1,6 +1,9 @@
-export const FETCH_COURSES = 'FETCH_COURSES';
 export const FETCH_CREDENTIALS = 'FETCH_CREDENTIALS';
 
+export const FETCH_COURSES = 'FETCH_COURSES';
+export const FETCH_COURSE_TYPE = 'FETCH_COURSE_TYPE';
 export const CHANGE_PAGE_COURSES = 'CHANGE_PAGE_COURSES';
-
 export const ADD_COURSE = 'ADD_COURSE';
+
+export const FETCH_USERS = 'FETCH_USERS';
+export const ADD_USER = 'ADD_USER';

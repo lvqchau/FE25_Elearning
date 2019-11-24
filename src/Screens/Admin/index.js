@@ -1,13 +1,10 @@
 import React from 'react';
-import Modal from '../../Components/Modal';
-import MouseEvent from '../../RenderProps/MouseEvent';
-import AddCourse from './AddCourse';
 
 const Admin = () => {
   return (
     <div className="ml-5">
       Admin page
-      <AddCourse />
+    
       {/* <Modal
         renderFooter={props => {
           console.log(props);
