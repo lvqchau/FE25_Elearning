@@ -41,11 +41,8 @@ const CourseItem = props => {
         <img
           className={classes.media}
           src={hinhAnh}
-<<<<<<< Updated upstream
           onError={(e) => { e.target.onerror = null; e.target.src = PlaceholderImg }}
           // onerror={`this.src=${PlaceholderImg}`}
-=======
->>>>>>> Stashed changes
           alt={tenKhoaHoc}
           style={{
             height: 250

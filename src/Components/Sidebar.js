@@ -4,14 +4,6 @@ import { withStyles } from "@material-ui/styles";
 import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";
 
-import CloseIcon from "@material-ui/icons/Close";
-import StatsIcon from "@material-ui/icons/Assessment";
-import UserIcon from "@material-ui/icons/SupervisedUserCircle";
-import LaptopIcon from "@material-ui/icons/LaptopChromebook";
-
-import colors from "../constants/colors";
-import Avatar from "./Avatar";
-
 import CloseIcon from '@material-ui/icons/Close';
 import StatsIcon from '@material-ui/icons/Assessment';
 import UserIcon from '@material-ui/icons/SupervisedUserCircle';
