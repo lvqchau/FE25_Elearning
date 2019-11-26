@@ -1,0 +1,82 @@
+.header {
+  background: #1976d2;
+  padding: 10px 0;
+  position: fixed;
+  z-index: 12;
+  width: 100%;
+  .menu {
+    align-items: center;
+    margin-left: -30px;
+
+    .logo {
+      cursor: pointer;
+      margin: -70px;
+    }
+    .sub_nav {
+      margin-left: 120px;
+      .nav {
+        .nav-item {
+          position: relative;
+          a {
+            font-weight: bold;
+            font-family: Raleway, sans-serif;
+            color: white;
+            &:hover {
+              color: #aaaaaa;
+            }
+          }
+          a.true {
+            color: blue;
+          }
+        }
+      }
+    }
+    .menu__right {
+      color: black;
+
+      .signin {
+        button {
+          margin-left: 150px;
+          background-color: transparent;
+          color: white;
+          border: 1px solid white;
+          width: 90px;
+          height: 45px;
+          font-weight: bold;
+          outline: none;
+          font-size: 1rem;
+          cursor: pointer;
+          border-radius: 5%;
+          &:hover {
+            opacity: 0.9;
+            background-color: rgb(0, 183, 255);
+          }
+          &:active {
+            background-color: black;
+          }
+        }
+      }
+      .signup {
+        button {
+          margin-left: 10px;
+          background-color: red;
+          color: white;
+          border: none;
+          width: 90px;
+          height: 45px;
+          font-weight: bold;
+          outline: none;
+          font-size: 1rem;
+          cursor: pointer;
+          border-radius: 5%;
+          &:hover {
+            opacity: 0.9;
+          }
+          &:active {
+            background-color: black;
+          }
+        }
+      }
+    }
+  }
+}
