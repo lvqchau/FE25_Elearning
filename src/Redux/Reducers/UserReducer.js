@@ -1,4 +1,4 @@
-import { FETCH_CREDENTIALS, FETCH_USERS, ADD_USER, GET_WAITING_STUDENTS, GET_CURRENT_STUDENTS, REGISTER_A_COURSE, DELETE_USER_FROM_COURSE, SIGN_UP_USER, FETCH_USER_INFO } from "../Actions/ActionType";
+import { FETCH_CREDENTIALS, FETCH_USERS, ADD_USER, GET_WAITING_STUDENTS, GET_CURRENT_STUDENTS, REGISTER_A_COURSE, DELETE_USER_FROM_COURSE, SIGN_UP_USER, FETCH_USER_INFO, REMOVE_USER } from "../Actions/ActionType";
 
 let initialState = {
   credentials: null,
@@ -44,6 +44,10 @@ const UserReducer = (state = initialState, action) => {
       return { ...state };
     case FETCH_USER_INFO:
       state.userInfo = action.payload;
+      return { ...state };
+    case REMOVE_USER:
+      const i = state.users.items.findIndex(user => user.tenTaiKhoan === action.payload);
+      state.users.items.splice(i, 1);
       return { ...state };
     default:
       return state;

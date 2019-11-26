@@ -5,7 +5,8 @@ import {
   FETCH_COURSE_TYPE,
   REGISTER_A_COURSE,
   DELETE_USER_FROM_COURSE,
-  FETCH_USER_COURSES
+  FETCH_USER_COURSES,
+  REMOVE_COURSE
 } from "./ActionType";
 import CourseService from "../../Services/Course";
 import { successAlert, errorAlert } from "../../Components/ToastMessage";
@@ -96,7 +97,33 @@ export const fetchUserCourses = value => {
         console.log(res);
       })
       .catch(err => {
-        console.log(err.response);
+        errorAlert(err.response.data);
+      });
+  };
+};
+
+export const removeCourse = course => {
+  return dispatch => {
+    console.log(course)
+    CourseService.removeACourse(course)
+      .then(res => {
+        successAlert("Xoá khoá học thành công")
+        dispatch(actRemoveCourse(course));
+      })
+      .catch(err => {
+        errorAlert(err.response.data);
+      });
+  };
+};
+
+export const registerCourseFromUser = value => {
+  return dispatch => {
+    CourseService.registerCourseFromUser(value)
+      .then(res => {
+        successAlert("Đăng kí thành công! Chờ xác nhận từ admin");
+      })
+      .catch(e => {
+        errorAlert("Đăng ký khoá học không thành công");
       });
   };
 };
@@ -148,5 +175,12 @@ export const actFetchUserCourses = userCourses => {
   return {
     type: FETCH_USER_COURSES,
     payload: userCourses
+  };
+};
+
+export const actRemoveCourse = deletedCourse => {
+  return {
+    type: REMOVE_COURSE,
+    payload: deletedCourse
   };
 };

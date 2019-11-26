@@ -7,28 +7,28 @@ const ITEMS_PER_PAGE = 5;
 const userObject = {
   taiKhoan: yup
     .string()
-    .required("Vui lòng nhập tài khoản")
-    .min(8, "Tài khoản phải có từ 8 tới 16 kí tự")
-    .max(16, "Tài khoản phải có từ 8 tới 16 kí tự"),
+    .required("Username can not be empty")
+    .min(8, "Username must be between 8 to 10 characters")
+    .max(16, "Username must be between 8 to 10 characters"),
   matKhau: yup
     .string()
-    .required("Vui lòng nhập mật khẩu")
-    .min(8, "Mật khẩu phải có từ 8 tới 16 kí tự")
-    .max(16, "Mật khẩu phải có từ 8 tới 16 kí tự"),
+    .required("Password can not be empty")
+    .min(8, "Password must be between 8 to 10 characters")
+    .max(16, "Password must be between 8 to 10 characters"),
   hoTen: yup
     .string()
-    .required("Vui lòng nhập họ tên")
-    .matches(/^[a-zA-Z ]*$/, "Họ tên phải là chữ"),
+    .required("Name can not be empty")
+    .matches(/^[a-zA-Z ]*$/, "Name must contain only letters"),
   email: yup
     .string()
-    .required("Vui lòng nhập Email")
-    .email("Email không đúng định dạng"),
+    .required("Email can not be empty")
+    .email("Email format is wrong"),
   soDT: yup
     .string()
-    .required("Vui lòng nhập số điện thoại")
+    .required("Phone number can not be empty")
     .matches(
       /^((09|03|07|08|05)+([0-9]{8})\b)$/,
-      "Số điện thoại không đúng định dạng (09, 07, 08, 05, 03)"
+      "Phone number must have (09, 07, 08, 05, 03) and contain 10 numbers"
     )
 };
 
@@ -91,6 +91,7 @@ class UserService {
       data: course,
     });
   }
+
   getWaitingCourses(user) {
     return restConnector({
       url: '/api/QuanLyNguoiDung/LayDanhSachKhoaHocChoXetDuyet',
@@ -104,6 +105,12 @@ class UserService {
       method: 'POST',
       data: user
     })
+  }
+  removeAUser(taiKhoan) {
+    return restConnector({
+      url: `/api/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${taiKhoan}`,
+      method: "DELETE"
+    });
   }
 }
 export default new UserService();

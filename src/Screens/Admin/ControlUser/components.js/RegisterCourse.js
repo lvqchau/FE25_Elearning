@@ -58,7 +58,7 @@ const styles = theme => ({
 })
 
 const RegisterCourse = (props) => {
-  const { classes, getWaitingCoursesHandler, getCurrentCoursesHandler, waitingCourses, currentCourses, taiKhoan } = props;
+  const { classes, deleteUserFromCourseHandler, registerACourseHandler, getWaitingCoursesHandler, getCurrentCoursesHandler, waitingCourses, currentCourses, taiKhoan } = props;
 
   useEffect(() => {
     getWaitingCoursesHandler(taiKhoan);
@@ -66,18 +66,17 @@ const RegisterCourse = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [taiKhoan])
 
-  // const ActionCourse = (taiKhoan, taiKhoan, type, deleteType) => {
-  //   const value = {
-  //     maKhoaHoc: taiKhoan,
-  //     taiKhoan
-  //   }
-  //   switch (type) {
-  //     case 'register': registerACourseHandler(value); break;
-  //     case 'delete': deleteUserFromCourseHandler(value, deleteType); break;
-  //     default: break;
-  //   }
-  // }
-
+  const ActionCourse = (maKhoaHoc, taiKhoan, type, deleteType) => {
+    const value = {
+      taiKhoan: taiKhoan,
+      maKhoaHoc
+    }
+    switch (type) {
+      case 'register': registerACourseHandler(value); break;
+      case 'delete': deleteUserFromCourseHandler(value, deleteType); break;
+      default: break;
+    }
+  }
 
   return (
     <div>
@@ -113,7 +112,7 @@ const RegisterCourse = (props) => {
                           size='small'
                           color="inherit"
                           aria-label="register a user"
-                          onClick={() => console.log('register')}>
+                          onClick={() => ActionCourse(item.maKhoaHoc, taiKhoan, 'register')}>
                           <AddIcon />
                         </IconButton>
                         <IconButton
@@ -122,7 +121,7 @@ const RegisterCourse = (props) => {
                           size='small'
                           color="inherit"
                           aria-label="inactive a course"
-                          onClick={() => console.log('inactive')}>
+                          onClick={() => ActionCourse(item.maKhoaHoc, taiKhoan, 'delete', 'wait')}>
                           <DeleteIcon />
                         </IconButton>
                       </TableCell>
@@ -166,7 +165,7 @@ const RegisterCourse = (props) => {
                           size='small'
                           color="inherit"
                           aria-label="inactive a course"
-                          onClick={() => console.log('inactive')}>
+                          onClick={() => ActionCourse(item.maKhoaHoc, taiKhoan, 'delete', 'cur')}>
                           <DeleteIcon />
                         </IconButton>
                       </TableCell>

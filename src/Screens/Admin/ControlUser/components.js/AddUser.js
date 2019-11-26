@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withStyles } from '@material-ui/styles';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -14,23 +14,50 @@ const styles = theme => ({
 })
 
 const AddUser = (props) => {
-  const { addUserHandler, classes } = props
+  const { addUserHandler, classes, isFixing, user } = props
+  const [fixUser, setFixUser] = React.useState(
+    isFixing 
+      ?
+      {
+        taiKhoan: user.taiKhoan,
+        matKhau: user.matKhau,
+        hoTen: user.hoTen,
+        email: user.email,
+        soDT: user.soDT,
+        maNhom: "GP01",
+        maLoaiNguoiDung: "HV"
+      }
+      :
+      {
+        taiKhoan: "",
+        matKhau: "",
+        hoTen: "",
+        email: "",
+        soDT: "",
+        maNhom: "GP01",
+        maLoaiNguoiDung: "HV"
+      }
+  )
+
+  const handleFormChange = (event) => {
+    setFixUser({
+      ...fixUser,
+      [event.target.name]: event.target.value
+    })
+  }
+
   const themNguoiDung = (value) => {
     addUserHandler(value)
   };
 
+  useEffect(() => {
+    
+  },[user])
+
   return (
     <div className="row">
       <Formik
-        initialValues={{
-          taiKhoan: "",
-          matKhau: "",
-          hoTen: "",
-          email: "",
-          soDT: "",
-          maNhom: "GP01",
-          maLoaiNguoiDung: "HV"
-        }}
+        initialValues={fixUser}
         onSubmit={themNguoiDung}
         validationSchema={AddUserSchema}
         render={formikProps => (
@@ -38,37 +65,43 @@ const AddUser = (props) => {
             <div className="col-sm-6">
               <div className="form-group">
                 <InputField
-                  placeholder="Tài khoản"
-                  label="Tài Khoản"
+                  placeholder="Username"
+                  label="Username"
                   type="text"
                   name="taiKhoan"
+                  value={fixUser.taiKhoan}
                   touched={formikProps.errors.taiKhoan}
                   error={formikProps.errors.taiKhoan}
-                  handleChange={formikProps.handleChange}
+                  handleChange={handleFormChange}
                   className="form-control"
                 />
               </div>
+              {
+                isFixing ?
+                  <></> :
+                  <div className="form-group">
+                    <InputField
+                      placeholder="Password"
+                      label="Password"
+                      type="password"
+                      name="matKhau"
+                      touched={formikProps.errors.matKhau}
+                      error={formikProps.errors.matKhau}
+                      handleChange={handleFormChange}
+                      className="form-control"
+                    />
+                  </div>    
+              }
               <div className="form-group">
                 <InputField
-                  placeholder="Mật khẩu"
-                  label="Mật Khẩu"
-                  type="password"
-                  name="matKhau"
-                  touched={formikProps.errors.matKhau}
-                  error={formikProps.errors.matKhau}
-                  handleChange={formikProps.handleChange}
-                  className="form-control"
-                />
-              </div>
-              <div className="form-group">
-                <InputField
-                  placeholder="Họ Tên"
-                  label="Họ Tên"
+                  placeholder="Fullname"
+                  label="Fullname"
                   type="text"
                   name="hoTen"
+                  value={fixUser.hoTen}
                   touched={formikProps.errors.hoTen}
                   error={formikProps.errors.hoTen}
-                  handleChange={formikProps.handleChange}
+                  handleChange={handleFormChange}
                   className="form-control"
                 />
               </div>
@@ -80,30 +113,32 @@ const AddUser = (props) => {
                   label="Email"
                   type="email"
                   name="email"
+                  value={fixUser.email}
                   touched={formikProps.errors.email}
                   error={formikProps.errors.email}
-                  handleChange={formikProps.handleChange}
+                  handleChange={handleFormChange}
                   className="form-control"
                 />
               </div>
               <div className="form-group">
                 <InputField
-                  placeholder="Số điện thoại"
-                  label="Số Điện Thoại"
+                  placeholder="Phone number"
+                  label="Phone number"
                   type="text"
                   name="soDT"
+                  value={fixUser.soDT}
                   touched={formikProps.errors.soDT}
                   error={formikProps.errors.soDT}
-                  handleChange={formikProps.handleChange}
+                  handleChange={handleFormChange}
                   className="form-control"
                 />
               </div>
               <FormControl className={classes.formControl} style={{ width: 120 }}>
-                <InputLabel>Mã người dùng</InputLabel>
+                <InputLabel>User Type</InputLabel>
                 <Select
                   name="maLoaiNguoiDung"
-                  value={formikProps.values.maLoaiNguoiDung}
-                  onChange={formikProps.handleChange}
+                  value={fixUser.maLoaiNguoiDung}
+                  handleChange={handleFormChange}
                 >
                   <MenuItem value='GV'>Giáo vụ</MenuItem>
                   <MenuItem value='HV'>Học viên</MenuItem>
@@ -112,8 +147,10 @@ const AddUser = (props) => {
             </div>
             <div className="form-group">
               <Button type="submit" variant="contained" color="primary">
-                Thêm
-                </Button>
+                {
+                  isFixing ? "Edit User" : "Add User"
+                }
+              </Button>
             </div>
           </Form>
         )}

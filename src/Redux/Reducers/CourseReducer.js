@@ -1,4 +1,4 @@
-import { FETCH_COURSES, CHANGE_PAGE_COURSES, ADD_COURSE, FETCH_COURSE_TYPE, GET_WAITING_COURSES, GET_CURRENT_COURSES, FETCH_USER_COURSES } from '../Actions/ActionType';
+import { FETCH_COURSES, CHANGE_PAGE_COURSES, ADD_COURSE, FETCH_COURSE_TYPE, GET_WAITING_COURSES, GET_CURRENT_COURSES, FETCH_USER_COURSES, REMOVE_COURSE } from '../Actions/ActionType';
 
 let initialState = {
   courses: null,
@@ -29,6 +29,10 @@ const CourseReducer = (state = initialState, action) => {
       return { ...state };
     case FETCH_USER_COURSES:
       state.userCourses = action.payload;
+      return { ...state };
+    case REMOVE_COURSE:
+      const index = state.courses.items.findIndex(course => course.maKhoaHoc === action.payload);
+      state.courses.items.splice(index, 1);
       return { ...state };
     default:
       return state;
