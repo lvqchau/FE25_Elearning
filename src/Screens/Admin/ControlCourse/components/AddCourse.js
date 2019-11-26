@@ -75,12 +75,7 @@ const AddCourse = props => {
     const course = {
       ...values,
       maNhom: 'G01',
-      nguoiTao: {
-        taiKhoan: userLogin.taiKhoan,
-        hoTen: userLogin.hoTen,
-        maLoaiNguoiDung: 'GV',
-        tenLoaiNguoiDung: 'Giáo vụ'
-      },
+      taiKhoanNguoiTao: userLogin.taiKhoan,
       ngayTao: dateArr[2] + '/' + dateArr[1] + '/' + dateArr[0],
       biDanh: tenKhoaHoc.replace(/\s\s+/g, ' ').replace(/ /g, "-")
     }
