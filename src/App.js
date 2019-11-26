@@ -16,6 +16,7 @@ import AdminLayout from "./Layouts/AdminLayout";
 import ControlUser from "./Screens/Admin/ControlUser";
 import ControlCourse from "./Screens/Admin/ControlCourse";
 import ProfileScreen from "./Screens/User/Profile/ProfileScreen";
+import CourseList from "./Screens/User/Home/CourseList";
 
 function App(props) {
   useEffect(() => {
@@ -46,12 +47,14 @@ function App(props) {
         </AdminLayout>
         <Layout path="/">
           <Switch>
+            <Route exact path="/danhsachkhoahoc" component={CourseList} />
             <Route exact path="/thongtintaikhoan" component={ProfileScreen} />
             <Route exact path="/signin" component={LoginScreen} />
             <Route exact path="/signup" component={SignupScreen} />
             <AuthenticationRoute exact path="/" component={HomeScreen} />
             <AuthenticationRoute
-              exact path="/detail/:courseId"
+              exact
+              path="/detail/:courseId"
               component={DetailScreen}
             />
           </Switch>

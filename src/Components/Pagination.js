@@ -36,7 +36,7 @@ const Pagination = ({ totalPages, pageIndex, _changePage }) => {
   }
   const pages = generatePage(pageIndex, totalPages);
   return (
-    <div className="d-flex justify-content-center mt-3">
+    <div className="d-flex justify-content-center mt-3 pb-3">
       {pages.map((item, index) => (
         <button
           key={index}

@@ -1,0 +1,58 @@
+.offer {
+  margin-top: 3%;
+  font-family: Raleway;
+  color: white;
+  .offer__wrapper {
+    text-align: right;
+    width: 53%;
+    padding: 2%;
+    margin: 5% 0;
+    margin-left: auto;
+    h5 {
+      font-weight: bold;
+    }
+    p {
+      font-size: 0.9rem;
+      width: 90%;
+      margin-left: auto;
+    }
+  }
+  .offer__left {
+    background: #add8e6 url("../images/banner-03.png") no-repeat bottom left;
+    button {
+      background-color: #add8e6;
+      color: white;
+      border: 2px solid white;
+      width: 141px;
+      height: 41px;
+      font-weight: bold;
+      outline: none;
+      font-size: 0.8rem;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.9;
+        background-color: white;
+        color: #add8e6;
+      }
+    }
+  }
+  .offer__right {
+    background: #deb887 url("../images/banner-04.png") no-repeat bottom left;
+    button {
+      background-color: #deb887;
+      color: white;
+      border: 2px solid white;
+      width: 141px;
+      height: 41px;
+      font-weight: bold;
+      outline: none;
+      font-size: 0.8rem;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.9;
+        background-color: white;
+        color: #deb887;
+      }
+    }
+  }
+}

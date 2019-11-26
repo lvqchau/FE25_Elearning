@@ -1,22 +1,22 @@
-import { FETCH_CREDENTIALS, FETCH_USERS, ADD_USER } from './ActionType';
-import { restConnector } from '../../Services/Index';
-import UserService from '../../Services/User';
-import { successAlert, errorAlert } from '../../Components/ToastMessage';
+import { FETCH_CREDENTIALS, FETCH_USERS, ADD_USER } from "./ActionType";
+import { restConnector } from "../../Services/Index";
+import UserService from "../../Services/User";
+import { successAlert, errorAlert } from "../../Components/ToastMessage";
 
 //async action
 export const fetchCredential = (value, history) => {
   return dispatch => {
     UserService.login(value)
       .then(res => {
-        localStorage.setItem('userLogin', JSON.stringify(res.data));
+        localStorage.setItem("userLogin", JSON.stringify(res.data));
         dispatch(actFetchCredentials(res.data));
         restConnector.defaults.headers[
-          'Authorization'
+          "Authorization"
         ] = `Bearer ${res.data.accessToken}`;
-        if (res.data.maLoaiNguoiDung === 'GV') {
-          history.replace('/admin');
+        if (res.data.maLoaiNguoiDung === "GV") {
+          history.replace("/admin");
         } else {
-          history.replace('/');
+          history.replace("/");
         }
       })
       .catch(err => {
@@ -26,21 +26,20 @@ export const fetchCredential = (value, history) => {
 };
 
 export const addUser = user => {
-  return (dispatch) => {
+  return dispatch => {
     UserService.addUser(user)
       .then(res => {
-        successAlert("Thêm người dùng thành công")
-        dispatch.actAddUser(res.data)
+        successAlert("Thêm người dùng thành công");
+        dispatch.actAddUser(res.data);
       })
       .catch(err => {
-        console.log(err.response)
-        if (err.response!==undefined)
-          errorAlert("Thêm người dùng không thành công")
+        console.log(err.response);
+        if (err.response !== undefined)
+          errorAlert("Thêm người dùng không thành công");
       });
   };
 };
 
-//action creators
 export const fetchUsers = (pageIndex, itemsPerPage) => {
   return dispatch => {
     UserService.fetchUsers(pageIndex, itemsPerPage)
@@ -53,23 +52,22 @@ export const fetchUsers = (pageIndex, itemsPerPage) => {
   };
 };
 
-
 //action creator
 export const actFetchCredentials = credetials => ({
   type: FETCH_CREDENTIALS,
-  payload: credetials,
+  payload: credetials
 });
 
 export const actFetchUsers = users => {
   return {
     type: FETCH_USERS,
-    payload: users,
+    payload: users
   };
 };
 
 export const actAddUser = user => {
   return {
     type: ADD_USER,
-    payload: user,
+    payload: user
   };
 };
