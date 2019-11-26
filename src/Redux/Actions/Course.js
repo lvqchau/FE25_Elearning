@@ -41,7 +41,7 @@ export const addCourse = course => {
     // course.hinhAnh = hinhAnh.name;
     CourseService.addCourse(course)
       .then(res => {
-        successAlert("Thêm người dùng thành công");
+        successAlert("Thêm khoá học thành công");
         dispatch.actAddCourse(res.data);
         // const formData = new FormData();
         // formData.append(hinhAnh);
@@ -54,9 +54,8 @@ export const addCourse = course => {
         //   .catch(err => console.log(err));
       })
       .catch(err => {
-        console.log(err.response);
         if (err.response !== undefined)
-          errorAlert("Thêm người dùng không thành công");
+          errorAlert(err.response.data);
       });
   };
 };
