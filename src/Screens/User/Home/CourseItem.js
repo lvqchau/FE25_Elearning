@@ -10,7 +10,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import PlaceholderImg from '../../../images/imgnotfound.png';
+import PlaceholderImg from "../../../images/imgnotfound.png";
 
 const styles = theme => ({
   text: {
@@ -20,7 +20,7 @@ const styles = theme => ({
   },
   button: {
     fontFamily: "n"
-  },
+  }
 });
 
 const useStyles = makeStyles({
@@ -41,11 +41,11 @@ const CourseItem = props => {
         <img
           className={classes.media}
           src={hinhAnh}
-<<<<<<< Updated upstream
-          onError={(e) => { e.target.onerror = null; e.target.src = PlaceholderImg }}
+          onError={e => {
+            e.target.onerror = null;
+            e.target.src = PlaceholderImg;
+          }}
           // onerror={`this.src=${PlaceholderImg}`}
-=======
->>>>>>> Stashed changes
           alt={tenKhoaHoc}
           style={{
             height: 250
