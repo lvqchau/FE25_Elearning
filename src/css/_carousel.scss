@@ -1,0 +1,30 @@
+.carousel {
+  .carousel_item {
+    padding-right: 15px;
+    .carousel_image {
+      border: lightblue solid 2px;
+      height: 250px;
+      background: lightblue url(../images/teacher1.jpg) center;
+      background-size: 300px 250px;
+    }
+    .carousel_info {
+      text-align: center;
+      background-color: #1976d2;
+      padding: 2%;
+      color: white;
+      font-family: Raleway;
+    }
+    .carousel_image2 {
+      height: 250px;
+      background: lightblue url(../images/teacher2.jpg) center;
+      background-size: 300px 250px;
+    }
+    .carousel_info2 {
+      text-align: center;
+      background-color: burlywood;
+      padding: 2%;
+      color: white;
+      font-family: Raleway;
+    }
+  }
+}

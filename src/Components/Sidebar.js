@@ -1,8 +1,8 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { withStyles } from '@material-ui/styles'
-import IconButton from '@material-ui/core/IconButton';
-import Divider from '@material-ui/core/Divider';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { withStyles } from "@material-ui/styles";
+import IconButton from "@material-ui/core/IconButton";
+import Divider from "@material-ui/core/Divider";
 
 import CloseIcon from '@material-ui/icons/Close';
 import StatsIcon from '@material-ui/icons/Assessment';
@@ -34,15 +34,15 @@ const styles = theme => ({
     }
   },
   link: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     fontSize: 25,
-    textTransform: 'uppercase',
-    color: 'black',
-    margin: '30px 0',
-    textDecoration: 'none',
-    '&:hover': {
-      textDecoration: 'none'
+    textTransform: "uppercase",
+    color: "black",
+    margin: "30px 0",
+    textDecoration: "none",
+    "&:hover": {
+      textDecoration: "none"
     }
   },
   accountContainer: {
