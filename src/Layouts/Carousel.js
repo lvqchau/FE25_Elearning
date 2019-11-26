@@ -1,82 +1,85 @@
-import React, { Component } from "react";
-// import Slider from "react-slick";
+import React from "react";
+import Slider from "react-slick";
+import "../css/_carousel.scss";
 
-// const settings = {
-//   dots: true,
-//   infinite: true,
-//   speed: 500,
-//   slidesToShow: 1,
-//   slidesToScroll: 1
-// };
+const settings = {
+  dots: false,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 6,
+  slidesToScroll: 2
+};
 
 const Carousel = () => {
   return (
-    <div>
-      <div id="demo" className="carousel slide" data-ride="carousel">
-        {/* Indicators */}
-        <ul className="carousel-indicators">
-          <li data-target="#demo" data-slide-to={0} className="active" />
-          <li data-target="#demo" data-slide-to={1} />
-          <li data-target="#demo" data-slide-to={2} />
-        </ul>
-        {/* The slideshow */}
-        <div className="carousel-inner">
-          <div className="carousel-item active">
-            <img
-              src="../../public/Carousel_img/1.jpeg"
-              alt="Slide1"
-              width={1100}
-              height={500}
-            />
-          </div>
-          <div className="carousel-item">
-            <img
-              src="../../public/Carousel_img/2.jpg"
-              alt="Slide2"
-              width={1100}
-              height={500}
-            />
-          </div>
-          <div className="carousel-item">
-            <img
-              src="../../public/Carousel_img/3.jpg"
-              alt="Slide3"
-              width={1100}
-              height={500}
-            />
+    <div className="carousel m-5">
+      <h1 className="display-4 text-center mb-5">Our Best Instructors</h1>
+      <Slider {...settings}>
+        <div className="carousel_item">
+          <div className="carousel_image"></div>
+          <div className="carousel_info">
+            <h3>G. Richards</h3>
+            <p>Professional teacher</p>
           </div>
         </div>
-        {/* Left and right controls */}
-        <a className="carousel-control-prev" href="#demo" data-slide="prev">
-          <span className="carousel-control-prev-icon" />
-        </a>
-        <a className="carousel-control-next" href="#demo" data-slide="next">
-          <span className="carousel-control-next-icon" />
-        </a>
-      </div>
+        <div className="carousel_item">
+          <div className="carousel_image2"></div>
+          <div className="carousel_info2">
+            <h3>Maria Jane</h3>
+            <p>Professional tearcher</p>
+          </div>
+        </div>
+        <div className="carousel_item">
+          <div className="carousel_image"></div>
+          <div className="carousel_info">
+            <h3>john Cena</h3>
+            <p>Professional tearcher</p>
+          </div>
+        </div>
+        <div className="carousel_item">
+          <div className="carousel_image"></div>
+          <div className="carousel_info">
+            <h3>john Cena</h3>
+            <p>Professional tearcher</p>
+          </div>
+        </div>
+        <div className="carousel_item">
+          <div className="carousel_image"></div>
+          <div className="carousel_info">
+            <h3>john Cena</h3>
+            <p>Professional tearcher</p>
+          </div>
+        </div>
+        <div className="carousel_item">
+          <div className="carousel_image"></div>
+          <div className="carousel_info">
+            <h3>john Cena</h3>
+            <p>Professional tearcher</p>
+          </div>
+        </div>
+        <div className="carousel_item">
+          <div className="carousel_image"></div>
+          <div className="carousel_info">
+            <h3>john Cena</h3>
+            <p>Professional tearcher</p>
+          </div>
+        </div>
+        <div className="carousel_item">
+          <div className="carousel_image"></div>
+          <div className="carousel_info">
+            <h3>john Cena</h3>
+            <p>Professional tearcher</p>
+          </div>
+        </div>
+        <div className="carousel_item">
+          <div className="carousel_image"></div>
+          <div className="carousel_info">
+            <h3>john Cena</h3>
+            <p>Professional tearcher</p>
+          </div>
+        </div>
+      </Slider>
     </div>
-    // <div>
-    //   <Slider {...settings}>
-    //     <div>
-    //       <img src="../asset/Carousel_img" />
-    //     </div>
-    //     <div className="">
-    //       <img src="../asset/Carousel_img/hero-1.jpg" alt="Img2" />
-    //     </div>
-    //     <div>
-    //       <h3>3</h3>
-    //     </div>
-    //     <div>
-    //       <h3>4</h3>
-    //     </div>
-    //     <div>
-    //       <h3>5</h3>
-    //     </div>
-    //     <div>
-    //       <h3>6</h3>
-    //     </div>
-    //   </Slider>
-    // </div>
   );
 };
 

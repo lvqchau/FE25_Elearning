@@ -10,7 +10,8 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import PlaceholderImg from '../../../images/imgnotfound.png';
+import PlaceholderImg from "../../../images/imgnotfound.png";
+import { positions } from "@material-ui/system";
 
 const styles = theme => ({
   text: {
@@ -19,16 +20,16 @@ const styles = theme => ({
     textOverflow: "ellipsis"
   },
   button: {
-    fontFamily: "n"
-  },
+    fontFamily: "Raleway, sans-serif"
+  }
 });
 
 const useStyles = makeStyles({
   card: {
-    maxWidth: 345
+    maxWidth: 250
   },
   media: {
-    height: 140
+    height: 130
   }
 });
 
@@ -36,44 +37,49 @@ const CourseItem = props => {
   const { classes } = props;
   const { hinhAnh, tenKhoaHoc, moTa, maKhoaHoc } = props.course;
   return (
-    <Card className={classes.card}>
-      <CardActionArea>
-        <img
-          className={classes.media}
-          src={hinhAnh}
-          onError={(e) => { e.target.onerror = null; e.target.src = PlaceholderImg }}
-          // onerror={`this.src=${PlaceholderImg}`}
-          alt={tenKhoaHoc}
-          style={{
-            height: 250
-          }}
-        />
-        <CardContent>
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="h2"
-            className={classes.text}
-          >
-            {tenKhoaHoc}
-          </Typography>
-          <div className={classes.text}>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {moTa}
+    <div className="mb-4">
+      <Card className={classes.card}>
+        <CardActionArea>
+          <img
+            className={classes.media}
+            src={hinhAnh}
+            onError={e => {
+              e.target.onerror = null;
+              e.target.src = PlaceholderImg;
+            }}
+            // onerror={`this.src=${PlaceholderImg}`}
+            alt={tenKhoaHoc}
+            style={{
+              height: 250
+            }}
+          />
+          <CardContent>
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="h2"
+              className={classes.text}
+            >
+              {tenKhoaHoc}
             </Typography>
-          </div>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Link to={`/detail/${maKhoaHoc}`}>
-          <div className={classes.button}>
-            <Button size="large" color="primary">
-              Detail
-            </Button>
-          </div>
-        </Link>
-      </CardActions>
-    </Card>
+            <div className={classes.text}>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {moTa}
+              </Typography>
+            </div>
+          </CardContent>
+        </CardActionArea>
+        <CardActions>
+          <Link to={`/detail/${maKhoaHoc}`}>
+            <div className={classes.button}>
+              <Button size="large" color="primary">
+                SIGN
+              </Button>
+            </div>
+          </Link>
+        </CardActions>
+      </Card>
+    </div>
   );
 };
 

@@ -1,93 +1,87 @@
-import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import { connect } from "react-redux";
-import { fade, makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import MenuIcon from "@material-ui/icons/Menu";
-import InputBase from "@material-ui/core/InputBase";
-import SearchIcon from "@material-ui/icons/Search";
+import logo from "../images/logo.png";
+import React from "react";
+import "../css/_header.scss";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
-  menuButton: {
-    marginRight: theme.spacing(2)
-  },
-  title: {
-    flexGrow: 1
-  },
-  search: {
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25)
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(3),
-      width: "auto"
-    }
-  },
-  searchIcon: {
-    width: theme.spacing(7),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  inputRoot: {
-    color: "inherit"
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 7),
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: 700
-    }
-  }
-}));
-
-export default function ButtonAppBar() {
-  const classes = useStyles();
-
+const Header = () => {
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <i class="fab fa-dev"></i>
-          <Typography variant="h4" className={classes.title}>
-            DevGarden
-          </Typography>
-          <MenuIcon />
-          <Button color="inherit">Danh sách khóa học</Button>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+    <div className="header">
+      <div className="row">
+        <div className="container">
+          <div className="row menu">
+            <div className="col-sm-3 col-md-3 col-lg-3 col-xl-3 logo">
+              <Link to="/">
+                <img src={logo} alt="logo" />
+              </Link>
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput
-              }}
-              inputProps={{ "aria-label": "search" }}
-            />
-          </div>
+            <div className="col-sm-6 col-md-6 col-lg-6 col-xl-6 sub_nav">
+              <ul className="nav">
+                <li className="nav-item">
+                  <NavLink
+                    activeClassName="true"
+                    exact
+                    className="nav-link"
+                    to="/"
+                  >
+                    HOME
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    activeClassName="true"
+                    className="nav-link"
+                    to="/danhsachkhoahoc"
+                  >
+                    COURSES
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    activeClassName="true"
+                    className="nav-link"
+                    to="/blog"
+                  >
+                    BLOG
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    activeClassName="true"
+                    className="nav-link"
+                    to="/events"
+                  >
+                    EVENTS
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    activeClassName="true"
+                    className="nav-link"
+                    to="/about"
+                  >
+                    ABOUT
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
 
-          <Button color="inherit">SignUp</Button>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
+            <div className="col-sm-3 col-md-3 col-lg-3 col-xl-3 d-flex menu__right">
+              <div className="signin">
+                <Link to="/signin">
+                  <button> LOG IN </button>
+                </Link>
+              </div>
+              <div className="signup">
+                <Link to="/signup">
+                  <button> SIGN UP </button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
-}
+};
+
+export default Header;
