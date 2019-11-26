@@ -5,6 +5,7 @@ import CourseItem from "./CourseItem";
 
 import { fetchCourses, changePageCourse } from "../../../Redux/Actions/Course";
 import Pagination from "../../../Components/Pagination";
+import Carousel from "../../../Layouts/Carousel";
 
 const HomeScreen = ({ dispatch, courses, pageIndex }) => {
   useEffect(() => {
@@ -27,8 +28,9 @@ const HomeScreen = ({ dispatch, courses, pageIndex }) => {
 
   return (
     <>
-      <h1 className="display-4 text-center">Home Screen</h1>
-      <div className="container">
+      <Carousel />
+      <h1 className="display-4 text-center">Danh sách khóa học</h1>
+      <div className="container col-md-10">
         <div className="row">{_renderCourseItem()}</div>
         <Pagination
           _changePage={_changePage}
