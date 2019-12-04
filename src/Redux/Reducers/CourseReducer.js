@@ -16,12 +16,15 @@ let initialState = {
   waitingCourses: [],
   currentCourses: [],
   userCourses: null,
-  course: null
+  course: []
 };
 const CourseReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_COURSES:
       state.courses = action.payload;
+      return { ...state };
+    case FETCH_A_COURSE:
+      state.course = action.payload;
       return { ...state };
     case CHANGE_PAGE_COURSES:
       state.pageIndex = action.payload;

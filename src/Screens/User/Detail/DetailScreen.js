@@ -5,12 +5,10 @@ import teacher from "../../../images/teacher3.jpg";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { fetchACourse } from "../../../Redux/Actions/Course";
-import get from "lodash/get";
 
 const DetailScreen = props => {
   const { match, fetchACourse, course } = props;
   const courseId = match.params.courseId;
-  const tenKhoaHoc = get(course, "tenKhoaHoc", "");
   useEffect(() => {
     fetchACourse(courseId);
   });
@@ -33,7 +31,7 @@ const DetailScreen = props => {
           <div className="row">
             <div className="col-sm-8 col-md-8 col-lg-8 col-xl-8 pl-0 content">
               <div className="content__title">
-                <h1>Tên khóa học</h1>
+                <h1>{course.tenKhoaHoc}</h1>
                 <div className="intro__title pl-0">
                   <div className="teacher px-0">
                     <img src={teacher} alt="intro" />
@@ -61,6 +59,7 @@ const DetailScreen = props => {
                 </div>
               </div>
               <div className="description">
+                <p>{course.moTa}</p>
                 <p>
                   Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                   Illum ullam eaque placeat necessitatibus. Quasi quae a
@@ -236,7 +235,17 @@ const DetailScreen = props => {
             <div className="col-sm-4 col-md-4 col-lg-4 col-xl-4 pr-0 sidebar">
               <div className="sidebar__info">
                 <div className="info__img">
-                  <img src={img} alt="item" />
+                  <img
+                    src={course.hinhAnh}
+                    onError={e => {
+                      e.target.onerror = null;
+                      e.target.src = img;
+                    }}
+                    alt="item"
+                    style={{
+                      height: 300
+                    }}
+                  />
                 </div>
                 <div className="info__inner">
                   <div className="wishlist">

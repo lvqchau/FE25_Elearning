@@ -103,13 +103,11 @@ export const fetchUserCourses = value => {
 
 export const fetchACourse = courseId => {
   return dispatch => {
-    console.log(courseId);
     CourseService.fetchACourse(courseId)
       .then(res => {
-        dispatch.actFetchACourse(res.data);
-        successAlert("tcong");
+        dispatch(actFetchACourse(res.data));
       })
-      .catch(e => {});
+      .catch(err => {});
   };
 };
 

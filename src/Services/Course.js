@@ -54,10 +54,9 @@ class CourseService {
   }
   fetchACourse(courseId) {
     console.log(courseId);
-
     return restConnector({
-      url: `/api/QuanLyKhoaHoc/LayThongTinKhoaHoc`,
-      method: "POST",
+      url: `/api/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${courseId}`,
+      method: "GET",
       data: courseId
     });
   }
