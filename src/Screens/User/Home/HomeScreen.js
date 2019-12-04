@@ -35,8 +35,8 @@ const HomeScreen = ({ dispatch, courses, pageIndex }) => {
     <>
       <Search />
       <Feature />
-      <div className="bg-info">
-        <h1 className="display-4 text-center text-white">Courses</h1>
+      <div>
+        <h1 className="display-4 text-center">Courses</h1>
         <div className="container col-md-10">
           <div className="row">{_renderCourseItem()}</div>
           <Pagination
@@ -46,10 +46,13 @@ const HomeScreen = ({ dispatch, courses, pageIndex }) => {
           />
         </div>
       </div>
-      <Carousel />
+      <div style={{ backgroundColor: "#ADD8E6" }}>
+        {" "}
+        <Carousel />
+      </div>
+
       <Offer />
       <Testimonial />
-      <Footer />
     </>
   );
 };

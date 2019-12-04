@@ -26,34 +26,33 @@ const userObject = {
   soDT: yup
     .string()
     .required("Vui lòng nhập số điện thoại")
-    .matches(/^((09|03|07|08|05)+([0-9]{8})\b)$/, "Số điện thoại không đúng định dạng (09, 07, 08, 05, 03)")
-}
+    .matches(
+      /^((09|03|07|08|05)+([0-9]{8})\b)$/,
+      "Số điện thoại không đúng định dạng (09, 07, 08, 05, 03)"
+    )
+};
 
 const adminObject = {
   ...userObject,
   maLoaiNguoiDung: yup.string()
-}
+};
 
-export const AddUserSchema = yup.object().shape(
-  adminObject
-);
+export const AddUserSchema = yup.object().shape(adminObject);
 
-export const SignUpUserSchema = yup.object().shape(
-  userObject
-);
+export const SignUpUserSchema = yup.object().shape(userObject);
 
 class UserService {
   fetchUsers(pageIndex = PAGE_INDEX, itemsPerPage = ITEMS_PER_PAGE) {
     return restConnector({
       url: `/api/QuanLyNguoiDung/LayDanhSachNguoiDung_PhanTrang?page=${pageIndex}&pageSize=${itemsPerPage}&MaNhom=GP01`,
-      method: 'GET',
+      method: "GET"
     });
   }
   addUser(user) {
     return restConnector({
       url: `/api/QuanLyNguoiDung/ThemNguoiDung`,
-      method: 'POST',
-      data: user,
+      method: "POST",
+      data: user
     });
   }
   login(value) {
@@ -62,6 +61,49 @@ class UserService {
       method: "POST",
       data: value
     });
+  }
+  signup(value) {
+    return restConnector({
+      url: "/api/QuanLyNguoiDung/DangKy",
+      method: "POST",
+      data: value
+    });
+  }
+  fetchUserInfo(value) {
+    console.log(restConnector);
+    return restConnector({
+      url: "/api/QuanLyNguoiDung/ThongTinTaiKhoan",
+      method: "POST",
+      data: value
+    });
+  }
+  getWaitingStudents(course) {
+    return restConnector({
+      url: '/api/QuanLyNguoiDung/LayDanhSachHocVienChoXetDuyet',
+      method: 'POST',
+      data: course,
+    });
+  }
+  getCurrentStudents(course) {
+    return restConnector({
+      url: '/api/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc',
+      method: 'POST',
+      data: course,
+    });
+  }
+  getWaitingCourses(user) {
+    return restConnector({
+      url: '/api/QuanLyNguoiDung/LayDanhSachKhoaHocChoXetDuyet',
+      method: 'POST',
+      data: user
+    })
+  }
+  getCurrentCourses(user) {
+    return restConnector({
+      url: '/api/QuanLyNguoiDung/LayDanhSachKhoaHocDaXetDuyet',
+      method: 'POST',
+      data: user
+    })
   }
 }
 export default new UserService();

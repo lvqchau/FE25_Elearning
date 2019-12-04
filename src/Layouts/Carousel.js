@@ -32,49 +32,42 @@ const Carousel = () => {
         <div className="carousel_item">
           <div className="carousel_image"></div>
           <div className="carousel_info">
-            <h3>john Cena</h3>
+            <h3>G. Richards</h3>
+            <p>Professional teacher</p>
+          </div>
+        </div>
+        <div className="carousel_item">
+          <div className="carousel_image2"></div>
+          <div className="carousel_info2">
+            <h3>Maria Jane</h3>
             <p>Professional tearcher</p>
           </div>
         </div>
         <div className="carousel_item">
           <div className="carousel_image"></div>
           <div className="carousel_info">
-            <h3>john Cena</h3>
+            <h3>G. Richards</h3>
+            <p>Professional teacher</p>
+          </div>
+        </div>
+        <div className="carousel_item">
+          <div className="carousel_image2"></div>
+          <div className="carousel_info2">
+            <h3>Maria Jane</h3>
             <p>Professional tearcher</p>
           </div>
         </div>
         <div className="carousel_item">
           <div className="carousel_image"></div>
           <div className="carousel_info">
-            <h3>john Cena</h3>
-            <p>Professional tearcher</p>
+            <h3>G. Richards</h3>
+            <p>Professional teacher</p>
           </div>
         </div>
         <div className="carousel_item">
-          <div className="carousel_image"></div>
-          <div className="carousel_info">
-            <h3>john Cena</h3>
-            <p>Professional tearcher</p>
-          </div>
-        </div>
-        <div className="carousel_item">
-          <div className="carousel_image"></div>
-          <div className="carousel_info">
-            <h3>john Cena</h3>
-            <p>Professional tearcher</p>
-          </div>
-        </div>
-        <div className="carousel_item">
-          <div className="carousel_image"></div>
-          <div className="carousel_info">
-            <h3>john Cena</h3>
-            <p>Professional tearcher</p>
-          </div>
-        </div>
-        <div className="carousel_item">
-          <div className="carousel_image"></div>
-          <div className="carousel_info">
-            <h3>john Cena</h3>
+          <div className="carousel_image2"></div>
+          <div className="carousel_info2">
+            <h3>Maria Jane</h3>
             <p>Professional tearcher</p>
           </div>
         </div>

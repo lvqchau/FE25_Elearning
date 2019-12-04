@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
@@ -8,6 +8,10 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { Container, Paper, Grid, Button } from "@material-ui/core";
+import { fetchUserInfo } from "../../../Redux/Actions/User";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { fetchUserCourses } from "../../../Redux/Actions/Course";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -46,13 +50,27 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ProfileScreen = () => {
+const ProfileScreen = props => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const { user } = props;
+
+  useEffect(() => {
+    if (user) {
+      let value = {
+        taiKhoan: user.taiKhoan
+      };
+      console.log(value);
+
+      props.fetchUserCoursesHandler(value);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   return (
     <div>
@@ -71,13 +89,23 @@ const ProfileScreen = () => {
           <TabPanel value={value} index={0}>
             <Grid container>
               <Grid item xs={12} sm={6}>
-                <Typography gutterBottom>Email:</Typography>
-                <Typography gutterBottom>Họ tên:</Typography>
-                <Typography gutterBottom>Số điện thoại:</Typography>
+                <Typography gutterBottom>
+                  Email: {user && user.email}
+                </Typography>
+                <Typography gutterBottom>
+                  Họ tên: {user && user.hoTen}
+                </Typography>
+                <Typography gutterBottom>
+                  Số điện thoại: {user && user.soDT}
+                </Typography>
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Typography gutterBottom>Tài khoản:</Typography>
-                <Typography gutterBottom>Mật khẩu:</Typography>
+                <Typography gutterBottom>
+                  Tài khoản: {user && user.taiKhoan}
+                </Typography>
+                <Typography gutterBottom>
+                  Mật khẩu: {user && user.matKhau}
+                </Typography>
                 <Button variant="contained" color="primary">
                   Cập Nhật
                 </Button>
@@ -93,4 +121,19 @@ const ProfileScreen = () => {
   );
 };
 
-export default ProfileScreen;
+const mapStateToProps = state => ({
+  user: state.user.credentials
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      fetchUserCoursesHandler: fetchUserCourses
+    },
+    dispatch
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProfileScreen);

@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/styles'
 import Input from '@material-ui/core/Input';
-import useForm from '../../../hook/useForm';
+import useForm from '../../../../hook/useForm';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import { bindActionCreators } from 'redux';
-import { addCourse, fetchCourseType } from '../../../Redux/Actions/Course';
+
 const styles = theme => ({
 })
 
@@ -52,7 +50,7 @@ const AddCourse = props => {
   const [form, setFormValues, checkValidation] = useForm({
     values: {
       maKhoaHoc: '',
-      tenKhoaHoc: '', 
+      tenKhoaHoc: '',
       maDanhMucKhoaHoc: '',
       moTa: '',
       hinhAnh: '',
@@ -77,12 +75,7 @@ const AddCourse = props => {
     const course = {
       ...values,
       maNhom: 'G01',
-      nguoiTao: {
-        taiKhoan: userLogin.taiKhoan,
-        hoTen: userLogin.hoTen,
-        maLoaiNguoiDung: 'GV',
-        tenLoaiNguoiDung: 'Giáo vụ'
-      },
+      taiKhoanNguoiTao: userLogin.taiKhoan,
       ngayTao: dateArr[2] + '/' + dateArr[1] + '/' + dateArr[0],
       biDanh: tenKhoaHoc.replace(/\s\s+/g, ' ').replace(/ /g, "-")
     }
@@ -101,7 +94,7 @@ const AddCourse = props => {
             value={form.values.maKhoaHoc}
             onChange={setFormValues}
             onBlur={checkValidation}
-            // onMouseMove={setPosition}
+          // onMouseMove={setPosition}
           />
           {form.errors.maKhoaHoc && <div>{form.errors.maKhoaHoc}</div>}
         </div>
@@ -144,9 +137,6 @@ const AddCourse = props => {
           />
           {form.errors.moTa && <div>{form.errors.moTa}</div>}
         </div>
-
-        
-
         {/* <div className="form-group">
           <label htmlFor="exampleInputEmail1">Hình ảnh khoá học</label>
           <Input
@@ -166,16 +156,4 @@ const AddCourse = props => {
   );
 };
 
-
-const mapStateToProps = (state) => {
-  return {
-    courseType: state.course.courseType,
-  }
-}
-
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  addCourseHandler: addCourse,
-  fetchCourseTypeHandler: fetchCourseType
-}, dispatch)
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(AddCourse));
+export default withStyles(styles)(AddCourse);

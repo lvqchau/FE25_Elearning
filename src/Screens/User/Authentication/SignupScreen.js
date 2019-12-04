@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from 'react-redux';
 import { Formik, Form } from "formik";
 import { SignUpUserSchema } from "../../../Services/User";
 import { restConnector } from "../../../Services/Index";
@@ -7,6 +8,8 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { Box, Typography, Container } from "@material-ui/core";
+import { signupUser } from "../../../Redux/Actions/User";
+import { bindActionCreators } from "redux";
 
 const styles = theme => ({
   Paper: {
@@ -22,23 +25,31 @@ const styles = theme => ({
 });
 
 const SignupScreen = props => {
+  const { signupHandler } = props;
   const _handleSubmit = value => {
-    props.history.push("/signin", {
-      taiKhoan: value.taiKhoan,
-      matKhau: value.matKhau
-    });
+    // props.history.push("/signin", {
+    //   taiKhoan: value.taiKhoan,
+    //   matKhau: value.matKhau
+    // });
+    console.log(value);
 
-    restConnector({
-      url: "/api/QuanLyNguoiDung/DangKy",
-      method: "POST",
-      data: value
-    })
-      .then(res => {
-        // props.history.replace('/signin')
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    props.dispatch(signupUser(value, props.history));
+
+    // signupHandler(value); để châu về tìm hiểu
+
+    // props.dispatch(signupUser(value));
+
+    // restConnector({
+    //   url: "/api/QuanLyNguoiDung/DangKy",
+    //   method: "POST",
+    //   data: value
+    // })
+    //   .then(res => {
+    //     // props.history.replace('/signin')
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   };
 
   return (
@@ -193,4 +204,12 @@ const SignupScreen = props => {
 };
 //test
 
-export default withStyles(styles)(SignupScreen);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      signupHandler: signupUser
+    },
+    dispatch
+  );
+
+export default connect(mapDispatchToProps)(withStyles(styles)(SignupScreen));

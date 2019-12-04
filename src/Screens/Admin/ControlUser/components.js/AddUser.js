@@ -1,25 +1,18 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/styles';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
-import { bindActionCreators } from 'redux';
-import { addUser } from '../../../Redux/Actions/User';
-import InputField from '../../../Components/InputField'
-import { Formik, Form } from 'formik';
-import { AddUserSchema } from '../../../Services/User';
+import React from "react";
+import { withStyles } from "@material-ui/styles";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import Button from "@material-ui/core/Button";
+import MenuItem from "@material-ui/core/MenuItem";
+import InputField from "../../../../Components/InputField";
+import { Formik, Form } from "formik";
+import { AddUserSchema } from "../../../../Services/User";
 
-const styles = theme => ({
-
-})
-
-const AddUser = (props) => {
-  const { addUserHandler, classes } = props
-  const themNguoiDung = (value) => {
-    addUserHandler(value)
+const AddUser = props => {
+  const { addUserHandler, classes } = props;
+  const themNguoiDung = value => {
+    addUserHandler(value);
   };
 
   return (
@@ -37,7 +30,7 @@ const AddUser = (props) => {
         onSubmit={themNguoiDung}
         validationSchema={AddUserSchema}
         render={formikProps => (
-          <Form className='row' style={{ width: '90vw', margin: 'auto' }}>
+          <Form className="row" style={{ width: "90vw", margin: "auto" }}>
             <div className="col-sm-6">
               <div className="form-group">
                 <InputField
@@ -79,7 +72,7 @@ const AddUser = (props) => {
             <div className="col-sm-6">
               <div className="form-group">
                 <InputField
-                  placeholder="Eail"
+                  placeholder="Email"
                   label="Email"
                   type="email"
                   name="email"
@@ -101,22 +94,25 @@ const AddUser = (props) => {
                   className="form-control"
                 />
               </div>
-              <FormControl className={classes.formControl} style={{ width: 120 }}>
+              <FormControl
+                className={classes.formControl}
+                style={{ width: 120 }}
+              >
                 <InputLabel>Mã người dùng</InputLabel>
                 <Select
                   name="maLoaiNguoiDung"
                   value={formikProps.values.maLoaiNguoiDung}
                   onChange={formikProps.handleChange}
                 >
-                  <MenuItem value='GV'>Giáo vụ</MenuItem>
-                  <MenuItem value='HV'>Học viên</MenuItem>
+                  <MenuItem value="GV">Giáo vụ</MenuItem>
+                  <MenuItem value="HV">Học viên</MenuItem>
                 </Select>
               </FormControl>
             </div>
             <div className="form-group">
               <Button type="submit" variant="contained" color="primary">
                 Thêm
-                </Button>
+              </Button>
             </div>
           </Form>
         )}
@@ -125,13 +121,4 @@ const AddUser = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-  }
-}
-
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  addUserHandler: addUser
-}, dispatch)
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(AddUser));
+export default withStyles(AddUser);
