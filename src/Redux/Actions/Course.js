@@ -1,6 +1,7 @@
 import {
   FETCH_COURSES,
   ADD_COURSE,
+  FETCH_A_COURSE,
   CHANGE_PAGE_COURSES,
   FETCH_COURSE_TYPE,
   REGISTER_A_COURSE,
@@ -44,8 +45,7 @@ export const addCourse = course => {
         dispatch.actAddCourse(res.data);
       })
       .catch(err => {
-        if (err.response !== undefined)
-          errorAlert(err.response.data);
+        if (err.response !== undefined) errorAlert(err.response.data);
       });
   };
 };
@@ -113,11 +113,28 @@ export const registerCourseFromUser = value => {
   };
 };
 
+export const fetchACourse = courseId => {
+  return dispatch => {
+    CourseService.fetchACourse(courseId)
+      .then(res => {
+        dispatch(actFetchACourse(res.data));
+      })
+      .catch(err => {});
+  };
+};
+
 //action creators
 export const actFetchCourses = courses => {
   return {
     type: FETCH_COURSES,
     payload: courses
+  };
+};
+
+export const actFetchACourse = course => {
+  return {
+    type: FETCH_A_COURSE,
+    payload: course
   };
 };
 

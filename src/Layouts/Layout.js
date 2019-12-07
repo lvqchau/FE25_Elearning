@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Header from "./Header";
 import { actFetchCredentials } from "../Redux/Actions/User";
 import { restConnector } from "../Services/Index";
+import Footer from "./Footer";
 
 const Layout = props => {
   useEffect(() => {
@@ -21,6 +22,7 @@ const Layout = props => {
     <>
       <Header />
       {props.children}
+      <Footer />
     </>
   );
 };

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { withStyles } from '@material-ui/styles';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
@@ -8,10 +7,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputField from '../../../../Components/InputField';
 import { Formik, Form } from 'formik';
 import { AddUserSchema } from '../../../../Services/User';
-
-const styles = theme => ({
-
-})
 
 const AddUser = (props) => {
   const { addUserHandler, classes, isFixing, user } = props
@@ -61,7 +56,7 @@ const AddUser = (props) => {
         onSubmit={themNguoiDung}
         validationSchema={AddUserSchema}
         render={formikProps => (
-          <Form className='row' style={{ width: '90vw', margin: 'auto' }}>
+          <Form className="row" style={{ width: "90vw", margin: "auto" }}>
             <div className="col-sm-6">
               <div className="form-group">
                 <InputField
@@ -140,8 +135,8 @@ const AddUser = (props) => {
                   value={fixUser.maLoaiNguoiDung}
                   handleChange={handleFormChange}
                 >
-                  <MenuItem value='GV'>Giáo vụ</MenuItem>
-                  <MenuItem value='HV'>Học viên</MenuItem>
+                  <MenuItem value="GV">Giáo vụ</MenuItem>
+                  <MenuItem value="HV">Học viên</MenuItem>
                 </Select>
               </FormControl>
             </div>
@@ -159,5 +154,4 @@ const AddUser = (props) => {
   );
 };
 
-
-export default withStyles(styles)(AddUser);
+export default AddUser;

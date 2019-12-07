@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import CourseItem from "./CourseItem";
-
 import { fetchCourses, changePageCourse } from "../../../Redux/Actions/Course";
 import Pagination from "../../../Components/Pagination";
+import "../../../css/_courseList.scss";
 
 const CourseList = ({ dispatch, courses, pageIndex }) => {
   useEffect(() => {
-    dispatch(fetchCourses(pageIndex, 8));
+    dispatch(fetchCourses(pageIndex, 16));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -26,7 +26,19 @@ const CourseList = ({ dispatch, courses, pageIndex }) => {
 
   return (
     <>
-      <div>
+      <div className="course_list">
+        <br />
+        <br />
+        <br />
+        <br />
+        <div className="breadcrumb">
+          <div className="row">
+            <div className="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+              <h1>COURSES</h1>
+              <h6>HOME/COURSES</h6>
+            </div>
+          </div>
+        </div>
         <div className="stat">
           <div className="container px-3">
             <div className="row">
@@ -81,7 +93,6 @@ const CourseList = ({ dispatch, courses, pageIndex }) => {
             </div>
           </div>
         </div>
-        <h1 className="display-4 text-center">Danh sách khóa học</h1>
         <div className="container col-md-10">
           <div className="row">{_renderCourseItem()}</div>
           <Pagination

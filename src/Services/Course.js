@@ -61,6 +61,14 @@ class CourseService {
       data: value
     });
   }
+  fetchACourse(courseId) {
+    console.log(courseId);
+    return restConnector({
+      url: `/api/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${courseId}`,
+      method: "GET",
+      data: courseId
+    });
+  }
   removeACourse(maKhoaHoc) {
     return restConnector({
       url: `/api/QuanLyKhoaHoc/XoaKhoaHoc?maKhoaHoc=${maKhoaHoc}`,
