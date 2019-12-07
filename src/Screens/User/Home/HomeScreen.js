@@ -5,7 +5,6 @@ import CourseItem from "./CourseItem";
 
 import { fetchCourses, changePageCourse } from "../../../Redux/Actions/Course";
 import Pagination from "../../../Components/Pagination";
-import Footer from "../../../Layouts/Footer";
 import Search from "../../../Layouts/Search";
 import Feature from "../../../Layouts/Feature";
 import Carousel from "../../../Layouts/Carousel";

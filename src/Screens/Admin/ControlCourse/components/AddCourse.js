@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { withStyles } from '@material-ui/styles'
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
@@ -9,11 +8,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { Formik, Form } from 'formik';
 import { AddCourseSchema } from '../../../../Services/Course';
 
-const styles = theme => ({
-})
-
 const AddCourse = props => {
-  const { addCourseHandler, courseType, classes } = props
+  const { addCourseHandler, courseType } = props
   const curDate = new Date().toISOString()
   const [selectedType, setType] = useState('')
 
@@ -104,7 +100,7 @@ const AddCourse = props => {
                     className="form-control"
                   />
                 </div>
-                <FormControl className={classes.formControl} style={{ width: 120 }}>
+                <FormControl style={{ width: 120 }}>
                   <InputLabel>Course Code</InputLabel>
                   <Select
                     value={selectedType}
@@ -131,4 +127,4 @@ const AddCourse = props => {
 };
 
 
-export default withStyles(styles)(AddCourse);
+export default AddCourse;

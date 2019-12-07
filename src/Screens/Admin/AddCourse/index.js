@@ -66,9 +66,6 @@ const AddCourse = props => {
     },
   });
 
-  // const [position, setPosition] = useMouseMove();
-  //   console.log(position);
-
   const themKhoaHoc = () => {
     const { values } = form
     const { tenKhoaHoc } = values
@@ -87,7 +84,6 @@ const AddCourse = props => {
       biDanh: tenKhoaHoc.replace(/\s\s+/g, ' ').replace(/ /g, "-")
     }
     addCourseHandler(course)
-    console.log(course)
   };
 
   return (
