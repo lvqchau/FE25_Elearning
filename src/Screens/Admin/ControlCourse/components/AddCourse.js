@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/styles'
 import InputLabel from '@material-ui/core/InputLabel';
-import Button from '@material-ui/core/Button';import useForm from '../../../../hook/useForm';
+import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import InputField from '../../../../Components/InputField';
 import Select from '@material-ui/core/Select';
@@ -25,30 +25,15 @@ const AddCourse = props => {
 
   const setSelectedValues = (e) => {
     setType(e.target.value)
-    const maDanhMucKhoaHoc = {
-      target: {
-        name: 'maDanhMucKhoaHoc',
-        value: e.target.value
-      }
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }
 
   useEffect(() => {
     if (courseType && courseType[0]) {
       setType(courseType[0].maDanhMuc)
-      const maDanhMucKhoaHoc = {
-        target: {
-          name: 'maDanhMucKhoaHoc',
-          value: courseType[0].maDanhMuc
-        }
-      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseType])
-
-  // const [position, setPosition] = useMouseMove();
-  //   console.log(position);
 
   const themKhoaHoc = (values) => {
     const { tenKhoaHoc } = values
@@ -63,7 +48,6 @@ const AddCourse = props => {
       biDanh: tenKhoaHoc.replace(/\s\s+/g, ' ').replace(/ /g, "-")
     }
     addCourseHandler(course)
-    console.log(course)
   };
 
   return (

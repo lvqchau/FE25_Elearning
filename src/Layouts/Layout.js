@@ -14,10 +14,6 @@ const Layout = props => {
         "Authorization"
       ] = `Bearer ${credetialsObj.accessToken}`;
     }
-    //clean up component
-    // return () => {
-
-    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

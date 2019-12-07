@@ -70,7 +70,6 @@ class UserService {
     });
   }
   fetchUserInfo(value) {
-    console.log(restConnector);
     return restConnector({
       url: "/api/QuanLyNguoiDung/ThongTinTaiKhoan",
       method: "POST",

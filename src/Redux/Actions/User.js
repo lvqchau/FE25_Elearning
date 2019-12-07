@@ -103,10 +103,7 @@ export const signupUser = (value, history) => {
           taiKhoan: value.taiKhoan,
           matKhau: value.matKhau
         });
-        // props.history.replace('/signin')
-        // dispatch.actSignupUser(res.data);
         successAlert("Đăng ký thành công");
-        console.log(res);
       })
       .catch(err => {
         switch (err.response.status) {
@@ -117,7 +114,6 @@ export const signupUser = (value, history) => {
             errorAlert("Đăng ký lỗi!");
             break;
         }
-        // switch(err.respone.status === '500')
       });
   };
 };
@@ -127,7 +123,6 @@ export const fetchUserInfo = value => {
     UserService.fetchUserInfo(value)
       .then(res => {
         dispatch(actFetchUserInfo(res.data));
-        console.log(res);
       })
       .catch(err => {
         errorAlert(err.response.data);
@@ -156,7 +151,6 @@ export const fetchUsers = (pageIndex, itemsPerPage) => {
         dispatch(actFetchUsers(res.data));
       })
       .catch(e => {
-        console.log(e);
       });
   };
 };

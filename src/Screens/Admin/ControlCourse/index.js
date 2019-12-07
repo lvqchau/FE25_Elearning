@@ -19,7 +19,6 @@ import CloseIcon from '@material-ui/icons/Close'
 import EditIcon from '@material-ui/icons/Create'
 import BackIcon from '@material-ui/icons/KeyboardBackspace'
 
-// import AddCourse from '../AddCourse'
 import AddCourse from './components/AddCourse'
 import RegisterUser from './components/RegisterUser';
 import { getWaitingStudents, getCurrentStudents } from '../../../Redux/Actions/User';
@@ -125,13 +124,6 @@ const ControlCourse = (props) => {
 
   return (
     <div style={{margin: '30px auto'}}>
-      <div>
-        {/* <AsyncSelect
-          onChange={handleChange}
-          loadOptions={handleLoad}
-          defaultOptions
-        /> */}
-      </div>
       <IconButton
         edge="start"
         className={
@@ -208,7 +200,7 @@ const ControlCourse = (props) => {
                             size='small'
                             color="inherit"
                             aria-label="edit a course"
-                            onClick={() => console.log('open edit')}>
+                            >
                             <EditIcon />
                           </IconButton>
                           <IconButton
@@ -261,7 +253,6 @@ const ControlCourse = (props) => {
   );
 };
 
-//lấy
 const mapStateToProps = (state) => {
   return {
     courses: state.course.courses || { items: [] },
@@ -272,7 +263,6 @@ const mapStateToProps = (state) => {
   }
 }
 
-//gửi
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   fetchCoursesHandler: fetchCourses,
   addCourseHandler: addCourse,

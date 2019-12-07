@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Formik, Form } from "formik";
 import { fetchCredential } from "../../../Redux/Actions/User";
-import { TextField, Paper, Button, Typography, Grid } from "@material-ui/core";
+import { TextField, Paper, Button, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 
 const styles = theme => ({
@@ -16,7 +16,6 @@ const styles = theme => ({
 
 const LoginScreen = props => {
   const _handleSubmit = value => {
-    console.log(value);
     props.dispatch(fetchCredential(value, props.history));
   };
   return (

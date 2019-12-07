@@ -19,7 +19,7 @@ export const fetchCourses = (pageIndex, itemsPerPage) => {
         dispatch(actFetchCourses(res.data));
       })
       .catch(e => {
-        console.log(e);
+        
       });
   };
 };
@@ -31,28 +31,17 @@ export const fetchCourseType = () => {
         dispatch(actFetchCourseType(res.data));
       })
       .catch(e => {
-        console.log(e);
+        
       });
   };
 };
 
 export const addCourse = course => {
   return (dispatch, getState) => {
-    // const { hinhAnh } = course;
-    // course.hinhAnh = hinhAnh.name;
     CourseService.addCourse(course)
       .then(res => {
         successAlert("Thêm khoá học thành công");
         dispatch.actAddCourse(res.data);
-        // const formData = new FormData();
-        // formData.append(hinhAnh);
-        // CourseService.uploadImageCourse(formData)
-        //   .then(res => {
-        //     const { course } = getState();
-        //     const { pageIndex } = course;
-        //     dispatch(fetchCourses(pageIndex, 5));
-        //   })
-        //   .catch(err => console.log(err));
       })
       .catch(err => {
         if (err.response !== undefined)
@@ -69,7 +58,6 @@ export const registerACourse = value => {
         successAlert("Đăng ký khoá học thành công");
       })
       .catch(e => {
-        console.log(e);
         errorAlert("Đăng ký khoá học không thành công");
       });
   };
@@ -83,7 +71,6 @@ export const deleteUserFromCourse = (value, type) => {
         successAlert("Huỷ ghi danh thành công");
       })
       .catch(e => {
-        console.log(e);
         errorAlert("Huỷ ghi danh không thành công");
       });
   };
@@ -94,7 +81,6 @@ export const fetchUserCourses = value => {
     CourseService.fetchUserCourses(value)
       .then(res => {
         dispatch(actFetchUserCourses(res.data));
-        console.log(res);
       })
       .catch(err => {
         errorAlert(err.response.data);
@@ -104,7 +90,6 @@ export const fetchUserCourses = value => {
 
 export const removeCourse = course => {
   return dispatch => {
-    console.log(course)
     CourseService.removeACourse(course)
       .then(res => {
         successAlert("Xoá khoá học thành công")
