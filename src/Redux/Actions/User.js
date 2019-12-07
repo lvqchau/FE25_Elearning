@@ -1,4 +1,4 @@
-import { FETCH_CREDENTIALS, FETCH_USERS, ADD_USER, GET_WAITING_STUDENTS, GET_CURRENT_STUDENTS, SIGN_UP_USER, FETCH_USER_INFO, GET_CURRENT_COURSES, GET_WAITING_COURSES } from './ActionType';
+import { FETCH_CREDENTIALS, FETCH_USERS, ADD_USER, GET_WAITING_STUDENTS, GET_CURRENT_STUDENTS, SIGN_UP_USER, FETCH_USER_INFO, GET_CURRENT_COURSES, GET_WAITING_COURSES, REMOVE_USER } from './ActionType';
 import { restConnector } from '../../Services/Index';
 import UserService from '../../Services/User';
 import { successAlert, errorAlert } from '../../Components/ToastMessage';
@@ -41,9 +41,7 @@ export const addUser = user => {
         dispatch.actAddUser(res.data);
       })
       .catch(err => {
-        console.log(err.response);
-        if (err.response !== undefined)
-          errorAlert("Thêm người dùng không thành công");
+        errorAlert(err.response.data);
       });
   };
 };
@@ -54,8 +52,8 @@ export const getWaitingStudents = courseId => {
       .then(res => {
         dispatch(actGetWaitingStudents(res.data));
       })
-      .catch(e => {
-        console.log(e.response.data);
+      .catch(err => {
+        errorAlert(err.response.data);
       });
   };
 };
@@ -66,8 +64,8 @@ export const getCurrentStudents = courseId => {
       .then(res => {
         dispatch(actGetCurrentStudents(res.data));
       })
-      .catch(e => {
-        console.log(e.response.data);
+      .catch(err => {
+        errorAlert(err.response.data);
       });
   };
 };
@@ -79,8 +77,8 @@ export const getWaitingCourses = (taiKhoan) => {
       .then(res => {
         dispatch(actGetWaitingCourses(res.data));
       })
-      .catch(e => {
-        console.log(e.response.data);
+      .catch(err => {
+        errorAlert(err.response.data);
       });
   };
 };
@@ -91,8 +89,8 @@ export const getCurrentCourses = (taiKhoan) => {
       .then(res => {
         dispatch(actGetCurrentCourses(res.data));
       })
-      .catch(e => {
-        console.log(e.response.data);
+      .catch(err => {
+        errorAlert(err.response.data);
       });
   };
 };
@@ -105,10 +103,7 @@ export const signupUser = (value, history) => {
           taiKhoan: value.taiKhoan,
           matKhau: value.matKhau
         });
-        // props.history.replace('/signin')
-        // dispatch.actSignupUser(res.data);
         successAlert("Đăng ký thành công");
-        console.log(res);
       })
       .catch(err => {
         switch (err.response.status) {
@@ -119,7 +114,6 @@ export const signupUser = (value, history) => {
             errorAlert("Đăng ký lỗi!");
             break;
         }
-        // switch(err.respone.status === '500')
       });
   };
 };
@@ -129,10 +123,22 @@ export const fetchUserInfo = value => {
     UserService.fetchUserInfo(value)
       .then(res => {
         dispatch(actFetchUserInfo(res.data));
-        console.log(res);
       })
       .catch(err => {
-        console.log(err.response.data);
+        errorAlert(err.response.data);
+      });
+  };
+};
+
+export const removeUser = taiKhoan => {
+  return dispatch => {
+    UserService.removeAUser(taiKhoan)
+      .then(res => {
+        successAlert("Xoá người dùng thành công")
+        dispatch(actRemoveUser(taiKhoan));
+      })
+      .catch(err => {
+        errorAlert(err.response.data);
       });
   };
 };
@@ -145,7 +151,6 @@ export const fetchUsers = (pageIndex, itemsPerPage) => {
         dispatch(actFetchUsers(res.data));
       })
       .catch(e => {
-        console.log(e);
       });
   };
 };
@@ -209,5 +214,12 @@ export const actFetchUserInfo = user => {
   return {
     type: FETCH_USER_INFO,
     payload: user
+  };
+};
+
+export const actRemoveUser = deletedUser => {
+  return {
+    type: REMOVE_USER,
+    payload: deletedUser
   };
 };

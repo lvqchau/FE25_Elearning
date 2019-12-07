@@ -5,7 +5,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";
 
 import CloseIcon from '@material-ui/icons/Close';
-import StatsIcon from '@material-ui/icons/Assessment';
 import UserIcon from '@material-ui/icons/SupervisedUserCircle';
 import LaptopIcon from '@material-ui/icons/LaptopChromebook';
 
@@ -91,9 +90,6 @@ const Sidebar = props => {
           </div>
           <Divider />
           <div className={classes.sidebarContent}>
-            <NavLink active={{ color: colors.red }} exact to='/admin' className={classes.link} onClick={() => openDrawer(false)}>
-              <StatsIcon className={classes.sidebarIcon} /> Thống kê
-            </NavLink>
             <NavLink active={{ color: colors.red }} exact to='/admin/users' className={classes.link} onClick={() => openDrawer(false)}>
               <UserIcon className={classes.sidebarIcon} /> Người dùng
             </NavLink>

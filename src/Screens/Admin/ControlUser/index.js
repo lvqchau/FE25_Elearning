@@ -17,9 +17,10 @@ import EditIcon from '@material-ui/icons/Create'
 import DeleteIcon from '@material-ui/icons/Delete'
 import CloseIcon from '@material-ui/icons/Close'
 import BackIcon from '@material-ui/icons/KeyboardBackspace'
-import { fetchUsers, addUser, getWaitingCourses, getCurrentCourses } from '../../../Redux/Actions/User';
+import { fetchUsers, addUser, getWaitingCourses, getCurrentCourses, removeUser } from '../../../Redux/Actions/User';
 import AddUser from './components.js/AddUser';
 import RegisterCourse from "./components.js/RegisterCourse";
+import { deleteUserFromCourse, registerACourse } from "../../../Redux/Actions/Course";
 
 const styles = theme => ({
   addButton: {
@@ -80,13 +81,15 @@ const styles = theme => ({
 });
 
 const ControlUser = (props) => {
-  const { classes, users, addUserHandler, fetchUsersHandler, pageIndex, waitingCourses, currentCourses, getCurrentCoursesHandler, getWaitingCoursesHandler } = props
+  const { classes, users, addUserHandler, fetchUsersHandler, pageIndex, waitingCourses, currentCourses, getCurrentCoursesHandler, getWaitingCoursesHandler, removeUserHandler, registerACourseHandler, deleteUserFromCourseHandler} = props
   const totalCount = get(users, 'totalCount', 0)
   const items = get(users, 'items', [])
   const [page, setPage] = React.useState(0);
   const [adding, setAdd] = React.useState(false);
   const [register, setRegister] = React.useState(false);
   const [username, setUsername] = React.useState('');
+  const [fixing, setFixing] = React.useState(false);
+  const [fixUser, setUser] = React.useState({});
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -96,6 +99,11 @@ const ControlUser = (props) => {
   const registering = (taiKhoan) => {
     setUsername(taiKhoan)
     setRegister(true)
+  }
+
+  const fixingUser = (fixing, user) => {
+    setUser(user)
+    setFixing(fixing)
   }
 
   useEffect(() => {
@@ -109,33 +117,37 @@ const ControlUser = (props) => {
       <IconButton
         edge="start"
         className={
-          adding
+          adding || fixing 
             ? `${classes.addButton} ${classes.addButtonRed}`
             : `${classes.addButton} ${classes.addButtonBlue}`
         }
         color="inherit"
         aria-label="add a user"
-        onClick={() => setAdd(!adding)}
       >
-        {adding ? <BackIcon /> : <AddIcon />}
+        {adding || fixing 
+          ?
+          <BackIcon onClick={() => { setAdd(false); setFixing(false) }} />
+          :
+          <AddIcon onClick={() => { setAdd(true); setFixing(false); }} />
+        }
       </IconButton>
       {
-        adding &&
-        <AddUser addUserHandler={addUserHandler} />
+        (adding || fixing) &&
+        <AddUser addUserHandler={addUserHandler} isFixing={fixing} user={fixUser} />
       }
       {
-        !adding && !register &&
+        !adding && !register && !fixing &&
           <Paper className={classes.root}>
-            <h3 style={{ margin: 10 }}>Danh sách người dùng</h3>
+            <h3 style={{ margin: 10 }}>User List</h3>
             <Table className={classes.table} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>Tài khoản</TableCell>
-                  <TableCell>Tên</TableCell>
-                  <TableCell>SĐT</TableCell>
+                  <TableCell>Username</TableCell>
+                  <TableCell>Fullname</TableCell>
+                  <TableCell>Phonenumber</TableCell>
                   <TableCell>Email</TableCell>
-                  <TableCell>Mã loại</TableCell>
-                  <TableCell>Thao tác</TableCell>
+                  <TableCell>Type</TableCell>
+                  <TableCell>Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -166,7 +178,7 @@ const ControlUser = (props) => {
                             size='small'
                             color="inherit"
                             aria-label="edit a user"
-                            onClick={() => console.log('open edit')}>
+                            onClick={() => fixingUser(true, item)}>
                             <EditIcon />
                           </IconButton>
                           <IconButton
@@ -175,7 +187,7 @@ const ControlUser = (props) => {
                             size='small'
                             color="inherit"
                             aria-label="inactive a user"
-                            onClick={() => console.log('open delete')}>
+                            onClick={() => removeUserHandler(item.taiKhoan)}>
                             <DeleteIcon />
                           </IconButton>
                         </TableCell>
@@ -209,8 +221,8 @@ const ControlUser = (props) => {
           <RegisterCourse
             getCurrentCoursesHandler={getCurrentCoursesHandler}
             getWaitingCoursesHandler={getWaitingCoursesHandler}
-            // registerACourseHandler={registerACourseHandler}
-            // deleteUserFromCourseHandler={deleteUserFromCourseHandler}
+            registerACourseHandler={registerACourseHandler}
+            deleteUserFromCourseHandler={deleteUserFromCourseHandler}
             waitingCourses={waitingCourses}
             currentCourses={currentCourses}
             taiKhoan={username}
@@ -234,7 +246,10 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   fetchUsersHandler: fetchUsers,
   addUserHandler: addUser,
   getWaitingCoursesHandler: getWaitingCourses,
-  getCurrentCoursesHandler: getCurrentCourses
+  getCurrentCoursesHandler: getCurrentCourses,
+  registerACourseHandler: registerACourse,
+  deleteUserFromCourseHandler: deleteUserFromCourse,
+  removeUserHandler: removeUser
 }, dispatch)
 
 export default connect(

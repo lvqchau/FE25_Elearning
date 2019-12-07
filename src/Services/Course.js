@@ -1,7 +1,17 @@
+import * as yup from "yup";
 import { restConnector } from "./Index";
 
 const PAGE_INDEX = 1;
 const ITEMS_PER_PAGE = 5;
+
+const courseObject = {
+  hinhAnh: yup.string().required("Please upload images"),
+  maKhoaHoc: yup.string().required("Course code can not be empty"),
+  maNhom: "G01",
+  tenKhoaHoc: yup.string().required("Course name can not be empty"),
+  moTa: yup.string()
+};
+
 
 class CourseService {
   fetchCourses(pageIndex = PAGE_INDEX, itemsPerPage = ITEMS_PER_PAGE) {
@@ -45,12 +55,33 @@ class CourseService {
     });
   }
   fetchUserCourses(value) {
-    console.log(restConnector);
     return restConnector({
       url: `/api/QuanLyNguoiDung/LayDanhSachKhoaHocDaXetDuyet`,
       method: "POST",
       data: value
     });
   }
+  fetchACourse(courseId) {
+    return restConnector({
+      url: `/api/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${courseId}`,
+      method: "GET",
+      data: courseId
+    });
+  }
+  removeACourse(maKhoaHoc) {
+    return restConnector({
+      url: `/api/QuanLyKhoaHoc/XoaKhoaHoc?maKhoaHoc=${maKhoaHoc}`,
+      method: "DELETE"
+    });
+  }
+  registerCourseFromUser(value) {
+    return restConnector({
+      url: `/api/QuanLyKhoaHoc/DangKyKhoaHoc`,
+      method: "POST",
+      data: value
+    });
+  }
 }
+
+export const AddCourseSchema = yup.object().shape(courseObject);
 export default new CourseService();

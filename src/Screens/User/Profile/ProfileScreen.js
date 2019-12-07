@@ -1,14 +1,11 @@
 import React, { useEffect } from "react";
-
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { Container, Paper, Grid, Button } from "@material-ui/core";
-import { fetchUserInfo } from "../../../Redux/Actions/User";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { fetchUserCourses } from "../../../Redux/Actions/Course";
@@ -43,15 +40,7 @@ function a11yProps(index) {
   };
 }
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper
-  }
-}));
-
 const ProfileScreen = props => {
-  const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -65,8 +54,6 @@ const ProfileScreen = props => {
       let value = {
         taiKhoan: user.taiKhoan
       };
-      console.log(value);
-
       props.fetchUserCoursesHandler(value);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

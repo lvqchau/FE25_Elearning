@@ -1,5 +1,4 @@
 import React from "react";
-// import * as _ from 'lodash';
 import classnames from "classnames";
 
 const generatePage = (pageIndex, totalPages) => {
@@ -46,9 +45,6 @@ const Pagination = ({ totalPages, pageIndex, _changePage }) => {
             "btn-primary": pageIndex === item,
             "btn-secondary": pageIndex !== item
           })}
-          //   className={`btn mx-1 ${
-          //     pageIndex === index + 1 ? "btn-success" : "btn-secondary"
-          //   }`}
         >
           {item}
         </button>

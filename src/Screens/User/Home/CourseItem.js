@@ -1,86 +1,60 @@
 import React from "react";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { withStyles } from "@material-ui/styles";
-import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import PlaceholderImg from "../../../images/imgnotfound.png";
-import { positions } from "@material-ui/system";
-
-const styles = theme => ({
-  text: {
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis"
-  },
-  button: {
-    fontFamily: "Raleway, sans-serif"
-  }
-});
-
-const useStyles = makeStyles({
-  card: {
-    maxWidth: 250
-  },
-  media: {
-    height: 130
-  }
-});
+import "../../../css/_courseItem.scss";
 
 const CourseItem = props => {
-  const { classes } = props;
   const { hinhAnh, tenKhoaHoc, moTa, maKhoaHoc } = props.course;
   return (
-    <div className="mb-4">
-      <Card className={classes.card}>
-        <CardActionArea>
-          <img
-            className={classes.media}
-            src={hinhAnh}
-            onError={e => {
-              e.target.onerror = null;
-              e.target.src = PlaceholderImg;
-            }}
-            // onerror={`this.src=${PlaceholderImg}`}
-            alt={tenKhoaHoc}
-            style={{
-              height: 250
-            }}
-          />
-          <CardContent>
-            <Typography
-              gutterBottom
-              variant="h5"
-              component="h2"
-              className={classes.text}
-            >
-              {tenKhoaHoc}
-            </Typography>
-            <div className={classes.text}>
-              <Typography variant="body2" color="textSecondary" component="p">
-                {moTa}
-              </Typography>
+    <div className="product__items">
+      <div className="product__item">
+        <Link to={`/detail/${maKhoaHoc}`}>
+          <div className="item__img">
+            <img
+              src={hinhAnh}
+              onError={e => {
+                e.target.onerror = null;
+                e.target.src = PlaceholderImg;
+              }}
+              alt="item"
+              style={{
+                height: 160,
+                width: 250
+              }}
+            />
+            <div className="img__overlay" />
+          </div>
+          <div className="item__info">
+            <h5>
+              {tenKhoaHoc.length > 45
+                ? tenKhoaHoc.substr(0, 45) + "..."
+                : tenKhoaHoc}
+            </h5>
+            <h6>{moTa}</h6>
+            <div className="rating">
+              <i className="fas fa-star" />
+              <i className="fas fa-star" />
+              <i className="fas fa-star" />
+              <i className="fas fa-star-half-alt" />
+              <i className="far fa-star" />
+              <span className="score">
+                3.5 <span className="reviews">(176,466)</span>
+              </span>
             </div>
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          <Link to={`/detail/${maKhoaHoc}`}>
-            <div className={classes.button}>
-              <Button size="large" color="primary">
-                SIGN
-              </Button>
+            <div className="price">
+              <span className="old__price">$199.99</span>
+              <span className="price">
+                $19.99 <i className="fas fa-tag"></i>
+              </span>
             </div>
-          </Link>
-        </CardActions>
-      </Card>
+          </div>
+        </Link>
+        <span className="best__seller">BEST</span>
+      </div>
     </div>
   );
 };
 
-export default withStyles(styles)(CourseItem);
+// export default withStyles(styles)(CourseItem);
+
+export default CourseItem;

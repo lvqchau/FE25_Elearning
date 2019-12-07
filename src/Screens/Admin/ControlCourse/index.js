@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/styles'
 import { bindActionCreators } from 'redux';
-import { fetchCourses, addCourse, fetchCourseType, registerACourse, deleteUserFromCourse } from '../../../Redux/Actions/Course';
+import { fetchCourses, addCourse, fetchCourseType, registerACourse, deleteUserFromCourse, removeCourse } from '../../../Redux/Actions/Course';
 import get from 'lodash/get';
 
 import Table from '@material-ui/core/Table'
@@ -19,7 +19,6 @@ import CloseIcon from '@material-ui/icons/Close'
 import EditIcon from '@material-ui/icons/Create'
 import BackIcon from '@material-ui/icons/KeyboardBackspace'
 
-// import AddCourse from '../AddCourse'
 import AddCourse from './components/AddCourse'
 import RegisterUser from './components/RegisterUser';
 import { getWaitingStudents, getCurrentStudents } from '../../../Redux/Actions/User';
@@ -95,7 +94,7 @@ const styles = theme => ({
 
 
 const ControlCourse = (props) => {
-  const { classes, courseType, deleteUserFromCourseHandler, registerACourseHandler, fetchCoursesHandler, addCourseHandler, fetchCourseTypeHandler, getWaitingStudentsHandler, getCurrentStudentsHandler, waitingStudents, currentStudents, courses, pageIndex } = props
+  const { classes, courseType, deleteUserFromCourseHandler, registerACourseHandler, fetchCoursesHandler, addCourseHandler, fetchCourseTypeHandler, getWaitingStudentsHandler, getCurrentStudentsHandler, removeCourseHandler, waitingStudents, currentStudents, courses, pageIndex } = props
   const totalCount = get(courses, 'totalCount', 0)
   const items = get(courses, 'items', [])
   const [page, setPage] = React.useState(0);
@@ -125,13 +124,6 @@ const ControlCourse = (props) => {
 
   return (
     <div style={{margin: '30px auto'}}>
-      <div>
-        {/* <AsyncSelect
-          onChange={handleChange}
-          loadOptions={handleLoad}
-          defaultOptions
-        /> */}
-      </div>
       <IconButton
         edge="start"
         className={
@@ -152,16 +144,16 @@ const ControlCourse = (props) => {
       {
         !adding && !register &&
           <Paper className={classes.root}>
-            <h3 style={{ margin: 10 }}>Danh sách khoá học</h3>
+            <h3 style={{ margin: 10 }}>Course List</h3>
             <Table className={classes.table} aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell></TableCell>
                   <TableCell>Id</TableCell>
-                  <TableCell>Tên</TableCell>
-                  <TableCell>Mô tả</TableCell>
-                  <TableCell>Người tạo</TableCell>
-                  <TableCell>Thao tác</TableCell>
+                  <TableCell>Course Name</TableCell>
+                  <TableCell>Description</TableCell>
+                  <TableCell>Creator</TableCell>
+                  <TableCell>Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -208,7 +200,7 @@ const ControlCourse = (props) => {
                             size='small'
                             color="inherit"
                             aria-label="edit a course"
-                            onClick={() => console.log('open edit')}>
+                            >
                             <EditIcon />
                           </IconButton>
                           <IconButton
@@ -217,7 +209,7 @@ const ControlCourse = (props) => {
                             size='small'
                             color="inherit"
                             aria-label="inactive a course"
-                            onClick={() => console.log('open delete')}>
+                            onClick={() => removeCourseHandler(item.maKhoaHoc)}>
                             <DeleteIcon />
                           </IconButton>
                         </TableCell>
@@ -261,7 +253,6 @@ const ControlCourse = (props) => {
   );
 };
 
-//lấy
 const mapStateToProps = (state) => {
   return {
     courses: state.course.courses || { items: [] },
@@ -272,7 +263,6 @@ const mapStateToProps = (state) => {
   }
 }
 
-//gửi
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   fetchCoursesHandler: fetchCourses,
   addCourseHandler: addCourse,
@@ -280,7 +270,8 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   getWaitingStudentsHandler: getWaitingStudents,
   getCurrentStudentsHandler: getCurrentStudents,
   registerACourseHandler: registerACourse,
-  deleteUserFromCourseHandler: deleteUserFromCourse
+  deleteUserFromCourseHandler: deleteUserFromCourse,
+  removeCourseHandler: removeCourse
 }, dispatch)
 
 export default connect(

@@ -1,0 +1,41 @@
+.course_list {
+  .breadcrumb {
+    background: url("../images/1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 177px;
+    margin-top: -20px;
+    margin-bottom: 3%;
+    color: white;
+    font-family: Raleway;
+    h1 {
+      font-weight: bold;
+      margin-top: 30px;
+      padding-left: 80px;
+    }
+    h6 {
+      font-weight: bold;
+      padding-left: 80px;
+    }
+  }
+  .stat {
+    color: white;
+    font-family: Raleway;
+    margin-bottom: 3%;
+    .stat__item {
+      padding: 3.5% 0;
+      text-align: center;
+      h6 {
+        font-weight: bold;
+      }
+      span {
+        font-size: 3rem;
+      }
+      div {
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+    }
+  }
+}

@@ -1,11 +1,13 @@
 import {
   FETCH_COURSES,
   ADD_COURSE,
+  FETCH_A_COURSE,
   CHANGE_PAGE_COURSES,
   FETCH_COURSE_TYPE,
   REGISTER_A_COURSE,
   DELETE_USER_FROM_COURSE,
-  FETCH_USER_COURSES
+  FETCH_USER_COURSES,
+  REMOVE_COURSE
 } from "./ActionType";
 import CourseService from "../../Services/Course";
 import { successAlert, errorAlert } from "../../Components/ToastMessage";
@@ -18,7 +20,7 @@ export const fetchCourses = (pageIndex, itemsPerPage) => {
         dispatch(actFetchCourses(res.data));
       })
       .catch(e => {
-        console.log(e);
+        
       });
   };
 };
@@ -30,32 +32,20 @@ export const fetchCourseType = () => {
         dispatch(actFetchCourseType(res.data));
       })
       .catch(e => {
-        console.log(e);
+        
       });
   };
 };
 
 export const addCourse = course => {
   return (dispatch, getState) => {
-    // const { hinhAnh } = course;
-    // course.hinhAnh = hinhAnh.name;
     CourseService.addCourse(course)
       .then(res => {
         successAlert("Thêm khoá học thành công");
         dispatch.actAddCourse(res.data);
-        // const formData = new FormData();
-        // formData.append(hinhAnh);
-        // CourseService.uploadImageCourse(formData)
-        //   .then(res => {
-        //     const { course } = getState();
-        //     const { pageIndex } = course;
-        //     dispatch(fetchCourses(pageIndex, 5));
-        //   })
-        //   .catch(err => console.log(err));
       })
       .catch(err => {
-        if (err.response !== undefined)
-          errorAlert(err.response.data);
+        if (err.response !== undefined) errorAlert(err.response.data);
       });
   };
 };
@@ -68,7 +58,6 @@ export const registerACourse = value => {
         successAlert("Đăng ký khoá học thành công");
       })
       .catch(e => {
-        console.log(e);
         errorAlert("Đăng ký khoá học không thành công");
       });
   };
@@ -82,7 +71,6 @@ export const deleteUserFromCourse = (value, type) => {
         successAlert("Huỷ ghi danh thành công");
       })
       .catch(e => {
-        console.log(e);
         errorAlert("Huỷ ghi danh không thành công");
       });
   };
@@ -93,11 +81,45 @@ export const fetchUserCourses = value => {
     CourseService.fetchUserCourses(value)
       .then(res => {
         dispatch(actFetchUserCourses(res.data));
-        console.log(res);
       })
       .catch(err => {
-        console.log(err.response);
+        errorAlert(err.response.data);
       });
+  };
+};
+
+export const removeCourse = course => {
+  return dispatch => {
+    CourseService.removeACourse(course)
+      .then(res => {
+        successAlert("Xoá khoá học thành công")
+        dispatch(actRemoveCourse(course));
+      })
+      .catch(err => {
+        errorAlert(err.response.data);
+      });
+  };
+};
+
+export const registerCourseFromUser = value => {
+  return dispatch => {
+    CourseService.registerCourseFromUser(value)
+      .then(res => {
+        successAlert("Đăng kí thành công! Chờ xác nhận từ admin");
+      })
+      .catch(e => {
+        errorAlert("Đăng ký khoá học không thành công");
+      });
+  };
+};
+
+export const fetchACourse = courseId => {
+  return dispatch => {
+    CourseService.fetchACourse(courseId)
+      .then(res => {
+        dispatch(actFetchACourse(res.data));
+      })
+      .catch(err => {});
   };
 };
 
@@ -106,6 +128,13 @@ export const actFetchCourses = courses => {
   return {
     type: FETCH_COURSES,
     payload: courses
+  };
+};
+
+export const actFetchACourse = course => {
+  return {
+    type: FETCH_A_COURSE,
+    payload: course
   };
 };
 
@@ -148,5 +177,12 @@ export const actFetchUserCourses = userCourses => {
   return {
     type: FETCH_USER_COURSES,
     payload: userCourses
+  };
+};
+
+export const actRemoveCourse = deletedCourse => {
+  return {
+    type: REMOVE_COURSE,
+    payload: deletedCourse
   };
 };
