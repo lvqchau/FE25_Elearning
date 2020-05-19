@@ -2,8 +2,9 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "../images/logo.png";
 import React from "react";
 import "../css/_header.scss";
+import { connect } from "react-redux";
 
-const Header = () => {
+const Header = props => {
   return (
     <div className="header">
       <div className="row">
@@ -82,4 +83,6 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default connect(state => ({
+  credentials: state.user.credentials
+}))(Header);
