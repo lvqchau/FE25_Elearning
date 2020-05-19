@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import PlaceholderImg from "../../../images/imgnotfound.png";
 import "../../../css/_courseItem.scss";
 
-const CourseItem = props => {
+const CourseItem = (props) => {
   const { hinhAnh, tenKhoaHoc, moTa, maKhoaHoc } = props.course;
   return (
     <div className="product__items">
@@ -12,14 +12,14 @@ const CourseItem = props => {
           <div className="item__img">
             <img
               src={hinhAnh}
-              onError={e => {
+              onError={(e) => {
                 e.target.onerror = null;
                 e.target.src = PlaceholderImg;
               }}
               alt="item"
               style={{
                 height: 160,
-                width: 250
+                width: 250,
               }}
             />
             <div className="img__overlay" />
@@ -30,7 +30,7 @@ const CourseItem = props => {
                 ? tenKhoaHoc.substr(0, 45) + "..."
                 : tenKhoaHoc}
             </h5>
-            <h6>{moTa}</h6>
+            <h6>{moTa.length > 64 ? moTa.substr(0, 64) + "..." : moTa}</h6>
             <div className="rating">
               <i className="fas fa-star" />
               <i className="fas fa-star" />
