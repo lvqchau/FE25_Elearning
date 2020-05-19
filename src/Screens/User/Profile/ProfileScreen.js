@@ -61,11 +61,6 @@ const ProfileScreen = props => {
 
   return (
     <div>
-      <br />
-      <br />
-      <br />
-      <br />
-
       <Container maxWidth="lg">
         <AppBar position="static">
           <Tabs
@@ -125,4 +120,7 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProfileScreen);
